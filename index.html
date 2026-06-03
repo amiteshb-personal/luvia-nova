@@ -363,6 +363,112 @@
     .diamonds-inner .section-title { color: white; max-width: 640px; margin-bottom: 16px; }
     .diamonds-inner .section-body { color: rgba(255,255,255,0.55); max-width: 560px; }
 
+    /* ── FEED STATUS BAR ── */
+    .feed-status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border: 1px solid rgba(184,154,94,0.2);
+      background: rgba(255,255,255,0.04);
+      margin-top: 44px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .feed-status-left, .feed-status-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .feed-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #6b6560;
+      flex-shrink: 0;
+      transition: background 0.4s;
+    }
+
+    .feed-dot.live {
+      background: #4ade80;
+      box-shadow: 0 0 0 0 rgba(74,222,128,0.4);
+      animation: pulse-dot 2s infinite;
+    }
+
+    .feed-dot.demo {
+      background: var(--gold-light);
+    }
+
+    .feed-dot.error {
+      background: #f87171;
+    }
+
+    @keyframes pulse-dot {
+      0%   { box-shadow: 0 0 0 0 rgba(74,222,128,0.5); }
+      70%  { box-shadow: 0 0 0 7px rgba(74,222,128,0); }
+      100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+    }
+
+    .feed-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .feed-count {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      color: var(--gold-light);
+      font-weight: 500;
+    }
+
+    .feed-updated {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.25);
+    }
+
+    .feed-refresh {
+      background: none;
+      border: 1px solid rgba(184,154,94,0.3);
+      color: var(--gold-light);
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .feed-refresh:hover { background: rgba(184,154,94,0.1); border-color: var(--gold); }
+    .feed-refresh.spinning { animation: spin 0.7s linear infinite; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Skeleton loading cards */
+    .dcard-skeleton {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(184,154,94,0.08);
+      padding: 28px;
+      animation: shimmer 1.5s infinite;
+    }
+
+    .skel-block {
+      background: rgba(255,255,255,0.06);
+      border-radius: 2px;
+      margin-bottom: 10px;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { opacity: 0.6; }
+      50%       { opacity: 1; }
+    }
+
     /* Shape filter chips */
     .shape-filters {
       display: flex;
@@ -1096,7 +1202,20 @@
 <!-- DIAMONDS -->
 <div class="diamonds-section" id="diamonds">
   <div class="diamonds-inner">
-    <p class="section-label">Our Diamonds</p>
+    <!-- Feed status bar -->
+    <div class="feed-status" id="feedStatus">
+      <div class="feed-status-left">
+        <span class="feed-dot" id="feedDot"></span>
+        <span class="feed-label" id="feedLabel">Connecting to live inventory…</span>
+      </div>
+      <div class="feed-status-right">
+        <span class="feed-count" id="feedCount"></span>
+        <span class="feed-updated" id="feedUpdated"></span>
+        <button class="feed-refresh" id="feedRefresh" onclick="loadDiamonds()" title="Refresh inventory">↻</button>
+      </div>
+    </div>
+
+    <p class="section-label" style="margin-top:40px">Our Diamonds</p>
     <h2 class="section-title">Stones of Exceptional Character</h2>
     <p class="section-body">Every stone is GIA or IGI certified and ethically sourced. All shapes are available as matched pairs for earrings. Prices shown are indicative — contact us for a personalised quote.</p>
 
@@ -1588,25 +1707,10 @@
     </svg>`,
   };
 
-  // ── DATA ──────────────────────────────────────────────────────────────────
-
-  const DIAMONDS = [
-    { id:"LD-90212", shape:"Round",    carat:1.52, color:"D", clarity:"IF",   cut:"Ideal",     cert:"GIA", certNum:"GIA-645831920",    price:3250,  origin:"Climate Neutral — United States" },
-    { id:"LD-30129", shape:"Round",    carat:2.04, color:"E", clarity:"VVS1", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG609312411",  price:4900,  origin:"Asahi Green Certified — Japan" },
-    { id:"LD-10294", shape:"Round",    carat:1.02, color:"G", clarity:"VS2",  cut:"Ideal",     cert:"GIA", certNum:"GIA-192048123",    price:1350,  origin:"Climate Neutral — United States" },
-    { id:"LD-48123", shape:"Oval",     carat:1.82, color:"D", clarity:"VVS2", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG602119853",  price:3650,  origin:"SCS-007 Sustainably Grown — India" },
-    { id:"LD-58102", shape:"Oval",     carat:2.51, color:"F", clarity:"VS1",  cut:"Ideal",     cert:"GIA", certNum:"GIA-390481234",    price:5200,  origin:"Hydro-Powered — France" },
-    { id:"LD-10295", shape:"Oval",     carat:1.21, color:"F", clarity:"VS1",  cut:"Ideal",     cert:"IGI", certNum:"IGI-LG485123901",  price:1980,  origin:"SCS-007 Sustainably Grown — India" },
-    { id:"LD-11029", shape:"Emerald",  carat:2.10, color:"E", clarity:"VS1",  cut:"Excellent", cert:"GIA", certNum:"GIA-556102381",    price:4100,  origin:"Climate Neutral — United States" },
-    { id:"LD-18023", shape:"Emerald",  carat:3.05, color:"D", clarity:"VVS1", cut:"Excellent", cert:"IGI", certNum:"IGI-LG609228311",  price:8900,  origin:"Zero-Emission — Singapore" },
-    { id:"LD-88123", shape:"Cushion",  carat:2.01, color:"F", clarity:"VVS2", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG559102456",  price:3950,  origin:"Solar Powered — United States" },
-    { id:"LD-99238", shape:"Cushion",  carat:3.52, color:"E", clarity:"VS1",  cut:"Ideal",     cert:"GIA", certNum:"GIA-645831102",    price:7800,  origin:"SCS-007 Sustainably Grown — India" },
-    { id:"LD-44122", shape:"Pear",     carat:1.60, color:"E", clarity:"VVS2", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG607812933",  price:3100,  origin:"Zero-Carbon — Switzerland" },
-    { id:"LD-66381", shape:"Pear",     carat:2.72, color:"D", clarity:"VS2",  cut:"Ideal",     cert:"GIA", certNum:"GIA-745239102",    price:6100,  origin:"Asahi Green Certified — Japan" },
-    { id:"LD-77123", shape:"Radiant",  carat:2.21, color:"F", clarity:"VVS1", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG608123912",  price:4800,  origin:"Solar Carbon Neutral — India" },
-    { id:"LD-88231", shape:"Radiant",  carat:4.02, color:"D", clarity:"VS1",  cut:"Ideal",     cert:"GIA", certNum:"GIA-894102941",    price:11200, origin:"Advanced Laser Synthesis — US" },
-    { id:"LD-99104", shape:"Marquise", carat:1.55, color:"D", clarity:"VVS2", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG559381024",  price:3400,  origin:"Zero-Emission — Singapore" },
-  ];
+  // ── DIAMOND FEED STATE ────────────────────────────────────────────────────
+  let DIAMONDS = [];
+  let feedSource = 'demo';
+  let lastFetched = null;
 
   const SETTINGS = [
     // ── Rings ──
@@ -1756,6 +1860,37 @@
 
   let activeShape = 'All';
 
+  function setFeedStatus(state, label, count) {
+    const dot     = document.getElementById('feedDot');
+    const lbl     = document.getElementById('feedLabel');
+    const cnt     = document.getElementById('feedCount');
+    const upd     = document.getElementById('feedUpdated');
+    const refresh = document.getElementById('feedRefresh');
+
+    dot.className = 'feed-dot ' + (state || '');
+    lbl.textContent = label;
+    cnt.textContent = count != null ? count + ' stones available' : '';
+    upd.textContent = lastFetched ? 'Updated ' + lastFetched.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '';
+    if (refresh) refresh.classList.remove('spinning');
+  }
+
+  function showSkeletons(n = 6) {
+    const catalog = document.getElementById('diamondCatalog');
+    catalog.innerHTML = Array.from({length: n}, () => `
+      <div class="dcard-skeleton">
+        <div class="skel-block" style="width:60%;height:90px;margin-bottom:16px;"></div>
+        <div class="skel-block" style="width:40%;height:10px;"></div>
+        <div class="skel-block" style="width:55%;height:22px;"></div>
+        <div class="skel-block" style="width:70%;height:10px;margin-bottom:20px;"></div>
+        <div class="skel-block" style="width:100%;height:1px;margin-bottom:12px;"></div>
+        <div style="display:flex;gap:12px;">
+          <div class="skel-block" style="flex:1;height:32px;"></div>
+          <div class="skel-block" style="flex:1;height:32px;"></div>
+        </div>
+      </div>
+    `).join('');
+  }
+
   function renderDiamonds() {
     const catalog = document.getElementById('diamondCatalog');
     const filtered = activeShape === 'All' ? DIAMONDS : DIAMONDS.filter(d => d.shape === activeShape);
@@ -1768,7 +1903,10 @@
     catalog.innerHTML = filtered.map(d => `
       <div class="dcard">
         <div class="dcard-illustration">${SHAPE_SVG[d.shape] || ''}</div>
-        <div class="dcard-shape">${d.shape}</div>
+        <div class="dcard-shape">
+          ${d.shape}
+          ${d.source === 'live' ? '<span style="font-size:0.55rem;background:rgba(74,222,128,0.15);color:#4ade80;border:1px solid rgba(74,222,128,0.3);padding:1px 6px;margin-left:6px;letter-spacing:0.1em;">LIVE</span>' : ''}
+        </div>
         <div class="dcard-carat">${d.carat}ct</div>
         <div class="dcard-grade">${d.color} · ${d.clarity} · ${d.cut} Cut</div>
         <div class="dcard-specs">
@@ -1778,7 +1916,7 @@
           </div>
           <div class="dcard-spec">
             <div class="dcard-spec-label">Cert No.</div>
-            <div class="dcard-spec-value" style="font-size:0.68rem">${d.certNum}</div>
+            <div class="dcard-spec-value" style="font-size:0.68rem">${d.certNum || '—'}</div>
           </div>
           <div class="dcard-spec">
             <div class="dcard-spec-label">Color</div>
@@ -1798,16 +1936,62 @@
     `).join('');
   }
 
+  async function loadDiamonds() {
+    const refresh = document.getElementById('feedRefresh');
+    if (refresh) refresh.classList.add('spinning');
+    setFeedStatus('', 'Connecting to live inventory…', null);
+    showSkeletons();
+
+    try {
+      const params = new URLSearchParams();
+      if (activeShape !== 'All') params.set('shape', activeShape);
+
+      const res  = await fetch('/api/diamonds?' + params.toString());
+      const data = await res.json();
+
+      DIAMONDS    = data.diamonds || [];
+      feedSource  = data.source;
+      lastFetched = new Date();
+
+      if (feedSource === 'live') {
+        setFeedStatus('live', 'Live · ' + data.provider, data.count);
+      } else {
+        setFeedStatus('demo', 'Curated selection · Live feed available with API credentials', data.count);
+      }
+
+      renderDiamonds();
+    } catch (err) {
+      setFeedStatus('error', 'Feed unavailable — showing curated selection', null);
+      // fall back to inline seed
+      DIAMONDS = [
+        { id:"LD-90212", shape:"Round",    carat:1.52, color:"D", clarity:"IF",   cut:"Ideal",     cert:"GIA", certNum:"GIA-645831920",   price:3250,  origin:"Climate Neutral — United States", source:"seed" },
+        { id:"LD-30129", shape:"Round",    carat:2.04, color:"E", clarity:"VVS1", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG609312411", price:4900,  origin:"Asahi Green Certified — Japan",   source:"seed" },
+        { id:"LD-10294", shape:"Round",    carat:1.02, color:"G", clarity:"VS2",  cut:"Ideal",     cert:"GIA", certNum:"GIA-192048123",   price:1350,  origin:"Climate Neutral — United States", source:"seed" },
+        { id:"LD-48123", shape:"Oval",     carat:1.82, color:"D", clarity:"VVS2", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG602119853", price:3650,  origin:"SCS-007 Sustainably Grown — India", source:"seed" },
+        { id:"LD-58102", shape:"Oval",     carat:2.51, color:"F", clarity:"VS1",  cut:"Ideal",     cert:"GIA", certNum:"GIA-390481234",   price:5200,  origin:"Hydro-Powered — France",          source:"seed" },
+        { id:"LD-11029", shape:"Emerald",  carat:2.10, color:"E", clarity:"VS1",  cut:"Excellent", cert:"GIA", certNum:"GIA-556102381",   price:4100,  origin:"Climate Neutral — United States", source:"seed" },
+        { id:"LD-88123", shape:"Cushion",  carat:2.01, color:"F", clarity:"VVS2", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG559102456", price:3950,  origin:"Solar Powered — United States",   source:"seed" },
+        { id:"LD-44122", shape:"Pear",     carat:1.60, color:"E", clarity:"VVS2", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG607812933", price:3100,  origin:"Zero-Carbon — Switzerland",       source:"seed" },
+        { id:"LD-77123", shape:"Radiant",  carat:2.21, color:"F", clarity:"VVS1", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG608123912", price:4800,  origin:"Solar Carbon Neutral — India",    source:"seed" },
+        { id:"LD-99104", shape:"Marquise", carat:1.55, color:"D", clarity:"VVS2", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG559381024", price:3400,  origin:"Zero-Emission — Singapore",       source:"seed" },
+      ];
+      lastFetched = new Date();
+      renderDiamonds();
+    }
+  }
+
   document.getElementById('shapeFilters').addEventListener('click', e => {
     const chip = e.target.closest('.shape-chip');
     if (!chip) return;
     document.querySelectorAll('.shape-chip').forEach(c => c.classList.remove('active'));
     chip.classList.add('active');
     activeShape = chip.dataset.shape;
-    renderDiamonds();
+    loadDiamonds();
   });
 
-  renderDiamonds();
+  // Initial load + auto-refresh every 5 minutes
+  loadDiamonds();
+  setInterval(loadDiamonds, 5 * 60 * 1000);
 
   // ── RENDER SETTINGS ────────────────────────────────────────────────────────
 
