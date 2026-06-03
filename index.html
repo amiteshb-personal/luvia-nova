@@ -392,6 +392,24 @@
 
     .dcard:hover { border-color: var(--gold); background: rgba(184,154,94,0.04); }
 
+    .dcard-illustration {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 110px;
+      margin-bottom: 20px;
+      opacity: 0.9;
+    }
+
+    .dcard-illustration svg {
+      filter: drop-shadow(0 0 8px rgba(184,154,94,0.35));
+      transition: filter 0.25s;
+    }
+
+    .dcard:hover .dcard-illustration svg {
+      filter: drop-shadow(0 0 14px rgba(212,185,122,0.6));
+    }
+
     .dcard-shape {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: 0.6rem;
@@ -504,6 +522,25 @@
       border: 1px solid var(--border);
       padding: 36px 32px;
       transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .setting-illustration {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 120px;
+      margin-bottom: 24px;
+      background: var(--cream);
+      border: 1px solid var(--border);
+    }
+
+    .setting-illustration svg {
+      filter: drop-shadow(0 2px 6px rgba(184,154,94,0.2));
+      transition: filter 0.2s;
+    }
+
+    .setting-card:hover .setting-illustration svg {
+      filter: drop-shadow(0 2px 12px rgba(184,154,94,0.4));
     }
 
     .setting-card:hover {
@@ -1138,6 +1175,200 @@
 </footer>
 
 <script>
+  // ── SVG ILLUSTRATIONS ─────────────────────────────────────────────────────
+
+  const GOLD = '#C5A880';
+  const GOLD2 = '#b89a5e';
+  const W = 'rgba(255,255,255,0.9)';
+
+  // Top-view facet diagrams for each diamond cut
+  const SHAPE_SVG = {
+    Round: `<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="48" cy="48" r="40" stroke="${GOLD}" stroke-width="1.5"/>
+      <circle cx="48" cy="48" r="24" stroke="${GOLD}" stroke-width="0.8" stroke-opacity="0.6"/>
+      <circle cx="48" cy="48" r="8" stroke="${GOLD}" stroke-width="0.8" stroke-opacity="0.5"/>
+      ${Array.from({length:16},(_,i)=>{const a=i*22.5*Math.PI/180;const x1=48+8*Math.cos(a);const y1=48+8*Math.sin(a);const x2=48+24*Math.cos(a);const y2=48+24*Math.sin(a);const x3=48+40*Math.cos(a);const y3=48+40*Math.sin(a);return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/><line x1="${x2}" y1="${y2}" x2="${x3}" y2="${y3}" stroke="${GOLD}" stroke-width="0.8" stroke-opacity="0.7"/>`}).join('')}
+    </svg>`,
+
+    Oval: `<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="48" cy="48" rx="38" ry="26" stroke="${GOLD}" stroke-width="1.5"/>
+      <ellipse cx="48" cy="48" rx="22" ry="15" stroke="${GOLD}" stroke-width="0.8" stroke-opacity="0.6"/>
+      <ellipse cx="48" cy="48" rx="7" ry="5" stroke="${GOLD}" stroke-width="0.8" stroke-opacity="0.5"/>
+      ${[0,45,90,135,180,225,270,315].map(d=>{const a=d*Math.PI/180;const cos=Math.cos(a);const sin=Math.sin(a);return `<line x1="${48+7*cos}" y1="${48+5*sin}" x2="${48+22*cos}" y2="${48+15*sin}" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/><line x1="${48+22*cos}" y1="${48+15*sin}" x2="${48+38*cos}" y2="${48+26*sin}" stroke="${GOLD}" stroke-width="0.8" stroke-opacity="0.7"/>`}).join('')}
+    </svg>`,
+
+    Emerald: `<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="60,8 80,20 88,76 76,88 36,88 16,76 8,20 36,8" stroke="${GOLD}" stroke-width="1.5" fill="none"/>
+      <polygon points="56,16 72,25 78,71 68,80 28,80 18,71 22,25 40,16" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.6" fill="none"/>
+      <polygon points="52,24 64,30 68,66 60,72 36,72 28,66 30,30 44,24" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5" fill="none"/>
+      <rect x="34" y="32" width="28" height="32" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.4" fill="none"/>
+      <line x1="34" y1="40" x2="62" y2="40" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <line x1="34" y1="48" x2="62" y2="48" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <line x1="34" y1="56" x2="62" y2="56" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+    </svg>`,
+
+    Cushion: `<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="10" width="76" height="76" rx="18" stroke="${GOLD}" stroke-width="1.5" fill="none"/>
+      <rect x="22" y="22" width="52" height="52" rx="10" stroke="${GOLD}" stroke-width="0.8" stroke-opacity="0.6" fill="none"/>
+      <rect x="34" y="34" width="28" height="28" rx="4" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.5" fill="none"/>
+      <line x1="22" y1="22" x2="34" y2="34" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="74" y1="22" x2="62" y2="34" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="22" y1="74" x2="34" y2="62" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="74" y1="74" x2="62" y2="62" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="48" y1="22" x2="48" y2="34" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="48" y1="62" x2="48" y2="74" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="22" y1="48" x2="34" y2="48" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="62" y1="48" x2="74" y2="48" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+    </svg>`,
+
+    Pear: `<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M48 88 C28 88 12 68 12 52 C12 36 28 8 48 8 C68 8 84 36 84 52 C84 68 68 88 48 88Z" stroke="${GOLD}" stroke-width="1.5" fill="none"/>
+      <path d="M48 78 C33 78 21 62 21 50 C21 38 33 18 48 18 C63 18 75 38 75 50 C75 62 63 78 48 78Z" stroke="${GOLD}" stroke-width="0.8" stroke-opacity="0.6" fill="none"/>
+      <path d="M48 66 C39 66 31 54 31 46 C31 38 39 28 48 28 C57 28 65 38 65 46 C65 54 57 66 48 66Z" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.5" fill="none"/>
+      <line x1="48" y1="8" x2="48" y2="28" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.6"/>
+      <line x1="48" y1="66" x2="48" y2="88" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.6"/>
+      <line x1="12" y1="52" x2="31" y2="46" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="84" y1="52" x2="65" y2="46" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="21" y1="30" x2="31" y2="36" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="75" y1="30" x2="65" y2="36" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+    </svg>`,
+
+    Radiant: `<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="24,8 72,8 88,24 88,72 72,88 24,88 8,72 8,24" stroke="${GOLD}" stroke-width="1.5" fill="none"/>
+      <polygon points="28,16 68,16 80,28 80,68 68,80 28,80 16,68 16,28" stroke="${GOLD}" stroke-width="0.8" stroke-opacity="0.6" fill="none"/>
+      <polygon points="34,26 62,26 70,34 70,62 62,70 34,70 26,62 26,34" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.5" fill="none"/>
+      <line x1="24" y1="8" x2="34" y2="26" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="72" y1="8" x2="62" y2="26" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="88" y1="24" x2="70" y2="34" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="88" y1="72" x2="70" y2="62" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="72" y1="88" x2="62" y2="70" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="24" y1="88" x2="34" y2="70" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="8" y1="72" x2="26" y2="62" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="8" y1="24" x2="26" y2="34" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="48" y1="16" x2="48" y2="26" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="48" y1="70" x2="48" y2="80" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="16" y1="48" x2="26" y2="48" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="70" y1="48" x2="80" y2="48" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+    </svg>`,
+
+    Marquise: `<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M48 6 C48 6 88 30 88 48 C88 66 48 90 48 90 C48 90 8 66 8 48 C8 30 48 6 48 6Z" stroke="${GOLD}" stroke-width="1.5" fill="none"/>
+      <path d="M48 16 C48 16 78 34 78 48 C78 62 48 80 48 80 C48 80 18 62 18 48 C18 34 48 16 48 16Z" stroke="${GOLD}" stroke-width="0.8" stroke-opacity="0.6" fill="none"/>
+      <path d="M48 28 C48 28 66 38 66 48 C66 58 48 68 48 68 C48 68 30 58 30 48 C30 38 48 28 48 28Z" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.5" fill="none"/>
+      <line x1="48" y1="6" x2="48" y2="28" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.6"/>
+      <line x1="48" y1="68" x2="48" y2="90" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.6"/>
+      <line x1="8" y1="48" x2="30" y2="48" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="66" y1="48" x2="88" y2="48" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="18" y1="34" x2="30" y2="40" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="78" y1="34" x2="66" y2="40" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="18" y1="62" x2="30" y2="56" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="78" y1="62" x2="66" y2="56" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.5"/>
+    </svg>`,
+  };
+
+  // Side-profile ring setting illustrations
+  const SETTING_SVG = {
+    'The Sienna Solitaire': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Band -->
+      <path d="M20 90 Q90 70 160 90" stroke="${GOLD2}" stroke-width="3" fill="none"/>
+      <path d="M20 100 Q90 80 160 100" stroke="${GOLD2}" stroke-width="2" fill="none" stroke-opacity="0.5"/>
+      <!-- Prongs -->
+      <line x1="82" y1="72" x2="76" y2="44" stroke="${GOLD}" stroke-width="1.8"/>
+      <line x1="98" y1="72" x2="104" y2="44" stroke="${GOLD}" stroke-width="1.8"/>
+      <line x1="80" y1="68" x2="74" y2="54" stroke="${GOLD}" stroke-width="1.8"/>
+      <line x1="100" y1="68" x2="106" y2="54" stroke="${GOLD}" stroke-width="1.8"/>
+      <!-- Diamond -->
+      <polygon points="90,14 112,38 90,52 68,38" stroke="${GOLD}" stroke-width="1.5" fill="rgba(184,154,94,0.08)"/>
+      <line x1="90" y1="14" x2="90" y2="52" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.4"/>
+      <line x1="68" y1="38" x2="112" y2="38" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.4"/>
+      <line x1="90" y1="14" x2="68" y2="38" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.3"/>
+      <line x1="90" y1="14" x2="112" y2="38" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.3"/>
+    </svg>`,
+
+    'The Zia Cathedral Halo': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Band with cathedral rise -->
+      <path d="M20 95 Q55 80 75 68" stroke="${GOLD2}" stroke-width="3" fill="none"/>
+      <path d="M160 95 Q125 80 105 68" stroke="${GOLD2}" stroke-width="3" fill="none"/>
+      <path d="M20 105 Q55 90 75 76" stroke="${GOLD2}" stroke-width="2" fill="none" stroke-opacity="0.5"/>
+      <path d="M160 105 Q125 90 105 76" stroke="${GOLD2}" stroke-width="2" fill="none" stroke-opacity="0.5"/>
+      <!-- Prongs -->
+      <line x1="82" y1="68" x2="78" y2="46" stroke="${GOLD}" stroke-width="1.6"/>
+      <line x1="98" y1="68" x2="102" y2="46" stroke="${GOLD}" stroke-width="1.6"/>
+      <!-- Halo melee -->
+      ${[0,30,60,90,120,150,180,210,240,270,300,330].map(d=>{const a=d*Math.PI/180;const x=90+30*Math.cos(a);const y=38+20*Math.sin(a);return `<circle cx="${x}" cy="${y}" r="2.5" stroke="${GOLD}" stroke-width="1" fill="rgba(184,154,94,0.15)"/>`}).join('')}
+      <!-- Centre diamond -->
+      <polygon points="90,18 108,36 90,52 72,36" stroke="${GOLD}" stroke-width="1.5" fill="rgba(184,154,94,0.1)"/>
+      <line x1="90" y1="18" x2="90" y2="52" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <line x1="72" y1="36" x2="108" y2="36" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+    </svg>`,
+
+    'The Amara Trilogy': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Band -->
+      <path d="M20 92 Q90 74 160 92" stroke="${GOLD2}" stroke-width="3" fill="none"/>
+      <path d="M20 102 Q90 84 160 102" stroke="${GOLD2}" stroke-width="2" fill="none" stroke-opacity="0.5"/>
+      <!-- Side pear prongs -->
+      <line x1="56" y1="76" x2="53" y2="58" stroke="${GOLD}" stroke-width="1.4"/>
+      <line x1="68" y1="76" x2="71" y2="58" stroke="${GOLD}" stroke-width="1.4"/>
+      <line x1="112" y1="76" x2="109" y2="58" stroke="${GOLD}" stroke-width="1.4"/>
+      <line x1="124" y1="76" x2="127" y2="58" stroke="${GOLD}" stroke-width="1.4"/>
+      <!-- Left pear -->
+      <path d="M62 46 C56 46 48 54 48 62 C48 70 56 76 62 76 C68 76 76 70 76 62 C76 54 68 46 62 46Z" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.08)"/>
+      <!-- Right pear -->
+      <path d="M118 46 C112 46 104 54 104 62 C104 70 112 76 118 76 C124 76 132 70 132 62 C132 54 124 46 118 46Z" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.08)"/>
+      <!-- Centre prongs -->
+      <line x1="82" y1="74" x2="78" y2="44" stroke="${GOLD}" stroke-width="1.6"/>
+      <line x1="98" y1="74" x2="102" y2="44" stroke="${GOLD}" stroke-width="1.6"/>
+      <!-- Centre diamond -->
+      <polygon points="90,14 112,40 90,54 68,40" stroke="${GOLD}" stroke-width="1.5" fill="rgba(184,154,94,0.1)"/>
+      <line x1="90" y1="14" x2="90" y2="54" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <line x1="68" y1="40" x2="112" y2="40" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+    </svg>`,
+
+    'The Lana Petite Pavé': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Band upper -->
+      <path d="M20 84 Q90 62 160 84" stroke="${GOLD2}" stroke-width="3.5" fill="none"/>
+      <!-- Pavé stones along band -->
+      ${[28,42,56,70,126,140,154].map(x=>{const y=x<90?88-((x-20)/70)*14:88-((160-x)/70)*14;return `<circle cx="${x}" cy="${y}" r="3" stroke="${GOLD}" stroke-width="1" fill="rgba(184,154,94,0.2)"/><circle cx="${x}" cy="${y+7}" r="2.5" stroke="${GOLD}" stroke-width="0.8" fill="rgba(184,154,94,0.1)"/>`}).join('')}
+      <!-- Band lower -->
+      <path d="M20 100 Q90 80 160 100" stroke="${GOLD2}" stroke-width="2" fill="none" stroke-opacity="0.5"/>
+      <!-- Prongs -->
+      <line x1="82" y1="64" x2="78" y2="42" stroke="${GOLD}" stroke-width="1.6"/>
+      <line x1="98" y1="64" x2="102" y2="42" stroke="${GOLD}" stroke-width="1.6"/>
+      <!-- Diamond -->
+      <polygon points="90,12 112,36 90,52 68,36" stroke="${GOLD}" stroke-width="1.5" fill="rgba(184,154,94,0.1)"/>
+      <line x1="90" y1="12" x2="90" y2="52" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <line x1="68" y1="36" x2="112" y2="36" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+    </svg>`,
+
+    'The Nova Vintage Filigree': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Filigree band shoulders -->
+      <path d="M20 96 Q50 82 70 70" stroke="${GOLD2}" stroke-width="2.5" fill="none"/>
+      <path d="M160 96 Q130 82 110 70" stroke="${GOLD2}" stroke-width="2.5" fill="none"/>
+      <path d="M20 104 Q50 90 70 78" stroke="${GOLD2}" stroke-width="1.5" fill="none" stroke-opacity="0.5"/>
+      <path d="M160 104 Q130 90 110 78" stroke="${GOLD2}" stroke-width="1.5" fill="none" stroke-opacity="0.5"/>
+      <!-- Milgrain dots along band -->
+      ${[25,33,41,49,57,65,115,123,131,139,147,155].map(x=>{const side=x<90;const t=(side?(x-20)/50:(160-x)/50);const y=side?96-t*26:96-t*26;return `<circle cx="${x}" cy="${y}" r="1.5" fill="${GOLD}" opacity="0.7"/>`}).join('')}
+      <!-- Scroll flourishes -->
+      <path d="M70 70 Q78 58 80 52" stroke="${GOLD}" stroke-width="1" fill="none" stroke-opacity="0.6"/>
+      <path d="M110 70 Q102 58 100 52" stroke="${GOLD}" stroke-width="1" fill="none" stroke-opacity="0.6"/>
+      <path d="M70 70 Q65 62 68 56" stroke="${GOLD}" stroke-width="0.8" fill="none" stroke-opacity="0.5"/>
+      <path d="M110 70 Q115 62 112 56" stroke="${GOLD}" stroke-width="0.8" fill="none" stroke-opacity="0.5"/>
+      <!-- 6 prongs -->
+      <line x1="80" y1="52" x2="76" y2="34" stroke="${GOLD}" stroke-width="1.6"/>
+      <line x1="100" y1="52" x2="104" y2="34" stroke="${GOLD}" stroke-width="1.6"/>
+      <line x1="78" y1="48" x2="74" y2="42" stroke="${GOLD}" stroke-width="1.4"/>
+      <line x1="102" y1="48" x2="106" y2="42" stroke="${GOLD}" stroke-width="1.4"/>
+      <line x1="79" y1="38" x2="75" y2="30" stroke="${GOLD}" stroke-width="1.3"/>
+      <line x1="101" y1="38" x2="105" y2="30" stroke="${GOLD}" stroke-width="1.3"/>
+      <!-- Diamond -->
+      <polygon points="90,10 114,34 90,50 66,34" stroke="${GOLD}" stroke-width="1.5" fill="rgba(184,154,94,0.1)"/>
+      <line x1="90" y1="10" x2="90" y2="50" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <line x1="66" y1="34" x2="114" y2="34" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <line x1="90" y1="10" x2="66" y2="34" stroke="${GOLD}" stroke-width="0.4" stroke-opacity="0.3"/>
+      <line x1="90" y1="10" x2="114" y2="34" stroke="${GOLD}" stroke-width="0.4" stroke-opacity="0.3"/>
+    </svg>`,
+  };
+
   // ── DATA ──────────────────────────────────────────────────────────────────
 
   const DIAMONDS = [
@@ -1242,6 +1473,7 @@
 
     catalog.innerHTML = filtered.map(d => `
       <div class="dcard">
+        <div class="dcard-illustration">${SHAPE_SVG[d.shape] || ''}</div>
         <div class="dcard-shape">${d.shape}</div>
         <div class="dcard-carat">${d.carat}ct</div>
         <div class="dcard-grade">${d.color} · ${d.clarity} · ${d.cut} Cut</div>
@@ -1287,6 +1519,7 @@
 
   document.getElementById('settingsGrid').innerHTML = SETTINGS.map(s => `
     <div class="setting-card">
+      <div class="setting-illustration">${SETTING_SVG[s.name] || ''}</div>
       <div class="setting-style-tag">${s.style}</div>
       <h3>${s.name}</h3>
       <p>${s.description}</p>
