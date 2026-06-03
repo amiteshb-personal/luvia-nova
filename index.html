@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luvia Nova — Modern Brilliance. Ancient Soul.</title>
+  <meta name="description" content="Luvia Nova — High-end lab-grown diamonds, made to order. Modern brilliance, ancient soul.">
+  <style>
+    :root {
+      --cream: #f8f5f0;
+      --ivory: #fdfaf6;
+      --charcoal: #1a1a1a;
+      --gold: #b89a5e;
+      --gold-light: #d4b97a;
+      --muted: #6b6560;
+      --border: rgba(184, 154, 94, 0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: var(--ivory);
+      color: var(--charcoal);
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 60px;
+      background: rgba(253, 250, 246, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 9px 22px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold);
+      color: white;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 40%, rgba(184,154,94,0.07) 0%, transparent 70%),
+        var(--ivory);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(184,154,94,0.06) 80px),
+        repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(184,154,94,0.06) 80px);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      max-width: 760px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-tagline {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 52px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: white;
+      padding: 16px 40px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: #a0874a; }
+
+    .btn-ghost {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--charcoal);
+      color: var(--charcoal);
+      padding: 16px 40px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-ghost:hover { background: var(--charcoal); color: white; }
+
+    /* ── DIAMOND DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 60px 60px 0;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .divider-gem {
+      font-size: 1.1rem;
+      color: var(--gold);
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 100px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .section-body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.85;
+    }
+
+    /* ── PHILOSOPHY ── */
+    .philosophy {
+      background: var(--cream);
+    }
+
+    .philosophy-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .philosophy-quote {
+      font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--charcoal);
+      border-left: 2px solid var(--gold);
+      padding-left: 32px;
+    }
+
+    .philosophy-quote cite {
+      display: block;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-style: normal;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 20px;
+    }
+
+    /* ── PILLARS ── */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      margin-top: 64px;
+    }
+
+    .pillar {
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
+    }
+
+    .pillar-number {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .pillar h3 {
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 14px;
+    }
+
+    .pillar p {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ── PROCESS ── */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      margin-top: 64px;
+    }
+
+    .step {
+      text-align: center;
+    }
+
+    .step-icon {
+      width: 56px;
+      height: 56px;
+      border: 1px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 1.3rem;
+    }
+
+    .step h4 {
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── DIAMONDS ── */
+    .diamonds-section {
+      background: var(--charcoal);
+      color: white;
+    }
+
+    .diamonds-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 60px;
+    }
+
+    .diamonds-inner .section-label { color: var(--gold-light); }
+    .diamonds-inner .section-title { color: white; max-width: 640px; margin-bottom: 16px; }
+    .diamonds-inner .section-body { color: rgba(255,255,255,0.55); max-width: 560px; }
+
+    /* Shape filter chips */
+    .shape-filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 36px 0 32px;
+    }
+
+    .shape-chip {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border: 1px solid rgba(184,154,94,0.3);
+      color: rgba(255,255,255,0.5);
+      background: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .shape-chip:hover { border-color: var(--gold); color: var(--gold-light); }
+    .shape-chip.active { border-color: var(--gold); background: var(--gold); color: white; }
+
+    /* Diamond catalog grid */
+    .diamond-catalog {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .dcard {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(184,154,94,0.12);
+      padding: 28px 28px 24px;
+      transition: border-color 0.25s;
+    }
+
+    .dcard:hover { border-color: var(--gold); background: rgba(184,154,94,0.04); }
+
+    .dcard-shape {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+    }
+
+    .dcard-carat {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .dcard-grade {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 18px;
+    }
+
+    .dcard-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 16px;
+      border-top: 1px solid rgba(184,154,94,0.12);
+      padding-top: 16px;
+      margin-bottom: 18px;
+    }
+
+    .dcard-spec {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .dcard-spec-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 2px;
+    }
+
+    .dcard-spec-value {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .dcard-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid rgba(184,154,94,0.12);
+    }
+
+    .dcard-price {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 1rem;
+      color: var(--gold-light);
+      font-weight: 500;
+    }
+
+    .dcard-cert {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 3px 8px;
+    }
+
+    .dcard-origin {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .no-results {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 60px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── SETTINGS ── */
+    .settings-section { background: var(--cream); }
+    .settings-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 60px;
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .setting-card {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 36px 32px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .setting-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 24px rgba(184,154,94,0.1);
+    }
+
+    .setting-style-tag {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .setting-card h3 {
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 12px;
+      color: var(--charcoal);
+    }
+
+    .setting-card p {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    .setting-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .setting-price {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      color: var(--charcoal);
+    }
+
+    .setting-price span {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+    }
+
+    .setting-metals {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    /* ── FAQ ── */
+    .faq-section { background: white; }
+    .faq-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 100px 60px;
+    }
+
+    .faq-list { margin-top: 52px; }
+
+    .faq-item {
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-item:last-child { border-bottom: 1px solid var(--border); }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+      font-size: 1rem;
+      color: var(--charcoal);
+      gap: 16px;
+    }
+
+    .faq-question:hover { color: var(--gold); }
+
+    .faq-toggle {
+      font-size: 1.2rem;
+      color: var(--gold);
+      flex-shrink: 0;
+      transition: transform 0.25s;
+      line-height: 1;
+    }
+
+    .faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+    .faq-answer {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.85;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 400px;
+      padding-bottom: 24px;
+    }
+
+    /* ── AUDIENCE ── */
+    .audience-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      margin-top: 64px;
+    }
+
+    .audience-panel {
+      padding: 52px 48px;
+    }
+
+    .audience-panel:first-child {
+      border-right: 1px solid var(--border);
+    }
+
+    .audience-panel-icon {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .audience-panel h3 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin-bottom: 14px;
+    }
+
+    .audience-panel p {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      background: var(--cream);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .trust-bar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 44px 60px;
+      display: flex;
+      gap: 0;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      text-align: center;
+      flex: 1;
+      min-width: 160px;
+      padding: 16px;
+    }
+
+    .trust-item + .trust-item {
+      border-left: 1px solid var(--border);
+    }
+
+    .trust-item-value {
+      font-size: 1.8rem;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .trust-item-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── LEAD CAPTURE ── */
+    .lead-section {
+      background: var(--charcoal);
+      color: white;
+    }
+
+    .lead-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 100px 40px;
+      text-align: center;
+    }
+
+    .lead-inner .section-label { color: var(--gold-light); }
+    .lead-inner .section-title { color: white; }
+    .lead-inner .section-body { color: rgba(255,255,255,0.55); margin: 0 auto 44px; }
+
+    .lead-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .lead-form input,
+    .lead-form select,
+    .lead-form textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(184,154,94,0.3);
+      color: white;
+      padding: 16px 20px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .lead-form input::placeholder,
+    .lead-form textarea::placeholder { color: rgba(255,255,255,0.3); }
+
+    .lead-form input:focus,
+    .lead-form select:focus,
+    .lead-form textarea:focus { border-color: var(--gold); }
+
+    .lead-form select option { background: #2a2a2a; }
+
+    .lead-form textarea { resize: vertical; min-height: 100px; }
+
+    .lead-form button {
+      background: var(--gold);
+      color: white;
+      border: none;
+      padding: 18px 48px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+
+    .lead-form button:hover { background: #a0874a; }
+
+    .form-note {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 12px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #111;
+      color: rgba(255,255,255,0.35);
+      padding: 60px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 60px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-brand .logo {
+      color: white;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.83rem;
+      line-height: 1.8;
+    }
+
+    .footer-col h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col a {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.83rem;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 18px 28px; }
+      .nav-links { display: none; }
+
+      section { padding: 72px 28px; }
+      .philosophy-inner { padding: 72px 28px; grid-template-columns: 1fr; gap: 40px; }
+      .pillars-grid { grid-template-columns: 1fr; gap: 36px; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .diamonds-inner { padding: 72px 28px; }
+      .diamond-catalog { grid-template-columns: 1fr; }
+      .settings-inner { padding: 72px 28px; }
+      .settings-grid { grid-template-columns: 1fr; }
+      .faq-inner { padding: 72px 28px; }
+      .audience-split { grid-template-columns: 1fr; }
+      .audience-panel:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+      .trust-bar-inner { padding: 32px 28px; }
+      .trust-item + .trust-item { border-left: none; border-top: 1px solid var(--border); }
+      .lead-inner { padding: 72px 28px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { padding: 60px 28px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 36px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .divider { padding: 40px 28px 0; }
+    }
+
+    @media (min-width: 901px) and (max-width: 1100px) {
+      .diamond-catalog { grid-template-columns: repeat(2, 1fr); }
+      .settings-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Luvia <span>Nova</span></a>
+  <ul class="nav-links">
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#diamonds">Diamonds</a></li>
+    <li><a href="#settings">Settings</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#consult">Consult</a></li>
+  </ul>
+  <a href="#consult" class="nav-cta">Book a Consultation</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <p class="hero-eyebrow">Lab-Grown Diamonds &nbsp;·&nbsp; Made to Order &nbsp;·&nbsp; North America</p>
+  <h1>Where <em>Ancient Soul</em><br>Meets Modern Brilliance</h1>
+  <p class="hero-tagline">Modern Brilliance. Ancient Soul.</p>
+  <div class="hero-actions">
+    <a href="#consult" class="btn-primary">Begin Your Journey</a>
+    <a href="#diamonds" class="btn-ghost">Explore Diamonds</a>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-item">
+      <div class="trust-item-value">◆</div>
+      <div class="trust-item-label">Ethically Sourced</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-item-value">100%</div>
+      <div class="trust-item-label">Lab-Grown</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-item-value">9ct · 14ct</div>
+      <div class="trust-item-label">Gold Settings</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-item-value">Bespoke</div>
+      <div class="trust-item-label">Made to Order</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-item-value">GIA</div>
+      <div class="trust-item-label">Certified Stones</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHILOSOPHY -->
+<div class="philosophy" id="philosophy">
+  <div class="philosophy-inner">
+    <div>
+      <p class="section-label">Our Philosophy</p>
+      <h2 class="section-title">Luxury Reimagined for a New Generation</h2>
+      <p class="section-body">
+        Luvia Nova was born from a conviction: that the finest diamonds need not come at the cost of the earth, and that true luxury is defined by craft, intention, and meaning — not by convention.
+      </p>
+      <br>
+      <p class="section-body">
+        We serve discerning buyers who seek something rare: a jewel that honours heritage while embracing the future. Every stone is selected by hand. Every setting is crafted to order. Nothing is rushed.
+      </p>
+    </div>
+    <blockquote class="philosophy-quote">
+      "A diamond is not merely a stone. It is a promise — passed between people, carried across time."
+      <cite>— Luvia Nova</cite>
+    </blockquote>
+  </div>
+</div>
+
+<!-- PILLARS -->
+<section>
+  <p class="section-label">Why Luvia Nova</p>
+  <h2 class="section-title">The Pillars of Our Promise</h2>
+
+  <div class="pillars-grid">
+    <div class="pillar">
+      <p class="pillar-number">01</p>
+      <h3>Ethical & Transparent</h3>
+      <p>Every lab-grown diamond we source is conflict-free by nature. We provide full provenance documentation and clear pricing — no ambiguity, no hidden margins.</p>
+    </div>
+    <div class="pillar">
+      <p class="pillar-number">02</p>
+      <h3>Genuinely Custom</h3>
+      <p>We hold no finished inventory. Each piece begins with your vision — your chosen stone, your setting, your story. The result is something that exists nowhere else.</p>
+    </div>
+    <div class="pillar">
+      <p class="pillar-number">03</p>
+      <h3>Accessible Luxury</h3>
+      <p>Lab-grown diamonds are physically and chemically identical to mined stones at a fraction of the cost. We pass that value to you without compromising on craftsmanship.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-gem">◆</div><div class="divider-line"></div></div>
+
+<!-- DIAMONDS -->
+<div class="diamonds-section" id="diamonds">
+  <div class="diamonds-inner">
+    <p class="section-label">Our Diamonds</p>
+    <h2 class="section-title">Stones of Exceptional Character</h2>
+    <p class="section-body">Every stone in our curated selection is GIA or IGI certified, ethically sourced, and available for immediate configuration. Prices shown are indicative — contact us for a personalised quote.</p>
+
+    <div class="shape-filters" id="shapeFilters">
+      <button class="shape-chip active" data-shape="All">All Shapes</button>
+      <button class="shape-chip" data-shape="Round">Round</button>
+      <button class="shape-chip" data-shape="Oval">Oval</button>
+      <button class="shape-chip" data-shape="Emerald">Emerald</button>
+      <button class="shape-chip" data-shape="Cushion">Cushion</button>
+      <button class="shape-chip" data-shape="Pear">Pear</button>
+      <button class="shape-chip" data-shape="Radiant">Radiant</button>
+      <button class="shape-chip" data-shape="Marquise">Marquise</button>
+    </div>
+
+    <div class="diamond-catalog" id="diamondCatalog"></div>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="settings-section" id="settings">
+  <div class="settings-inner">
+    <p class="section-label">Our Settings</p>
+    <h2 class="section-title">Five Signatures. One Standard of Craft.</h2>
+    <p class="section-body">Each setting is cast to order in your chosen metal by our master jewellers in New York and Mumbai. All are available in 18K Yellow, White, and Rose Gold, with select styles in 950 Platinum.</p>
+
+    <div class="settings-grid" id="settingsGrid"></div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<section id="process">
+  <p class="section-label">The Experience</p>
+  <h2 class="section-title">A Process as Refined as the Stone</h2>
+  <p class="section-body">From first conversation to finished piece, we guide you with expertise and patience. No pressure. No compromise.</p>
+
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-icon">✦</div>
+      <h4>Consultation</h4>
+      <p>We begin with a private consultation — understanding your vision, your budget, and what this piece means to you.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon">◇</div>
+      <h4>Stone Selection</h4>
+      <p>We curate a shortlist of diamonds from our global network, sharing detailed imagery, certificates, and expert guidance.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon">⬡</div>
+      <h4>Design & Craft</h4>
+      <p>Your chosen stone is paired with a setting — existing or custom — and crafted by our master jewellers in 9ct or 14ct gold.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon">◆</div>
+      <h4>Delivery</h4>
+      <p>Your piece arrives fully insured, in bespoke packaging, with all certification and documentation included.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section>
+  <p class="section-label">Who We Serve</p>
+  <h2 class="section-title">Made for Those Who Know the Difference</h2>
+
+  <div class="audience-split">
+    <div class="audience-panel">
+      <div class="audience-panel-icon">◆</div>
+      <h3>North American Luxury Buyers</h3>
+      <p>You value craftsmanship over convention. You expect transparency, quality, and a personal relationship with the people making what you buy. You want a diamond that reflects your values as much as your taste.</p>
+    </div>
+    <div class="audience-panel">
+      <div class="audience-panel-icon">✦</div>
+      <h3>South Asian &amp; Middle Eastern Diaspora</h3>
+      <p>Jewellery is part of your heritage — a language of celebration, commitment, and identity. You seek pieces that honour that tradition with the discernment and aesthetic sensibility of your generation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<div class="faq-section" id="faq">
+  <div class="faq-inner">
+    <p class="section-label">Common Questions</p>
+    <h2 class="section-title">What You Should Know</h2>
+
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</div>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-gem">◆</div><div class="divider-line"></div></div>
+
+<!-- LEAD CAPTURE -->
+<div class="lead-section" id="consult">
+  <div class="lead-inner">
+    <p class="section-label">Private Consultation</p>
+    <h2 class="section-title">Begin Your Story</h2>
+    <p class="section-body">Tell us a little about what you're looking for. We'll be in touch within one business day to arrange a private conversation.</p>
+
+    <form class="lead-form" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <input type="text" placeholder="First Name" required>
+        <input type="text" placeholder="Last Name" required>
+      </div>
+      <input type="email" placeholder="Email Address" required>
+      <input type="tel" placeholder="Phone (optional)">
+      <select>
+        <option value="" disabled selected>What are you looking for?</option>
+        <option>Engagement Ring</option>
+        <option>Wedding Band</option>
+        <option>Loose Diamond</option>
+        <option>Custom Piece</option>
+        <option>Gift / Other Occasion</option>
+        <option>I'm not sure yet — I'd like guidance</option>
+      </select>
+      <textarea placeholder="Tell us about your vision, timeline, or any questions you have..."></textarea>
+      <button type="submit">Request a Consultation</button>
+      <p class="form-note">Your details are kept strictly private. We do not share or sell your information.</p>
+    </form>
+
+    <div id="form-success" style="display:none; margin-top:32px;">
+      <p style="color: var(--gold-light); font-size: 1rem; font-style: italic; line-height: 1.7;">
+        Thank you. We've received your enquiry and will be in touch within one business day.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo">Luvia <span>Nova</span></a>
+      <p>High-end lab-grown diamonds, made to order. Serving North America with an emphasis on the South Asian and Middle Eastern diaspora.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#philosophy">Philosophy</a></li>
+        <li><a href="#diamonds">Diamonds</a></li>
+        <li><a href="#settings">Settings</a></li>
+        <li><a href="#process">Our Process</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#consult">Consultations</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:hello@luvianovu.com">hello@luvianova.com</a></li>
+        <li><a href="#consult">Book a Consultation</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Luvia Nova. All rights reserved.</span>
+    <span>Modern Brilliance. Ancient Soul.</span>
+  </div>
+</footer>
+
+<script>
+  // ── DATA ──────────────────────────────────────────────────────────────────
+
+  const DIAMONDS = [
+    { id:"LD-90212", shape:"Round",    carat:1.52, color:"D", clarity:"IF",   cut:"Ideal",     cert:"GIA", certNum:"GIA-645831920",    price:3250,  origin:"Climate Neutral — United States" },
+    { id:"LD-30129", shape:"Round",    carat:2.04, color:"E", clarity:"VVS1", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG609312411",  price:4900,  origin:"Asahi Green Certified — Japan" },
+    { id:"LD-10294", shape:"Round",    carat:1.02, color:"G", clarity:"VS2",  cut:"Ideal",     cert:"GIA", certNum:"GIA-192048123",    price:1350,  origin:"Climate Neutral — United States" },
+    { id:"LD-48123", shape:"Oval",     carat:1.82, color:"D", clarity:"VVS2", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG602119853",  price:3650,  origin:"SCS-007 Sustainably Grown — India" },
+    { id:"LD-58102", shape:"Oval",     carat:2.51, color:"F", clarity:"VS1",  cut:"Ideal",     cert:"GIA", certNum:"GIA-390481234",    price:5200,  origin:"Hydro-Powered — France" },
+    { id:"LD-10295", shape:"Oval",     carat:1.21, color:"F", clarity:"VS1",  cut:"Ideal",     cert:"IGI", certNum:"IGI-LG485123901",  price:1980,  origin:"SCS-007 Sustainably Grown — India" },
+    { id:"LD-11029", shape:"Emerald",  carat:2.10, color:"E", clarity:"VS1",  cut:"Excellent", cert:"GIA", certNum:"GIA-556102381",    price:4100,  origin:"Climate Neutral — United States" },
+    { id:"LD-18023", shape:"Emerald",  carat:3.05, color:"D", clarity:"VVS1", cut:"Excellent", cert:"IGI", certNum:"IGI-LG609228311",  price:8900,  origin:"Zero-Emission — Singapore" },
+    { id:"LD-88123", shape:"Cushion",  carat:2.01, color:"F", clarity:"VVS2", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG559102456",  price:3950,  origin:"Solar Powered — United States" },
+    { id:"LD-99238", shape:"Cushion",  carat:3.52, color:"E", clarity:"VS1",  cut:"Ideal",     cert:"GIA", certNum:"GIA-645831102",    price:7800,  origin:"SCS-007 Sustainably Grown — India" },
+    { id:"LD-44122", shape:"Pear",     carat:1.60, color:"E", clarity:"VVS2", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG607812933",  price:3100,  origin:"Zero-Carbon — Switzerland" },
+    { id:"LD-66381", shape:"Pear",     carat:2.72, color:"D", clarity:"VS2",  cut:"Ideal",     cert:"GIA", certNum:"GIA-745239102",    price:6100,  origin:"Asahi Green Certified — Japan" },
+    { id:"LD-77123", shape:"Radiant",  carat:2.21, color:"F", clarity:"VVS1", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG608123912",  price:4800,  origin:"Solar Carbon Neutral — India" },
+    { id:"LD-88231", shape:"Radiant",  carat:4.02, color:"D", clarity:"VS1",  cut:"Ideal",     cert:"GIA", certNum:"GIA-894102941",    price:11200, origin:"Advanced Laser Synthesis — US" },
+    { id:"LD-99104", shape:"Marquise", carat:1.55, color:"D", clarity:"VVS2", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG559381024",  price:3400,  origin:"Zero-Emission — Singapore" },
+  ];
+
+  const SETTINGS = [
+    {
+      name: "The Sienna Solitaire",
+      style: "Solitaire",
+      description: "Classic four-prong low-profile setting engineered for maximum light transfer. A sleek tapered band with micro-claw prongs — the purest expression of the stone.",
+      basePrice: 950,
+      metals: ["18K Yellow Gold", "18K White Gold", "18K Rose Gold", "950 Platinum"],
+    },
+    {
+      name: "The Zia Cathedral Halo",
+      style: "Halo",
+      description: "Floating micro-pavé circular halo framing the centre gem, with a dramatic cathedral shoulder rise and a hidden diamond row beneath the basket collar.",
+      basePrice: 1650,
+      metals: ["18K Yellow Gold", "18K White Gold", "18K Rose Gold", "950 Platinum"],
+    },
+    {
+      name: "The Amara Trilogy",
+      style: "Trilogy",
+      description: "A three-stone classic flanked by hand-selected pear-cut lab diamonds — representing your past, present, and future together.",
+      basePrice: 1800,
+      metals: ["18K Yellow Gold", "18K White Gold", "950 Platinum"],
+    },
+    {
+      name: "The Lana Petite Pavé",
+      style: "Pavé",
+      description: "A continuous row of scalloped pavé diamonds running halfway down the band, adding extraordinary brilliance and pairing perfectly with stackable wedding bands.",
+      basePrice: 1400,
+      metals: ["18K Yellow Gold", "18K White Gold", "18K Rose Gold", "950 Platinum"],
+    },
+    {
+      name: "The Nova Vintage Filigree",
+      style: "Vintage Filigree",
+      description: "Master-crafted with milgrain lace, hand-engraved scrollwork, and a filigree undergarment drawing from South Asian Royal heritage. Our most storied setting.",
+      basePrice: 1950,
+      metals: ["18K Yellow Gold", "18K White Gold", "950 Platinum"],
+    },
+  ];
+
+  const FAQS = [
+    {
+      q: "Is a lab-grown diamond a real diamond?",
+      a: "Yes, absolutely. Lab-grown diamonds are physically, chemically, and optically identical to mined diamonds. They share the same crystal structure, hardness (Mohs 10), and refractive index. Gemological institutes including GIA and IGI grade them using the same 4C standards."
+    },
+    {
+      q: "Why are lab-grown diamonds more affordable?",
+      a: "Traditional retail markups are inflated by store overhead, inventory holding costs, and multiple wholesale intermediaries. Luvia Nova operates a made-to-order model with direct sourcing — we pass those savings to you. Lab-grown diamonds typically retail at 60–80% less than equivalent mined stones."
+    },
+    {
+      q: "How does the custom process work?",
+      a: "We begin with a private consultation to understand your vision, occasion, and budget. We then curate a shortlist of certified stones with full specification sheets. Once you select your diamond, we pair it with your chosen setting and cast the piece to order in our New York or Mumbai foundry."
+    },
+    {
+      q: "Can you incorporate traditional or heritage design elements?",
+      a: "Yes — it's something we specialise in. Our workshop has deep experience with South Asian motifs including kundan-inspired underwork, Mughal jali patterns, and Middle Eastern filigree carving. We can also recreate or reinterpret existing family jewellery designs."
+    },
+    {
+      q: "What gold alloys do you use?",
+      a: "We offer settings in 18K Yellow, White, and Rose Gold, as well as 950 Platinum. Our 18K yellow gold is specifically formulated with a richer warm tone — closer to 22K in appearance — without sacrificing the structural integrity needed to securely set diamonds."
+    },
+    {
+      q: "What certifications do your diamonds carry?",
+      a: "Every diamond above 1.0ct is certified by either GIA (Gemological Institute of America) or IGI (International Gemological Institute), the world's two most respected grading authorities. All stones carry laser-inscribed certificate numbers for permanent traceability."
+    },
+    {
+      q: "How long does an order take?",
+      a: "Stone selection typically takes 3–7 days from consultation. Setting manufacture and finishing takes a further 3–5 weeks, depending on complexity. We provide regular updates throughout and can accommodate urgent timelines where possible — please let us know at consultation."
+    },
+  ];
+
+  // ── RENDER DIAMONDS ────────────────────────────────────────────────────────
+
+  let activeShape = 'All';
+
+  function renderDiamonds() {
+    const catalog = document.getElementById('diamondCatalog');
+    const filtered = activeShape === 'All' ? DIAMONDS : DIAMONDS.filter(d => d.shape === activeShape);
+
+    if (!filtered.length) {
+      catalog.innerHTML = '<div class="no-results">No stones currently available in this shape — please enquire directly.</div>';
+      return;
+    }
+
+    catalog.innerHTML = filtered.map(d => `
+      <div class="dcard">
+        <div class="dcard-shape">${d.shape}</div>
+        <div class="dcard-carat">${d.carat}ct</div>
+        <div class="dcard-grade">${d.color} · ${d.clarity} · ${d.cut} Cut</div>
+        <div class="dcard-specs">
+          <div class="dcard-spec">
+            <div class="dcard-spec-label">Certificate</div>
+            <div class="dcard-spec-value">${d.cert}</div>
+          </div>
+          <div class="dcard-spec">
+            <div class="dcard-spec-label">Cert No.</div>
+            <div class="dcard-spec-value" style="font-size:0.68rem">${d.certNum}</div>
+          </div>
+          <div class="dcard-spec">
+            <div class="dcard-spec-label">Color</div>
+            <div class="dcard-spec-value">${d.color}</div>
+          </div>
+          <div class="dcard-spec">
+            <div class="dcard-spec-label">Clarity</div>
+            <div class="dcard-spec-value">${d.clarity}</div>
+          </div>
+        </div>
+        <div class="dcard-footer">
+          <div class="dcard-price">from $${d.price.toLocaleString()}</div>
+          <div class="dcard-cert">${d.cert} Certified</div>
+        </div>
+        <div class="dcard-origin">◆ ${d.origin}</div>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('shapeFilters').addEventListener('click', e => {
+    const chip = e.target.closest('.shape-chip');
+    if (!chip) return;
+    document.querySelectorAll('.shape-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activeShape = chip.dataset.shape;
+    renderDiamonds();
+  });
+
+  renderDiamonds();
+
+  // ── RENDER SETTINGS ────────────────────────────────────────────────────────
+
+  document.getElementById('settingsGrid').innerHTML = SETTINGS.map(s => `
+    <div class="setting-card">
+      <div class="setting-style-tag">${s.style}</div>
+      <h3>${s.name}</h3>
+      <p>${s.description}</p>
+      <div class="setting-card-footer">
+        <div class="setting-price">
+          <span>Setting from</span>
+          $${s.basePrice.toLocaleString()} USD
+        </div>
+        <div class="setting-metals">${s.metals.slice(0,2).join(' · ')}<br>${s.metals.slice(2).join(' · ')}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // ── RENDER FAQ ─────────────────────────────────────────────────────────────
+
+  document.getElementById('faqList').innerHTML = FAQS.map((f, i) => `
+    <div class="faq-item" id="faq-${i}">
+      <button class="faq-question" onclick="toggleFaq(${i})">
+        <span>${f.q}</span>
+        <span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-answer">${f.a}</div>
+    </div>
+  `).join('');
+
+  function toggleFaq(i) {
+    const item = document.getElementById('faq-' + i);
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // ── MISC ───────────────────────────────────────────────────────────────────
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    e.target.style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }
+
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 20 ? '0 2px 24px rgba(0,0,0,0.07)' : 'none';
+  });
+</script>
+
+</body>
+</html>
