@@ -510,11 +510,38 @@
       padding: 100px 60px;
     }
 
+    /* Jewellery type tabs */
+    .jewellery-tabs {
+      display: flex;
+      gap: 0;
+      margin: 40px 0 0;
+      border: 1px solid var(--border);
+      width: fit-content;
+    }
+
+    .jewellery-tab {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 12px 32px;
+      border: none;
+      background: none;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      border-right: 1px solid var(--border);
+    }
+
+    .jewellery-tab:last-child { border-right: none; }
+    .jewellery-tab:hover { color: var(--gold); background: rgba(184,154,94,0.05); }
+    .jewellery-tab.active { background: var(--charcoal); color: white; }
+
     .settings-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 24px;
-      margin-top: 56px;
+      margin-top: 32px;
     }
 
     .setting-card {
@@ -1017,7 +1044,7 @@
   <div class="diamonds-inner">
     <p class="section-label">Our Diamonds</p>
     <h2 class="section-title">Stones of Exceptional Character</h2>
-    <p class="section-body">Every stone in our curated selection is GIA or IGI certified, ethically sourced, and available for immediate configuration. Prices shown are indicative — contact us for a personalised quote.</p>
+    <p class="section-body">Every stone is GIA or IGI certified and ethically sourced. All shapes are available as matched pairs for earrings. Prices shown are indicative — contact us for a personalised quote.</p>
 
     <div class="shape-filters" id="shapeFilters">
       <button class="shape-chip active" data-shape="All">All Shapes</button>
@@ -1038,8 +1065,14 @@
 <div class="settings-section" id="settings">
   <div class="settings-inner">
     <p class="section-label">Our Settings</p>
-    <h2 class="section-title">Five Signatures. One Standard of Craft.</h2>
-    <p class="section-body">Each setting is cast to order in your chosen metal by our master jewellers in New York and Mumbai. All are available in 18K Yellow, White, and Rose Gold, with select styles in 950 Platinum.</p>
+    <h2 class="section-title">Every Piece, Made to Order.</h2>
+    <p class="section-body">Each setting is cast to order in your chosen metal by our master jewellers in New York and Mumbai. Available in 18K Yellow, White, and Rose Gold, with select styles in 950 Platinum.</p>
+
+    <div class="jewellery-tabs">
+      <button class="jewellery-tab active" data-type="Ring">Rings</button>
+      <button class="jewellery-tab" data-type="Earring">Earrings</button>
+      <button class="jewellery-tab" data-type="Bracelet">Bracelets</button>
+    </div>
 
     <div class="settings-grid" id="settingsGrid"></div>
   </div>
@@ -1340,6 +1373,108 @@
       <line x1="68" y1="36" x2="112" y2="36" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
     </svg>`,
 
+    // ── Earring SVGs ──
+    'The Cleo Stud': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left stud -->
+      <line x1="62" y1="92" x2="62" y2="80" stroke="${GOLD2}" stroke-width="2"/>
+      <circle cx="62" cy="96" r="4" stroke="${GOLD2}" stroke-width="1.5" fill="none"/>
+      <line x1="54" y1="80" x2="50" y2="58" stroke="${GOLD}" stroke-width="1.5"/>
+      <line x1="70" y1="80" x2="74" y2="58" stroke="${GOLD}" stroke-width="1.5"/>
+      <line x1="52" y1="76" x2="48" y2="64" stroke="${GOLD}" stroke-width="1.4"/>
+      <line x1="72" y1="76" x2="76" y2="64" stroke="${GOLD}" stroke-width="1.4"/>
+      <polygon points="62,30 78,50 62,62 46,50" stroke="${GOLD}" stroke-width="1.5" fill="rgba(184,154,94,0.1)"/>
+      <line x1="62" y1="30" x2="62" y2="62" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <line x1="46" y1="50" x2="78" y2="50" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <!-- Right stud -->
+      <line x1="118" y1="92" x2="118" y2="80" stroke="${GOLD2}" stroke-width="2"/>
+      <circle cx="118" cy="96" r="4" stroke="${GOLD2}" stroke-width="1.5" fill="none"/>
+      <line x1="110" y1="80" x2="106" y2="58" stroke="${GOLD}" stroke-width="1.5"/>
+      <line x1="126" y1="80" x2="130" y2="58" stroke="${GOLD}" stroke-width="1.5"/>
+      <line x1="108" y1="76" x2="104" y2="64" stroke="${GOLD}" stroke-width="1.4"/>
+      <line x1="128" y1="76" x2="132" y2="64" stroke="${GOLD}" stroke-width="1.4"/>
+      <polygon points="118,30 134,50 118,62 102,50" stroke="${GOLD}" stroke-width="1.5" fill="rgba(184,154,94,0.1)"/>
+      <line x1="118" y1="30" x2="118" y2="62" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <line x1="102" y1="50" x2="134" y2="50" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+    </svg>`,
+
+    'The Isla Halo Stud': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left halo stud -->
+      <line x1="62" y1="92" x2="62" y2="82" stroke="${GOLD2}" stroke-width="2"/>
+      <circle cx="62" cy="96" r="4" stroke="${GOLD2}" stroke-width="1.5" fill="none"/>
+      <line x1="55" y1="82" x2="52" y2="64" stroke="${GOLD}" stroke-width="1.4"/>
+      <line x1="69" y1="82" x2="72" y2="64" stroke="${GOLD}" stroke-width="1.4"/>
+      ${[0,45,90,135,180,225,270,315].map(d=>{const a=d*Math.PI/180;return `<circle cx="${62+20*Math.cos(a)}" cy="${50+14*Math.sin(a)}" r="2.2" stroke="${GOLD}" stroke-width="0.9" fill="rgba(184,154,94,0.15)"/>`}).join('')}
+      <polygon points="62,32 74,48 62,58 50,48" stroke="${GOLD}" stroke-width="1.4" fill="rgba(184,154,94,0.1)"/>
+      <!-- Right halo stud -->
+      <line x1="118" y1="92" x2="118" y2="82" stroke="${GOLD2}" stroke-width="2"/>
+      <circle cx="118" cy="96" r="4" stroke="${GOLD2}" stroke-width="1.5" fill="none"/>
+      <line x1="111" y1="82" x2="108" y2="64" stroke="${GOLD}" stroke-width="1.4"/>
+      <line x1="125" y1="82" x2="128" y2="64" stroke="${GOLD}" stroke-width="1.4"/>
+      ${[0,45,90,135,180,225,270,315].map(d=>{const a=d*Math.PI/180;return `<circle cx="${118+20*Math.cos(a)}" cy="${50+14*Math.sin(a)}" r="2.2" stroke="${GOLD}" stroke-width="0.9" fill="rgba(184,154,94,0.15)"/>`}).join('')}
+      <polygon points="118,32 130,48 118,58 106,48" stroke="${GOLD}" stroke-width="1.4" fill="rgba(184,154,94,0.1)"/>
+    </svg>`,
+
+    'The Celeste Drop': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left drop -->
+      <circle cx="62" cy="10" r="4" stroke="${GOLD2}" stroke-width="1.5" fill="none"/>
+      <line x1="62" y1="14" x2="62" y2="28" stroke="${GOLD2}" stroke-width="1.2"/>
+      <circle cx="62" cy="31" r="3" stroke="${GOLD}" stroke-width="1" fill="rgba(184,154,94,0.2)"/>
+      <line x1="62" y1="34" x2="62" y2="44" stroke="${GOLD}" stroke-width="1"/>
+      <path d="M62 44 C54 44 46 56 46 66 C46 76 54 84 62 84 C70 84 78 76 78 66 C78 56 70 44 62 44Z" stroke="${GOLD}" stroke-width="1.5" fill="rgba(184,154,94,0.08)"/>
+      <line x1="62" y1="44" x2="62" y2="84" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.35"/>
+      <line x1="46" y1="66" x2="78" y2="66" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.35"/>
+      <!-- Right drop -->
+      <circle cx="118" cy="10" r="4" stroke="${GOLD2}" stroke-width="1.5" fill="none"/>
+      <line x1="118" y1="14" x2="118" y2="28" stroke="${GOLD2}" stroke-width="1.2"/>
+      <circle cx="118" cy="31" r="3" stroke="${GOLD}" stroke-width="1" fill="rgba(184,154,94,0.2)"/>
+      <line x1="118" y1="34" x2="118" y2="44" stroke="${GOLD}" stroke-width="1"/>
+      <path d="M118 44 C110 44 102 56 102 66 C102 76 110 84 118 84 C126 84 134 76 134 66 C134 56 126 44 118 44Z" stroke="${GOLD}" stroke-width="1.5" fill="rgba(184,154,94,0.08)"/>
+      <line x1="118" y1="44" x2="118" y2="84" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.35"/>
+      <line x1="102" y1="66" x2="134" y2="66" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.35"/>
+    </svg>`,
+
+    'The Luna Pavé Hoop': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left hoop -->
+      <circle cx="62" cy="55" r="36" stroke="${GOLD2}" stroke-width="1.2" stroke-opacity="0.3" fill="none"/>
+      <path d="M26 55 A36 36 0 0 1 98 55" stroke="${GOLD2}" stroke-width="5" fill="none" stroke-linecap="round"/>
+      ${[-70,-50,-30,-10,10,30,50,70].map(d=>{const a=d*Math.PI/180;return `<circle cx="${62+36*Math.cos(a+Math.PI/2)}" cy="${55+36*Math.sin(a+Math.PI/2)-36}" r="2.5" fill="${GOLD}" opacity="0.0"/>`}).join('')}
+      ${Array.from({length:9},(_,i)=>{const a=(i-4)*18*Math.PI/180;const cx=62+36*Math.sin(a);const cy=55-36*Math.cos(a);if(cy<55) return `<circle cx="${cx}" cy="${cy}" r="2.8" stroke="${GOLD}" stroke-width="1" fill="rgba(184,154,94,0.25)"/>`;return '';}).join('')}
+      <line x1="62" y1="91" x2="62" y2="100" stroke="${GOLD2}" stroke-width="1.5" stroke-opacity="0.5"/>
+      <!-- Right hoop -->
+      <circle cx="118" cy="55" r="36" stroke="${GOLD2}" stroke-width="1.2" stroke-opacity="0.3" fill="none"/>
+      <path d="M82 55 A36 36 0 0 1 154 55" stroke="${GOLD2}" stroke-width="5" fill="none" stroke-linecap="round"/>
+      ${Array.from({length:9},(_,i)=>{const a=(i-4)*18*Math.PI/180;const cx=118+36*Math.sin(a);const cy=55-36*Math.cos(a);if(cy<55) return `<circle cx="${cx}" cy="${cy}" r="2.8" stroke="${GOLD}" stroke-width="1" fill="rgba(184,154,94,0.25)"/>`;return '';}).join('')}
+      <line x1="118" y1="91" x2="118" y2="100" stroke="${GOLD2}" stroke-width="1.5" stroke-opacity="0.5"/>
+    </svg>`,
+
+    // ── Bracelet SVGs ──
+    'The Aria Tennis': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 72 Q90 40 164 72" stroke="${GOLD2}" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M16 80 Q90 48 164 80" stroke="${GOLD2}" stroke-width="1.5" fill="none" stroke-opacity="0.4" stroke-linecap="round"/>
+      ${Array.from({length:11},(_,i)=>{const t=i/10;const x=16+t*148;const y=72-(Math.sin(t*Math.PI)*32);return `<polygon points="${x},${y-12} ${x+7},${y} ${x},${y+5} ${x-7},${y}" stroke="${GOLD}" stroke-width="1" fill="rgba(184,154,94,0.12)"/>`;}).join('')}
+      <!-- Clasp -->
+      <rect x="2" y="68" width="10" height="12" rx="2" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.1)"/>
+      <rect x="168" y="68" width="10" height="12" rx="2" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.1)"/>
+    </svg>`,
+
+    'The Soleil Pavé Bangle': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="90" cy="62" rx="72" ry="28" stroke="${GOLD2}" stroke-width="2.5" fill="none"/>
+      <ellipse cx="90" cy="62" rx="72" ry="28" stroke="${GOLD2}" stroke-width="6" stroke-opacity="0.15" fill="none"/>
+      <!-- Pavé top face -->
+      ${Array.from({length:13},(_,i)=>{const t=(i/12)*Math.PI;const x=90-72*Math.cos(t);const y=62-28*Math.sin(t);if(Math.sin(t)>0.15) return `<circle cx="${x}" cy="${y}" r="3" stroke="${GOLD}" stroke-width="1" fill="rgba(184,154,94,0.25)"/>`;return '';}).join('')}
+      <ellipse cx="90" cy="62" rx="58" ry="20" stroke="${GOLD2}" stroke-width="1" stroke-opacity="0.3" fill="none"/>
+    </svg>`,
+
+    'The Devi Station': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Chain -->
+      <path d="M10 55 Q90 48 170 55" stroke="${GOLD2}" stroke-width="1.5" fill="none" stroke-dasharray="4 3"/>
+      <!-- 7 station diamonds -->
+      ${[16,40,64,90,116,140,164].map((x,i)=>{const y=55-Math.sin((i/6)*Math.PI)*10;return `<polygon points="${x},${y-10} ${x+7},${y} ${x},${y+5} ${x-7},${y}" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.15)"/><line x1="${x}" y1="${y-10}" x2="${x}" y2="${y+5}" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/><line x1="${x-7}" y1="${y}" x2="${x+7}" y2="${y}" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>`;}).join('')}
+      <!-- Clasp -->
+      <circle cx="5" cy="55" r="4" stroke="${GOLD}" stroke-width="1.2" fill="none"/>
+      <circle cx="175" cy="55" r="4" stroke="${GOLD}" stroke-width="1.2" fill="none"/>
+    </svg>`,
+
     'The Nova Vintage Filigree': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Filigree band shoulders -->
       <path d="M20 96 Q50 82 70 70" stroke="${GOLD2}" stroke-width="2.5" fill="none"/>
@@ -1390,7 +1525,9 @@
   ];
 
   const SETTINGS = [
+    // ── Rings ──
     {
+      type: "Ring",
       name: "The Sienna Solitaire",
       style: "Solitaire",
       description: "Classic four-prong low-profile setting engineered for maximum light transfer. A sleek tapered band with micro-claw prongs — the purest expression of the stone.",
@@ -1398,6 +1535,7 @@
       metals: ["18K Yellow Gold", "18K White Gold", "18K Rose Gold", "950 Platinum"],
     },
     {
+      type: "Ring",
       name: "The Zia Cathedral Halo",
       style: "Halo",
       description: "Floating micro-pavé circular halo framing the centre gem, with a dramatic cathedral shoulder rise and a hidden diamond row beneath the basket collar.",
@@ -1405,6 +1543,7 @@
       metals: ["18K Yellow Gold", "18K White Gold", "18K Rose Gold", "950 Platinum"],
     },
     {
+      type: "Ring",
       name: "The Amara Trilogy",
       style: "Trilogy",
       description: "A three-stone classic flanked by hand-selected pear-cut lab diamonds — representing your past, present, and future together.",
@@ -1412,6 +1551,7 @@
       metals: ["18K Yellow Gold", "18K White Gold", "950 Platinum"],
     },
     {
+      type: "Ring",
       name: "The Lana Petite Pavé",
       style: "Pavé",
       description: "A continuous row of scalloped pavé diamonds running halfway down the band, adding extraordinary brilliance and pairing perfectly with stackable wedding bands.",
@@ -1419,11 +1559,77 @@
       metals: ["18K Yellow Gold", "18K White Gold", "18K Rose Gold", "950 Platinum"],
     },
     {
+      type: "Ring",
       name: "The Nova Vintage Filigree",
       style: "Vintage Filigree",
       description: "Master-crafted with milgrain lace, hand-engraved scrollwork, and a filigree undergarment drawing from South Asian Royal heritage. Our most storied setting.",
       basePrice: 1950,
       metals: ["18K Yellow Gold", "18K White Gold", "950 Platinum"],
+    },
+    // ── Earrings ──
+    {
+      type: "Earring",
+      name: "The Cleo Stud",
+      style: "Stud",
+      description: "A timeless four-prong stud setting, matched as a pair from a single parcel for colour and clarity consistency. The everyday luxury earring, perfected.",
+      basePrice: 650,
+      metals: ["18K Yellow Gold", "18K White Gold", "18K Rose Gold", "950 Platinum"],
+      note: "Priced per pair",
+    },
+    {
+      type: "Earring",
+      name: "The Isla Halo Stud",
+      style: "Halo Stud",
+      description: "A micro-pavé halo encircles the centre stone on each ear, multiplying brilliance dramatically. Matched pairs selected for precise optical consistency.",
+      basePrice: 1100,
+      metals: ["18K Yellow Gold", "18K White Gold", "18K Rose Gold", "950 Platinum"],
+      note: "Priced per pair",
+    },
+    {
+      type: "Earring",
+      name: "The Celeste Drop",
+      style: "Drop",
+      description: "An elegant suspended drop — a bezel-set oval or pear diamond on a fine chain link, moving with the wearer. Modern, architectural, and effortlessly sophisticated.",
+      basePrice: 1400,
+      metals: ["18K Yellow Gold", "18K White Gold", "950 Platinum"],
+      note: "Priced per pair",
+    },
+    {
+      type: "Earring",
+      name: "The Luna Pavé Hoop",
+      style: "Pavé Hoop",
+      description: "A slender hoop encrusted with hand-set pavé lab diamonds across the front face. Available in 14mm and 18mm diameters — radiant from every angle.",
+      basePrice: 1800,
+      metals: ["18K Yellow Gold", "18K White Gold", "18K Rose Gold"],
+      note: "Priced per pair",
+    },
+    // ── Bracelets ──
+    {
+      type: "Bracelet",
+      name: "The Aria Tennis",
+      style: "Tennis",
+      description: "The definitive lab-grown diamond tennis bracelet — a continuous line of matched round brilliants in a four-prong setting, graduating seamlessly around the wrist.",
+      basePrice: 2800,
+      metals: ["18K Yellow Gold", "18K White Gold", "950 Platinum"],
+      note: "Approx. 3–5ct total weight, 7\" length",
+    },
+    {
+      type: "Bracelet",
+      name: "The Soleil Pavé Bangle",
+      style: "Pavé Bangle",
+      description: "A solid oval bangle with a continuous pavé diamond channel across the top face. Substantial and sculptural — equally at home alone or stacked.",
+      basePrice: 2200,
+      metals: ["18K Yellow Gold", "18K White Gold", "18K Rose Gold"],
+      note: "Approx. 1.2ct total weight",
+    },
+    {
+      type: "Bracelet",
+      name: "The Devi Station",
+      style: "Station",
+      description: "Seven individually bezel-set diamonds float along a fine-gauge chain, inspired by the traditional South Asian mangalsutra. Heritage reinterpreted for daily wear.",
+      basePrice: 1600,
+      metals: ["18K Yellow Gold", "18K White Gold"],
+      note: "7 stations · 0.7ct total weight",
     },
   ];
 
@@ -1517,21 +1723,37 @@
 
   // ── RENDER SETTINGS ────────────────────────────────────────────────────────
 
-  document.getElementById('settingsGrid').innerHTML = SETTINGS.map(s => `
-    <div class="setting-card">
-      <div class="setting-illustration">${SETTING_SVG[s.name] || ''}</div>
-      <div class="setting-style-tag">${s.style}</div>
-      <h3>${s.name}</h3>
-      <p>${s.description}</p>
-      <div class="setting-card-footer">
-        <div class="setting-price">
-          <span>Setting from</span>
-          $${s.basePrice.toLocaleString()} USD
+  let activeJewelleryType = 'Ring';
+
+  function renderSettings() {
+    const filtered = SETTINGS.filter(s => s.type === activeJewelleryType);
+    document.getElementById('settingsGrid').innerHTML = filtered.map(s => `
+      <div class="setting-card">
+        <div class="setting-illustration">${SETTING_SVG[s.name] || ''}</div>
+        <div class="setting-style-tag">${s.style}</div>
+        <h3>${s.name}</h3>
+        <p>${s.description}</p>
+        <div class="setting-card-footer">
+          <div class="setting-price">
+            <span>${s.note ? s.note : 'Setting from'}</span>
+            $${s.basePrice.toLocaleString()} USD
+          </div>
+          <div class="setting-metals">${s.metals.slice(0,2).join(' · ')}<br>${s.metals.slice(2).join(' · ')}</div>
         </div>
-        <div class="setting-metals">${s.metals.slice(0,2).join(' · ')}<br>${s.metals.slice(2).join(' · ')}</div>
       </div>
-    </div>
-  `).join('');
+    `).join('');
+  }
+
+  renderSettings();
+
+  document.querySelectorAll('.jewellery-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.jewellery-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      activeJewelleryType = tab.dataset.type;
+      renderSettings();
+    });
+  });
 
   // ── RENDER FAQ ─────────────────────────────────────────────────────────────
 
