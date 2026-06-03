@@ -42,6 +42,17 @@
     }
 
     .logo {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      line-height: 1;
+    }
+
+    .logo svg { display: block; }
+
+    /* Legacy text logo fallback (footer) */
+    .logo-text {
+      font-family: 'Georgia', 'Times New Roman', serif;
       font-size: 1.35rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
@@ -49,7 +60,7 @@
       text-decoration: none;
     }
 
-    .logo span { color: var(--gold); }
+    .logo-text span { color: var(--gold); }
 
     .nav-links {
       display: flex;
@@ -944,7 +955,50 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="logo">Luvia <span>Nova</span></a>
+  <a href="#" class="logo" aria-label="Luvia Nova">
+    <svg width="200" height="48" viewBox="0 0 400 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Logomark: faceted diamond octagon -->
+      <polygon points="44,6 60,6 72,18 72,42 60,54 44,54 32,42 32,18" stroke="#b89a5e" stroke-width="1.5" fill="none"/>
+      <polygon points="47,13 57,13 67,23 67,37 57,47 47,47 37,37 37,23" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.55" fill="none"/>
+      <!-- Cardinal facet lines -->
+      <line x1="52" y1="6"  x2="52" y2="13" stroke="#b89a5e" stroke-width="0.9" stroke-opacity="0.7"/>
+      <line x1="52" y1="47" x2="52" y2="54" stroke="#b89a5e" stroke-width="0.9" stroke-opacity="0.7"/>
+      <line x1="32" y1="30" x2="37" y2="30" stroke="#b89a5e" stroke-width="0.9" stroke-opacity="0.7"/>
+      <line x1="67" y1="30" x2="72" y2="30" stroke="#b89a5e" stroke-width="0.9" stroke-opacity="0.7"/>
+      <!-- Corner facet lines -->
+      <line x1="44" y1="6"  x2="47" y2="13" stroke="#b89a5e" stroke-width="0.75" stroke-opacity="0.5"/>
+      <line x1="60" y1="6"  x2="57" y2="13" stroke="#b89a5e" stroke-width="0.75" stroke-opacity="0.5"/>
+      <line x1="72" y1="18" x2="67" y2="23" stroke="#b89a5e" stroke-width="0.75" stroke-opacity="0.5"/>
+      <line x1="72" y1="42" x2="67" y2="37" stroke="#b89a5e" stroke-width="0.75" stroke-opacity="0.5"/>
+      <line x1="60" y1="54" x2="57" y2="47" stroke="#b89a5e" stroke-width="0.75" stroke-opacity="0.5"/>
+      <line x1="44" y1="54" x2="47" y2="47" stroke="#b89a5e" stroke-width="0.75" stroke-opacity="0.5"/>
+      <line x1="32" y1="42" x2="37" y2="37" stroke="#b89a5e" stroke-width="0.75" stroke-opacity="0.5"/>
+      <line x1="32" y1="18" x2="37" y2="23" stroke="#b89a5e" stroke-width="0.75" stroke-opacity="0.5"/>
+      <!-- Star rays from centre -->
+      <line x1="52" y1="30" x2="52" y2="13" stroke="#b89a5e" stroke-width="0.55" stroke-opacity="0.3"/>
+      <line x1="52" y1="30" x2="52" y2="47" stroke="#b89a5e" stroke-width="0.55" stroke-opacity="0.3"/>
+      <line x1="52" y1="30" x2="37" y2="30" stroke="#b89a5e" stroke-width="0.55" stroke-opacity="0.3"/>
+      <line x1="52" y1="30" x2="67" y2="30" stroke="#b89a5e" stroke-width="0.55" stroke-opacity="0.3"/>
+      <line x1="52" y1="30" x2="47" y2="13" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
+      <line x1="52" y1="30" x2="57" y2="13" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
+      <line x1="52" y1="30" x2="67" y2="23" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
+      <line x1="52" y1="30" x2="67" y2="37" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
+      <line x1="52" y1="30" x2="57" y2="47" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
+      <line x1="52" y1="30" x2="47" y2="47" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
+      <line x1="52" y1="30" x2="37" y2="37" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
+      <line x1="52" y1="30" x2="37" y2="23" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
+      <!-- Centre gem point -->
+      <circle cx="52" cy="30" r="2" fill="#b89a5e" opacity="0.45"/>
+      <circle cx="52" cy="30" r="0.9" fill="#d4b97a"/>
+      <!-- Wordmark -->
+      <text x="88" y="36" font-family="Georgia,'Times New Roman',serif" font-size="22" font-weight="400" letter-spacing="5" fill="#1a1a1a">LUVIA</text>
+      <text x="175" y="36" font-family="Georgia,'Times New Roman',serif" font-size="22" font-weight="400" letter-spacing="5" fill="#b89a5e">NOVA</text>
+      <!-- Rule -->
+      <line x1="88" y1="42" x2="270" y2="42" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.45"/>
+      <!-- Tagline -->
+      <text x="88" y="52" font-family="'Helvetica Neue',Arial,sans-serif" font-size="5.5" font-weight="400" letter-spacing="2.5" fill="#6b6560">MODERN BRILLIANCE. ANCIENT SOUL.</text>
+    </svg>
+  </a>
   <ul class="nav-links">
     <li><a href="#philosophy">Philosophy</a></li>
     <li><a href="#diamonds">Diamonds</a></li>
@@ -1179,7 +1233,34 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <a href="#" class="logo">Luvia <span>Nova</span></a>
+      <a href="#" class="logo" aria-label="Luvia Nova">
+        <svg width="180" height="44" viewBox="0 0 400 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="44,6 60,6 72,18 72,42 60,54 44,54 32,42 32,18" stroke="#d4b97a" stroke-width="1.5" fill="none"/>
+          <polygon points="47,13 57,13 67,23 67,37 57,47 47,47 37,37 37,23" stroke="#d4b97a" stroke-width="0.8" stroke-opacity="0.55" fill="none"/>
+          <line x1="52" y1="6"  x2="52" y2="13" stroke="#d4b97a" stroke-width="0.9" stroke-opacity="0.7"/>
+          <line x1="52" y1="47" x2="52" y2="54" stroke="#d4b97a" stroke-width="0.9" stroke-opacity="0.7"/>
+          <line x1="32" y1="30" x2="37" y2="30" stroke="#d4b97a" stroke-width="0.9" stroke-opacity="0.7"/>
+          <line x1="67" y1="30" x2="72" y2="30" stroke="#d4b97a" stroke-width="0.9" stroke-opacity="0.7"/>
+          <line x1="44" y1="6"  x2="47" y2="13" stroke="#d4b97a" stroke-width="0.75" stroke-opacity="0.5"/>
+          <line x1="60" y1="6"  x2="57" y2="13" stroke="#d4b97a" stroke-width="0.75" stroke-opacity="0.5"/>
+          <line x1="72" y1="18" x2="67" y2="23" stroke="#d4b97a" stroke-width="0.75" stroke-opacity="0.5"/>
+          <line x1="72" y1="42" x2="67" y2="37" stroke="#d4b97a" stroke-width="0.75" stroke-opacity="0.5"/>
+          <line x1="60" y1="54" x2="57" y2="47" stroke="#d4b97a" stroke-width="0.75" stroke-opacity="0.5"/>
+          <line x1="44" y1="54" x2="47" y2="47" stroke="#d4b97a" stroke-width="0.75" stroke-opacity="0.5"/>
+          <line x1="32" y1="42" x2="37" y2="37" stroke="#d4b97a" stroke-width="0.75" stroke-opacity="0.5"/>
+          <line x1="32" y1="18" x2="37" y2="23" stroke="#d4b97a" stroke-width="0.75" stroke-opacity="0.5"/>
+          <line x1="52" y1="30" x2="52" y2="13" stroke="#d4b97a" stroke-width="0.5" stroke-opacity="0.28"/>
+          <line x1="52" y1="30" x2="52" y2="47" stroke="#d4b97a" stroke-width="0.5" stroke-opacity="0.28"/>
+          <line x1="52" y1="30" x2="37" y2="30" stroke="#d4b97a" stroke-width="0.5" stroke-opacity="0.28"/>
+          <line x1="52" y1="30" x2="67" y2="30" stroke="#d4b97a" stroke-width="0.5" stroke-opacity="0.28"/>
+          <circle cx="52" cy="30" r="1.8" fill="#d4b97a" opacity="0.4"/>
+          <circle cx="52" cy="30" r="0.8" fill="#edd99a"/>
+          <text x="88" y="36" font-family="Georgia,'Times New Roman',serif" font-size="22" font-weight="400" letter-spacing="5" fill="white">LUVIA</text>
+          <text x="175" y="36" font-family="Georgia,'Times New Roman',serif" font-size="22" font-weight="400" letter-spacing="5" fill="#d4b97a">NOVA</text>
+          <line x1="88" y1="42" x2="270" y2="42" stroke="#d4b97a" stroke-width="0.5" stroke-opacity="0.35"/>
+          <text x="88" y="52" font-family="'Helvetica Neue',Arial,sans-serif" font-size="5.5" font-weight="400" letter-spacing="2.5" fill="rgba(255,255,255,0.35)">MODERN BRILLIANCE. ANCIENT SOUL.</text>
+        </svg>
+      </a>
       <p>High-end lab-grown diamonds, made to order. Serving North America with an emphasis on the South Asian and Middle Eastern diaspora.</p>
     </div>
     <div class="footer-col">

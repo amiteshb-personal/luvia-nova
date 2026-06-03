@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 160" fill="none">
+  <!-- ── LOGOMARK ── -->
+  <!-- Outer octagon (table facet) -->
+  <polygon
+    points="68,18 92,18 110,36 110,60 92,78 68,78 50,60 50,36"
+    stroke="#b89a5e" stroke-width="1.4" fill="none"/>
+  <!-- Mid ring (bezel facet) -->
+  <polygon
+    points="72,26 88,26 102,40 102,56 88,70 72,70 58,56 58,40"
+    stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.6" fill="none"/>
+  <!-- Centre star facets -->
+  <line x1="80" y1="18" x2="80" y2="26" stroke="#b89a5e" stroke-width="0.9" stroke-opacity="0.7"/>
+  <line x1="80" y1="70" x2="80" y2="78" stroke="#b89a5e" stroke-width="0.9" stroke-opacity="0.7"/>
+  <line x1="50" y1="48" x2="58" y2="48" stroke="#b89a5e" stroke-width="0.9" stroke-opacity="0.7"/>
+  <line x1="102" y1="48" x2="110" y2="48" stroke="#b89a5e" stroke-width="0.9" stroke-opacity="0.7"/>
+  <line x1="68" y1="18" x2="72" y2="26" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.55"/>
+  <line x1="92" y1="18" x2="88" y2="26" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.55"/>
+  <line x1="110" y1="36" x2="102" y2="40" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.55"/>
+  <line x1="110" y1="60" x2="102" y2="56" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.55"/>
+  <line x1="92" y1="78" x2="88" y2="70" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.55"/>
+  <line x1="68" y1="78" x2="72" y2="70" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.55"/>
+  <line x1="50" y1="60" x2="58" y2="56" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.55"/>
+  <line x1="50" y1="36" x2="58" y2="40" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.55"/>
+  <!-- Star rays from centre -->
+  <line x1="80" y1="48" x2="80" y2="26" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.35"/>
+  <line x1="80" y1="48" x2="80" y2="70" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.35"/>
+  <line x1="80" y1="48" x2="58" y2="48" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.35"/>
+  <line x1="80" y1="48" x2="102" y2="48" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.35"/>
+  <line x1="80" y1="48" x2="72" y2="26" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.3"/>
+  <line x1="80" y1="48" x2="88" y2="26" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.3"/>
+  <line x1="80" y1="48" x2="102" y2="40" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.3"/>
+  <line x1="80" y1="48" x2="102" y2="56" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.3"/>
+  <line x1="80" y1="48" x2="88" y2="70" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.3"/>
+  <line x1="80" y1="48" x2="72" y2="70" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.3"/>
+  <line x1="80" y1="48" x2="58" y2="56" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.3"/>
+  <line x1="80" y1="48" x2="58" y2="40" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.3"/>
+  <!-- Centre point glow -->
+  <circle cx="80" cy="48" r="2.5" fill="#b89a5e" opacity="0.5"/>
+  <circle cx="80" cy="48" r="1.2" fill="#d4b97a"/>
+
+  <!-- ── WORDMARK ── -->
+  <!-- LUVIA -->
+  <text
+    x="132" y="52"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="32"
+    font-weight="400"
+    letter-spacing="8"
+    fill="#1a1a1a">LUVIA</text>
+  <!-- NOVA in gold -->
+  <text
+    x="132" y="52"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="32"
+    font-weight="400"
+    letter-spacing="8"
+    fill="none"
+    stroke="none">
+  </text>
+  <text
+    x="246" y="52"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="32"
+    font-weight="400"
+    letter-spacing="8"
+    fill="#b89a5e">NOVA</text>
+
+  <!-- Thin rule under wordmark -->
+  <line x1="132" y1="60" x2="370" y2="60" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.5"/>
+
+  <!-- Tagline -->
+  <text
+    x="132" y="76"
+    font-family="'Helvetica Neue', Arial, sans-serif"
+    font-size="7.5"
+    font-weight="400"
+    letter-spacing="3.5"
+    fill="#6b6560">MODERN BRILLIANCE. ANCIENT SOUL.</text>
+</svg>
