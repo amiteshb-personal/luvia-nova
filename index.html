@@ -1242,6 +1242,158 @@
       .timeslots-grid { grid-template-columns: repeat(4, 1fr); }
     }
 
+    /* ── POLICY AGREEMENT ── */
+    .policy-agreement {
+      margin-top: 16px;
+      border: 1px solid rgba(184,154,94,0.25);
+      background: rgba(255,255,255,0.02);
+    }
+    .policy-agreement-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(184,154,94,0.15);
+    }
+    .policy-agreement-header span {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+    }
+    .policy-required-badge {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: white;
+      background: rgba(184,154,94,0.5);
+      padding: 2px 8px;
+    }
+    .policy-text {
+      max-height: 160px;
+      overflow-y: auto;
+      padding: 16px 18px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.8;
+      border-bottom: 1px solid rgba(184,154,94,0.12);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(184,154,94,0.3) transparent;
+    }
+    .policy-text::-webkit-scrollbar { width: 4px; }
+    .policy-text::-webkit-scrollbar-track { background: transparent; }
+    .policy-text::-webkit-scrollbar-thumb { background: rgba(184,154,94,0.3); border-radius: 2px; }
+    .policy-text p { margin-bottom: 10px; }
+    .policy-text p:last-child { margin-bottom: 0; }
+    .policy-text strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+
+    .policy-sign-area { padding: 16px 18px; }
+    .policy-sign-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 12px;
+      border: 1px solid rgba(184,154,94,0.2);
+      width: fit-content;
+    }
+    .policy-sign-tab {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      background: none;
+      border: none;
+      border-right: 1px solid rgba(184,154,94,0.2);
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .policy-sign-tab:last-child { border-right: none; }
+    .policy-sign-tab.active { background: rgba(184,154,94,0.15); color: var(--gold-light); }
+
+    /* Draw signature */
+    .sig-canvas-wrap {
+      position: relative;
+      border: 1px solid rgba(184,154,94,0.25);
+      background: rgba(255,255,255,0.04);
+      border-radius: 0;
+    }
+    #sigCanvas {
+      display: block;
+      width: 100%;
+      height: 80px;
+      cursor: crosshair;
+      touch-action: none;
+    }
+    .sig-canvas-label {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.18);
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .sig-canvas-label.hidden { opacity: 0; }
+    .sig-clear {
+      background: none;
+      border: none;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.25);
+      cursor: pointer;
+      padding: 6px 0 0;
+      transition: color 0.2s;
+    }
+    .sig-clear:hover { color: var(--gold-light); }
+
+    /* Type signature */
+    .sig-type-input {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(184,154,94,0.25);
+      color: white;
+      padding: 14px 16px;
+      font-family: 'Georgia', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      letter-spacing: 0.03em;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .sig-type-input::placeholder { color: rgba(255,255,255,0.2); font-style: italic; font-size: 0.82rem; }
+    .sig-type-input:focus { border-color: var(--gold); }
+
+    .policy-checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .policy-checkbox-row input[type="checkbox"] {
+      margin-top: 2px;
+      width: 15px;
+      height: 15px;
+      accent-color: var(--gold);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .policy-checkbox-row label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.6;
+      cursor: pointer;
+    }
+    .policy-checkbox-row label strong { color: rgba(255,255,255,0.7); }
+
     /* ── PRICING POLICY BAR ── */
     .pricing-policy-bar {
       display: flex;
@@ -2121,11 +2273,57 @@
               <option>I'm not sure yet — I'd like guidance</option>
             </select>
             <textarea id="bkMessage" placeholder="Tell us about your vision, timeline, or any questions…" style="min-height:90px;"></textarea>
-            <button type="submit" id="bkSubmitBtn">Confirm Booking</button>
+            <!-- Policy Agreement -->
+            <div class="policy-agreement">
+              <div class="policy-agreement-header">
+                <span>Sales Terms &amp; No-Return Policy</span>
+                <span class="policy-required-badge">Signature Required</span>
+              </div>
+              <div class="policy-text">
+                <p><strong>Made-to-Order &amp; Non-Returnable</strong><br>
+                Every Luvia Nova piece is made entirely to order — your chosen stone, your chosen setting, cast and finished specifically for you. As a result, we are unable to accept returns, exchanges, or cancellations once production has commenced.</p>
+                <p><strong>Consultation &amp; Confirmation</strong><br>
+                All clients are encouraged to take the time they need during the consultation and stone-selection process to feel completely confident before confirming their order. If you have any uncertainty at any stage, please raise it with your consultant before giving final approval. We are committed to getting every detail right the first time.</p>
+                <p><strong>Pricing</strong><br>
+                Diamond prices and metal costs are quoted individually at consultation, reflecting live market rates at the time of order confirmation. Setting prices shown on this site are indicative only and subject to change with prevailing gold and platinum spot prices. Your confirmed total price will be stated in writing before production commences.</p>
+                <p><strong>Production Timeline</strong><br>
+                Stone selection typically takes 3–7 days from consultation. Setting manufacture and finishing takes a further 3–5 weeks depending on complexity. We will provide regular updates throughout and can accommodate urgent timelines where possible.</p>
+                <p><strong>Certification</strong><br>
+                All diamonds above 1.0ct are GIA or IGI certified unless the client explicitly opts for an uncertified stone at consultation. Uncertified stones carry a reduced price but do not include a third-party grading report.</p>
+                <p><strong>Governing Law</strong><br>
+                These terms are governed by the laws of the Province of Ontario, Canada, and applicable federal Canadian consumer protection legislation. Any disputes shall be resolved in accordance with those laws.</p>
+              </div>
+              <div class="policy-sign-area">
+                <div class="policy-sign-tabs">
+                  <button type="button" class="policy-sign-tab active" onclick="setSigMode('draw')">Draw Signature</button>
+                  <button type="button" class="policy-sign-tab" onclick="setSigMode('type')">Type Signature</button>
+                </div>
+
+                <!-- Draw mode -->
+                <div id="sigDrawMode">
+                  <div class="sig-canvas-wrap">
+                    <canvas id="sigCanvas"></canvas>
+                    <span class="sig-canvas-label" id="sigCanvasLabel">Sign here with mouse or touch</span>
+                  </div>
+                  <button type="button" class="sig-clear" onclick="clearSignature()">✕ Clear signature</button>
+                </div>
+
+                <!-- Type mode -->
+                <div id="sigTypeMode" style="display:none;">
+                  <input class="sig-type-input" id="sigTypeInput" type="text"
+                         placeholder="Type your full name as signature"
+                         oninput="onTypedSignatureInput()">
+                </div>
+
+                <div class="policy-checkbox-row">
+                  <input type="checkbox" id="policyCheckbox" onchange="updateSubmitBtn()">
+                  <label for="policyCheckbox">I have read and understood the above Sales Terms &amp; No-Return Policy. I acknowledge that my order, once confirmed in writing, is <strong>non-cancellable and non-returnable</strong>, and I agree to be bound by these terms.</label>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" id="bkSubmitBtn" disabled>Confirm Booking</button>
             <p class="form-note">Your details are kept strictly private. We do not share or sell your information.</p>
-            <p class="form-note" style="margin-top:8px;border-top:1px solid rgba(184,154,94,0.15);padding-top:12px;">
-              All pieces are made entirely to order and are non-returnable once production commences. Diamond and metal pricing is confirmed at consultation, reflecting live market rates at the time of your order.
-            </p>
           </form>
         </div>
 
@@ -2956,6 +3154,103 @@
   // Initialise calendar
   renderCalendar();
 
+  // ── SIGNATURE PAD ───────────────────────────────────────────────────────────
+  let sigMode      = 'draw';
+  let sigDrawn     = false;
+  let sigDrawing   = false;
+  let sigLastX     = 0;
+  let sigLastY     = 0;
+
+  function initSigCanvas() {
+    const canvas = document.getElementById('sigCanvas');
+    if (!canvas) return;
+    // Set actual pixel dimensions
+    const rect = canvas.getBoundingClientRect();
+    canvas.width  = rect.width  || 400;
+    canvas.height = 80;
+    const ctx = canvas.getContext('2d');
+    ctx.strokeStyle = '#d4b97a';
+    ctx.lineWidth   = 1.8;
+    ctx.lineCap     = 'round';
+    ctx.lineJoin    = 'round';
+
+    function getPos(e) {
+      const r = canvas.getBoundingClientRect();
+      const src = e.touches ? e.touches[0] : e;
+      return { x: src.clientX - r.left, y: src.clientY - r.top };
+    }
+    function startDraw(e) {
+      e.preventDefault();
+      sigDrawing = true;
+      const pos = getPos(e);
+      sigLastX = pos.x; sigLastY = pos.y;
+    }
+    function draw(e) {
+      if (!sigDrawing) return;
+      e.preventDefault();
+      const pos = getPos(e);
+      ctx.beginPath();
+      ctx.moveTo(sigLastX, sigLastY);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+      sigLastX = pos.x; sigLastY = pos.y;
+      if (!sigDrawn) {
+        sigDrawn = true;
+        document.getElementById('sigCanvasLabel').classList.add('hidden');
+        updateSubmitBtn();
+      }
+    }
+    function endDraw() { sigDrawing = false; }
+
+    canvas.addEventListener('mousedown',  startDraw);
+    canvas.addEventListener('mousemove',  draw);
+    canvas.addEventListener('mouseup',    endDraw);
+    canvas.addEventListener('mouseleave', endDraw);
+    canvas.addEventListener('touchstart', startDraw, { passive: false });
+    canvas.addEventListener('touchmove',  draw,      { passive: false });
+    canvas.addEventListener('touchend',   endDraw);
+  }
+
+  function clearSignature() {
+    const canvas = document.getElementById('sigCanvas');
+    const ctx    = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    sigDrawn = false;
+    document.getElementById('sigCanvasLabel').classList.remove('hidden');
+    updateSubmitBtn();
+  }
+
+  function setSigMode(mode) {
+    sigMode = mode;
+    document.querySelectorAll('.policy-sign-tab').forEach(t =>
+      t.classList.toggle('active', t.textContent.toLowerCase().includes(mode)));
+    document.getElementById('sigDrawMode').style.display = mode === 'draw' ? 'block' : 'none';
+    document.getElementById('sigTypeMode').style.display = mode === 'type' ? 'block' : 'none';
+    updateSubmitBtn();
+  }
+
+  function onTypedSignatureInput() { updateSubmitBtn(); }
+
+  function hasValidSignature() {
+    if (sigMode === 'draw') return sigDrawn;
+    return document.getElementById('sigTypeInput').value.trim().length > 1;
+  }
+
+  function getSignatureValue() {
+    if (sigMode === 'type') return document.getElementById('sigTypeInput').value.trim();
+    return sigDrawn ? '[Drawn signature — on file]' : '';
+  }
+
+  function updateSubmitBtn() {
+    const checked = document.getElementById('policyCheckbox')?.checked;
+    const signed  = hasValidSignature();
+    const btn     = document.getElementById('bkSubmitBtn');
+    if (btn) btn.disabled = !(checked && signed);
+  }
+
+  // Init signature pad once DOM is ready
+  window.addEventListener('load', () => setTimeout(initSigCanvas, 100));
+
   // ── BOOKING SUBMISSION ───────────────────────────────────────────────────────
   async function submitBooking(e) {
     e.preventDefault();
@@ -2984,6 +3279,8 @@
       booking_time: `${selectedTime} EST`,
       interest:     interest || 'Not specified',
       message:      message  || 'No additional notes',
+      signature:    getSignatureValue(),
+      policy_agreed: 'Yes — customer signed and accepted no-return policy',
       to_email:     'hello@luvianova.com',
     };
 
@@ -2996,7 +3293,7 @@
       const success = document.getElementById('bookingSuccess');
       success.classList.add('visible');
       document.getElementById('bookingSuccessDetail').textContent =
-        `${firstName}, your consultation is scheduled for ${dateStr} at ${selectedTime} EST.`;
+        `${firstName}, your consultation is scheduled for ${dateStr} at ${selectedTime} EST. Your signed acknowledgement of our sales terms has been recorded.`;
     } catch (err) {
       console.error('EmailJS error:', err);
       btn.textContent = 'Confirm Booking';

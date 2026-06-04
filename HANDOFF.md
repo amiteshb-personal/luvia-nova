@@ -104,6 +104,8 @@ luvia-nova/
    - `{{booking_time}}` — selected time slot
    - `{{interest}}` — what they're looking for
    - `{{message}}` — their notes
+   - `{{signature}}` — typed name or "[Drawn signature — on file]"
+   - `{{policy_agreed}}` — confirmation they signed the no-return policy
 4. Copy your **Template ID** and **Public Key** (Account → API Keys)
 5. In `index.html`, replace the three placeholders near the top of the `<script>` block:
    ```js
