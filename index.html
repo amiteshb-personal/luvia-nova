@@ -2214,7 +2214,7 @@
   <div style="max-width:1100px;margin:0 auto;padding:100px 60px;">
     <p class="section-label" style="color:var(--gold-light);">Private Consultation</p>
     <h2 class="section-title" style="color:white;">Schedule Your Consultation</h2>
-    <p class="section-body" style="color:rgba(255,255,255,0.55);">Choose a date and time that suits you. We'll confirm your booking within a few hours and send a calendar invite. Video calls available Mon–Sat, 9am–7pm EST.</p>
+    <p class="section-body" style="color:rgba(255,255,255,0.55);">Choose a date and time that suits you. We'll confirm your booking within a few hours and send a calendar invite. Video calls available 7 days a week, 9am–7pm EST.</p>
 
     <div id="bookingSuccess" class="booking-success">
       <div class="booking-success-icon">◆</div>
@@ -3081,12 +3081,10 @@
 
     for (let d = 1; d <= daysInMonth; d++) {
       const date = new Date(calYear, calMonth, d);
-      const isSunday   = date.getDay() === 0;
       const isPast     = date < today;
       const isToday    = date.getTime() === today.getTime();
       const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
-      // Block Sundays and past dates
-      const disabled   = isSunday || isPast;
+      const disabled   = isPast;
 
       let cls = 'cal-day';
       if (disabled)   cls += ' cal-disabled';
