@@ -89,8 +89,28 @@ luvia-nova/
 - ✅ Mobile nav hamburger menu (slide-in drawer, closes on outside click)
 - ✅ Interactive Ring Builder (3-step: choose diamond → choose setting → see creation + estimate)
 - ✅ 3D CAD Preview request flow (pre-fills consultation form with full selection details)
-- ✅ Virtual consultation booking via Calendly popup (add your Calendly URL to `CALENDLY_URL` in index.html)
+- ✅ Custom built-in booking calendar (date picker + time slots + form, Mon–Sat, 9am–7pm EST)
+- ✅ EmailJS integration for booking notifications (see setup below)
 - ✅ VDB + IDEX API support in `/api/diamonds.js` (provider priority: Nivoda → VDB → IDEX → seed)
+
+## EmailJS Setup (to activate booking emails)
+1. Create a free account at https://www.emailjs.com
+2. Add an **Email Service** (connect your Gmail/Outlook) → copy the **Service ID**
+3. Create an **Email Template** with these variables:
+   - `{{from_name}}` — customer full name
+   - `{{from_email}}` — customer email
+   - `{{phone}}` — customer phone
+   - `{{booking_date}}` — selected date
+   - `{{booking_time}}` — selected time slot
+   - `{{interest}}` — what they're looking for
+   - `{{message}}` — their notes
+4. Copy your **Template ID** and **Public Key** (Account → API Keys)
+5. In `index.html`, replace the three placeholders near the top of the `<script>` block:
+   ```js
+   const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+   const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
+   const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+   ```
 
 ## Still To Do (Phase 3)
 - Shopify migration

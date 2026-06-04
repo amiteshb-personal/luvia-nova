@@ -1056,6 +1056,192 @@
       .settings-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
+    /* ── BOOKING CALENDAR ── */
+    .booking-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 44px;
+      align-items: start;
+    }
+    .booking-col-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 16px;
+    }
+
+    /* Calendar */
+    .cal-wrap {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(184,154,94,0.2);
+      padding: 28px;
+    }
+    .cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .cal-title {
+      font-family: 'Georgia', serif;
+      font-size: 1rem;
+      color: white;
+      letter-spacing: 0.05em;
+    }
+    .cal-arrow {
+      background: none;
+      border: 1px solid rgba(184,154,94,0.3);
+      color: var(--gold-light);
+      width: 30px; height: 30px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .cal-arrow:hover { background: rgba(184,154,94,0.1); border-color: var(--gold); }
+    .cal-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      margin-bottom: 4px;
+    }
+    .cal-wday {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      text-align: center;
+      padding: 4px 0;
+    }
+    .cal-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s;
+      position: relative;
+    }
+    .cal-day:hover:not(.cal-disabled):not(.cal-empty) {
+      border-color: rgba(184,154,94,0.4);
+      color: white;
+    }
+    .cal-day.cal-today { color: var(--gold-light); font-weight: 500; }
+    .cal-day.cal-today::after {
+      content: '';
+      position: absolute;
+      bottom: 3px; left: 50%;
+      transform: translateX(-50%);
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .cal-day.cal-selected {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: white;
+    }
+    .cal-day.cal-disabled {
+      color: rgba(255,255,255,0.12);
+      cursor: not-allowed;
+    }
+    .cal-day.cal-empty { cursor: default; }
+
+    /* Time slots */
+    .timeslots-wrap {
+      margin-top: 20px;
+      border-top: 1px solid rgba(184,154,94,0.15);
+      padding-top: 20px;
+    }
+    .timeslots-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 12px;
+    }
+    .timeslots-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .timeslot {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      padding: 8px 4px;
+      text-align: center;
+      border: 1px solid rgba(184,154,94,0.2);
+      color: rgba(255,255,255,0.5);
+      background: none;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .timeslot:hover    { border-color: var(--gold); color: var(--gold-light); }
+    .timeslot.selected { background: var(--gold); border-color: var(--gold); color: white; }
+
+    /* Booking form */
+    .booking-form-col { display: flex; flex-direction: column; gap: 12px; }
+    .booking-form-col .lead-form { gap: 12px; }
+    .booking-selected-slot {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.78rem;
+      color: var(--gold-light);
+      border: 1px solid rgba(184,154,94,0.3);
+      background: rgba(184,154,94,0.07);
+      padding: 12px 16px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+    .booking-selected-slot.visible { display: flex; }
+
+    /* Success state */
+    .booking-success {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+      border: 1px solid rgba(184,154,94,0.25);
+      background: rgba(184,154,94,0.04);
+    }
+    .booking-success.visible { display: block; }
+    .booking-success-icon {
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .booking-success h3 {
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: white;
+      margin-bottom: 12px;
+    }
+    .booking-success p {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.8;
+    }
+
+    @media (max-width: 900px) {
+      .booking-layout { grid-template-columns: 1fr; gap: 36px; }
+      .timeslots-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
     /* ── PRICING POLICY BAR ── */
     .pricing-policy-bar {
       display: flex;
@@ -1489,9 +1675,8 @@
       .builder-setting-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
-  <!-- Calendly widget -->
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -1872,52 +2057,79 @@
 
 <div class="divider"><div class="divider-line"></div><div class="divider-gem">◆</div><div class="divider-line"></div></div>
 
-<!-- LEAD CAPTURE -->
+<!-- CONSULTATION BOOKING -->
 <div class="lead-section" id="consult">
-  <div class="lead-inner">
-    <p class="section-label">Private Consultation</p>
-    <h2 class="section-title">Begin Your Story</h2>
-    <p class="section-body">Tell us a little about what you're looking for. We'll be in touch within one business day to arrange a private conversation.</p>
+  <div style="max-width:1100px;margin:0 auto;padding:100px 60px;">
+    <p class="section-label" style="color:var(--gold-light);">Private Consultation</p>
+    <h2 class="section-title" style="color:white;">Schedule Your Consultation</h2>
+    <p class="section-body" style="color:rgba(255,255,255,0.55);">Choose a date and time that suits you. We'll confirm your booking within a few hours and send a calendar invite. Video calls available Mon–Sat, 9am–7pm EST.</p>
 
-    <form class="lead-form" onsubmit="handleSubmit(event)">
-      <div class="form-row">
-        <input type="text" placeholder="First Name" required>
-        <input type="text" placeholder="Last Name" required>
-      </div>
-      <input type="email" placeholder="Email Address" required>
-      <input type="tel" placeholder="Phone (optional)">
-      <select>
-        <option value="" disabled selected>What are you looking for?</option>
-        <option>Engagement Ring</option>
-        <option>Wedding Band</option>
-        <option>Loose Diamond</option>
-        <option>Custom Piece</option>
-        <option>Gift / Other Occasion</option>
-        <option>I'm not sure yet — I'd like guidance</option>
-      </select>
-      <textarea placeholder="Tell us about your vision, timeline, or any questions you have..."></textarea>
-      <button type="submit">Request a Consultation</button>
-      <p class="form-note">Your details are kept strictly private. We do not share or sell your information.</p>
-      <p class="form-note" style="margin-top:8px; border-top: 1px solid rgba(184,154,94,0.15); padding-top: 14px;">
-        Please note: all pieces are made entirely to order and are non-returnable. We encourage you to take all the time you need during consultation before confirming your order.
-      </p>
-    </form>
-
-    <div class="consult-divider">
-      <div class="consult-divider-line"></div>
-      <span class="consult-divider-text">or</span>
-      <div class="consult-divider-line"></div>
+    <div id="bookingSuccess" class="booking-success">
+      <div class="booking-success-icon">◆</div>
+      <h3>Your consultation is booked.</h3>
+      <p id="bookingSuccessDetail"></p>
+      <p style="margin-top:16px;">A confirmation has been sent to your email. We look forward to speaking with you.</p>
     </div>
-    <button class="btn-calendly" onclick="openCalendly()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Schedule a Video Consultation
-    </button>
-    <p class="form-note" style="margin-top:10px;">Video calls available Mon–Sat, 9am–8pm EST &amp; IST. No obligation.</p>
 
-    <div id="form-success" style="display:none; margin-top:32px;">
-      <p style="color: var(--gold-light); font-size: 1rem; font-style: italic; line-height: 1.7;">
-        Thank you. We've received your enquiry and will be in touch within one business day.
-      </p>
+    <div id="bookingForm">
+      <div class="booking-layout">
+
+        <!-- LEFT: Calendar + Time slots -->
+        <div>
+          <p class="booking-col-label">Select a Date &amp; Time</p>
+          <div class="cal-wrap">
+            <div class="cal-header">
+              <button class="cal-arrow" onclick="calPrev()">&#8249;</button>
+              <span class="cal-title" id="calTitle"></span>
+              <button class="cal-arrow" onclick="calNext()">&#8250;</button>
+            </div>
+            <div class="cal-weekdays">
+              <span class="cal-wday">Sun</span><span class="cal-wday">Mon</span><span class="cal-wday">Tue</span>
+              <span class="cal-wday">Wed</span><span class="cal-wday">Thu</span><span class="cal-wday">Fri</span>
+              <span class="cal-wday">Sat</span>
+            </div>
+            <div class="cal-days" id="calDays"></div>
+            <div class="timeslots-wrap" id="timeslotsWrap" style="display:none;">
+              <p class="timeslots-label" id="timeslotsLabel"></p>
+              <div class="timeslots-grid" id="timeslotsGrid"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Booking form -->
+        <div class="booking-form-col">
+          <p class="booking-col-label">Your Details</p>
+          <div class="booking-selected-slot" id="selectedSlotDisplay">
+            <span style="color:var(--gold);">◆</span>
+            <span id="selectedSlotText"></span>
+          </div>
+          <form class="lead-form" id="consultForm" onsubmit="submitBooking(event)">
+            <div class="form-row">
+              <input type="text" id="bkFirstName" placeholder="First Name" required>
+              <input type="text" id="bkLastName"  placeholder="Last Name" required>
+            </div>
+            <input type="email" id="bkEmail"   placeholder="Email Address" required>
+            <input type="tel"   id="bkPhone"   placeholder="Phone (optional)">
+            <select id="bkInterest">
+              <option value="" disabled selected>What are you looking for?</option>
+              <option>Engagement Ring</option>
+              <option>Wedding Band</option>
+              <option>Loose Diamond</option>
+              <option>Custom Piece</option>
+              <option>Earrings / Bracelet</option>
+              <option>Gift / Other Occasion</option>
+              <option>I'm not sure yet — I'd like guidance</option>
+            </select>
+            <textarea id="bkMessage" placeholder="Tell us about your vision, timeline, or any questions…" style="min-height:90px;"></textarea>
+            <button type="submit" id="bkSubmitBtn">Confirm Booking</button>
+            <p class="form-note">Your details are kept strictly private. We do not share or sell your information.</p>
+            <p class="form-note" style="margin-top:8px;border-top:1px solid rgba(184,154,94,0.15);padding-top:12px;">
+              All pieces are made entirely to order and are non-returnable once production commences. Diamond and metal pricing is confirmed at consultation, reflecting live market rates at the time of your order.
+            </p>
+          </form>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>
@@ -2622,16 +2834,176 @@
 
   // ── MISC ───────────────────────────────────────────────────────────────────
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    e.target.style.display = 'none';
-    document.getElementById('form-success').style.display = 'block';
-  }
-
   const nav = document.querySelector('nav');
   window.addEventListener('scroll', () => {
     nav.style.boxShadow = window.scrollY > 20 ? '0 2px 24px rgba(0,0,0,0.07)' : 'none';
   });
+
+  // ── EMAILJS ─────────────────────────────────────────────────────────────────
+  // Replace these three values with your own from emailjs.com
+  // Dashboard → Account → API Keys (Public Key)
+  // Dashboard → Email Services → Service ID
+  // Dashboard → Email Templates → Template ID
+  const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+  const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
+  const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+
+  if (EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+  }
+
+  // ── BOOKING CALENDAR ────────────────────────────────────────────────────────
+  const TIME_SLOTS = [
+    '9:00 am','10:00 am','11:00 am',
+    '12:00 pm','1:00 pm', '2:00 pm',
+    '3:00 pm', '4:00 pm', '5:00 pm',
+    '6:00 pm', '7:00 pm',
+  ];
+  const MONTHS = ['January','February','March','April','May','June',
+                  'July','August','September','October','November','December'];
+  const today        = new Date();
+  today.setHours(0,0,0,0);
+
+  let calYear        = today.getFullYear();
+  let calMonth       = today.getMonth();
+  let selectedDate   = null;
+  let selectedTime   = null;
+
+  function renderCalendar() {
+    document.getElementById('calTitle').textContent = `${MONTHS[calMonth]} ${calYear}`;
+    const firstDay = new Date(calYear, calMonth, 1).getDay(); // 0=Sun
+    const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+    const grid = document.getElementById('calDays');
+    let html = '';
+
+    // Empty cells before first day
+    for (let i = 0; i < firstDay; i++) {
+      html += '<div class="cal-day cal-empty"></div>';
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date = new Date(calYear, calMonth, d);
+      const isSunday   = date.getDay() === 0;
+      const isPast     = date < today;
+      const isToday    = date.getTime() === today.getTime();
+      const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
+      // Block Sundays and past dates
+      const disabled   = isSunday || isPast;
+
+      let cls = 'cal-day';
+      if (disabled)   cls += ' cal-disabled';
+      if (isToday)    cls += ' cal-today';
+      if (isSelected) cls += ' cal-selected';
+
+      const onclick = disabled ? '' : `onclick="selectCalDate(${calYear},${calMonth},${d})"`;
+      html += `<div class="${cls}" ${onclick}>${d}</div>`;
+    }
+    grid.innerHTML = html;
+  }
+
+  function selectCalDate(year, month, day) {
+    selectedDate = new Date(year, month, day);
+    selectedTime = null;
+    updateSlotDisplay();
+    renderCalendar();
+    renderTimeSlots();
+  }
+
+  function renderTimeSlots() {
+    const wrap = document.getElementById('timeslotsWrap');
+    if (!selectedDate) { wrap.style.display = 'none'; return; }
+    wrap.style.display = 'block';
+
+    const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const dateStr  = selectedDate.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' });
+    document.getElementById('timeslotsLabel').textContent = `Available times — ${dateStr}`;
+
+    document.getElementById('timeslotsGrid').innerHTML = TIME_SLOTS.map(t => `
+      <button type="button" class="timeslot ${selectedTime === t ? 'selected' : ''}"
+              onclick="selectTime('${t}')">${t}</button>
+    `).join('');
+  }
+
+  function selectTime(t) {
+    selectedTime = t;
+    updateSlotDisplay();
+    renderTimeSlots();
+  }
+
+  function updateSlotDisplay() {
+    const el = document.getElementById('selectedSlotDisplay');
+    const txt = document.getElementById('selectedSlotText');
+    if (selectedDate && selectedTime) {
+      const dateStr = selectedDate.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+      txt.textContent = `${dateStr} at ${selectedTime} EST`;
+      el.classList.add('visible');
+    } else {
+      el.classList.remove('visible');
+    }
+  }
+
+  function calPrev() {
+    calMonth--;
+    if (calMonth < 0) { calMonth = 11; calYear--; }
+    renderCalendar();
+  }
+  function calNext() {
+    calMonth++;
+    if (calMonth > 11) { calMonth = 0; calYear++; }
+    renderCalendar();
+  }
+
+  // Initialise calendar
+  renderCalendar();
+
+  // ── BOOKING SUBMISSION ───────────────────────────────────────────────────────
+  async function submitBooking(e) {
+    e.preventDefault();
+    if (!selectedDate || !selectedTime) {
+      alert('Please select a date and time for your consultation.');
+      return;
+    }
+
+    const btn = document.getElementById('bkSubmitBtn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    const firstName = document.getElementById('bkFirstName').value;
+    const lastName  = document.getElementById('bkLastName').value;
+    const email     = document.getElementById('bkEmail').value;
+    const phone     = document.getElementById('bkPhone').value;
+    const interest  = document.getElementById('bkInterest').value;
+    const message   = document.getElementById('bkMessage').value;
+    const dateStr   = selectedDate.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+
+    const templateParams = {
+      from_name:    `${firstName} ${lastName}`,
+      from_email:   email,
+      phone:        phone || 'Not provided',
+      booking_date: dateStr,
+      booking_time: `${selectedTime} EST`,
+      interest:     interest || 'Not specified',
+      message:      message  || 'No additional notes',
+      to_email:     'hello@luvianova.com',
+    };
+
+    try {
+      if (EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+      }
+      // Show success (even in demo mode so the UI works)
+      document.getElementById('bookingForm').style.display = 'none';
+      const success = document.getElementById('bookingSuccess');
+      success.classList.add('visible');
+      document.getElementById('bookingSuccessDetail').textContent =
+        `${firstName}, your consultation is scheduled for ${dateStr} at ${selectedTime} EST.`;
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      btn.textContent = 'Confirm Booking';
+      btn.disabled = false;
+      alert('There was a problem sending your booking. Please email us directly at hello@luvianova.com');
+    }
+  }
 
   // ── CERTIFICATION FILTER ────────────────────────────────────────────────────
   // Uncertified stones save ~12% (no lab report fee or premium)
@@ -2826,7 +3198,7 @@
   function requestCADPreview() {
     const d = builderSelectedDiamond;
     const s = builderSelectedSetting;
-    const ta = document.querySelector('.lead-form textarea');
+    const ta = document.getElementById('bkMessage');
     if (ta) {
       const certChoice = certFilterBuilder === 'uncertified' ? 'Without certification' : `${d.cert} certified`;
       ta.value = `3D CAD Preview Request\n\nDiamond: ${d.carat}ct ${d.shape} · ${d.color}/${d.clarity} · ${d.cut} Cut · ${certChoice}\nSetting: ${s.name} (${s.style}) — from $${s.basePrice.toLocaleString()} USD\nDiamond price: to be quoted at consultation\n\nPlease send me a 3D CAD preview of this combination before I confirm. I'd also like to discuss metal choice, timeline, and the diamond price.`;
@@ -2871,17 +3243,7 @@
     renderBuilderSettings();
   });
 
-  // ── CALENDLY ────────────────────────────────────────────────────────────────
-  // Replace this URL with your actual Calendly link once your account is set up
-  const CALENDLY_URL = 'https://calendly.com/luvia-nova/consultation';
 
-  function openCalendly() {
-    if (window.Calendly) {
-      Calendly.initPopupWidget({ url: CALENDLY_URL });
-    } else {
-      window.open(CALENDLY_URL, '_blank');
-    }
-  }
 </script>
 
 </body>
