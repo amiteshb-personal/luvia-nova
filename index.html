@@ -1056,6 +1056,37 @@
       .settings-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
+    /* ── CERTIFICATION TOGGLE ── */
+    .cert-toggle {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      border: none;
+      background: none;
+      color: rgba(255,255,255,0.45);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      border-right: 1px solid rgba(184,154,94,0.25);
+    }
+    .cert-toggle:last-child { border-right: none; }
+    .cert-toggle:hover  { color: var(--gold-light); }
+    .cert-toggle.active { background: var(--gold); color: white; }
+
+    .cert-note {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+      border: 1px solid rgba(184,154,94,0.18);
+      background: rgba(184,154,94,0.05);
+      padding: 14px 18px;
+      margin: 14px 0 4px;
+      max-width: 680px;
+    }
+    .cert-note strong { color: var(--gold-light); font-weight: 500; }
+
     /* ── HAMBURGER NAV ── */
     .nav-hamburger {
       display: none;
@@ -1618,7 +1649,20 @@
 
     <p class="section-label" style="margin-top:40px">Our Diamonds</p>
     <h2 class="section-title">Stones of Exceptional Character</h2>
-    <p class="section-body">Every stone is GIA or IGI certified and ethically sourced. All shapes are available as matched pairs for earrings. Prices shown are indicative — contact us for a personalised quote.</p>
+    <p class="section-body">Every stone is ethically sourced. All shapes are available as matched pairs for earrings. <em style="color:rgba(255,255,255,0.4);font-style:italic;font-size:0.9em;">Prices are indicative and reflect live market rates — actual diamond prices fluctuate daily. Your confirmed price will be provided at consultation.</em></p>
+
+    <!-- Certification toggle -->
+    <div style="display:flex;align-items:center;gap:0;margin-top:36px;border:1px solid rgba(184,154,94,0.25);width:fit-content;">
+      <button class="cert-toggle active" id="certToggleMain" data-cert="certified" onclick="setCertFilter('certified','main')">
+        ◆ &nbsp;GIA / IGI Certified
+      </button>
+      <button class="cert-toggle" id="certToggleMainNo" data-cert="uncertified" onclick="setCertFilter('uncertified','main')">
+        Without Certification
+      </button>
+    </div>
+    <p class="cert-note" id="certNoteMain" style="display:none;">
+      Uncertified stones are sourced from the same suppliers and inspected by our gemmologists, but do not carry a GIA or IGI lab report. Prices reflect an approximate <strong>10–15% saving</strong>. Recommended for fashion pieces; for engagement rings we strongly advise certification.
+    </p>
 
     <div class="shape-filters" id="shapeFilters">
       <button class="shape-chip active" data-shape="All">All Shapes</button>
@@ -1679,6 +1723,19 @@
 
     <!-- Step 1: Choose Diamond -->
     <div class="builder-panel active" id="builderPanel1">
+      <!-- Certification toggle -->
+      <div style="display:flex;align-items:center;gap:0;margin-bottom:20px;border:1px solid rgba(184,154,94,0.25);width:fit-content;">
+        <button class="cert-toggle active" id="certToggleBuilder" data-cert="certified" onclick="setCertFilter('certified','builder')">
+          ◆ &nbsp;GIA / IGI Certified
+        </button>
+        <button class="cert-toggle" id="certToggleBuilderNo" data-cert="uncertified" onclick="setCertFilter('uncertified','builder')">
+          Without Certification
+        </button>
+      </div>
+      <p class="cert-note" id="certNoteBuilder" style="display:none;">
+        Uncertified stones are inspected by our gemmologists but do not carry a GIA or IGI lab report. Prices reflect an approximate <strong>10–15% saving</strong>. For engagement rings we strongly advise certification.
+      </p>
+
       <div class="shape-filters" id="builderShapeFilters">
         <button class="shape-chip active" data-shape="All">All Shapes</button>
         <button class="shape-chip" data-shape="Round">Round</button>
@@ -2392,7 +2449,10 @@
       return;
     }
 
-    catalog.innerHTML = filtered.map(d => `
+    const uncert = certFilterMain === 'uncertified';
+    catalog.innerHTML = filtered.map(d => {
+      const displayPrice = adjustedPrice(d.price, certFilterMain);
+      return `
       <div class="dcard">
         <div class="dcard-illustration">${SHAPE_SVG[d.shape] || ''}</div>
         <div class="dcard-shape">
@@ -2404,11 +2464,11 @@
         <div class="dcard-specs">
           <div class="dcard-spec">
             <div class="dcard-spec-label">Certificate</div>
-            <div class="dcard-spec-value">${d.cert}</div>
+            <div class="dcard-spec-value">${uncert ? 'None' : d.cert}</div>
           </div>
           <div class="dcard-spec">
             <div class="dcard-spec-label">Cert No.</div>
-            <div class="dcard-spec-value" style="font-size:0.68rem">${d.certNum || '—'}</div>
+            <div class="dcard-spec-value" style="font-size:0.68rem">${uncert ? '—' : (d.certNum || '—')}</div>
           </div>
           <div class="dcard-spec">
             <div class="dcard-spec-label">Color</div>
@@ -2420,12 +2480,12 @@
           </div>
         </div>
         <div class="dcard-footer">
-          <div class="dcard-price">from $${d.price.toLocaleString()}</div>
-          <div class="dcard-cert">${d.cert} Certified</div>
+          <div class="dcard-price">from $${displayPrice.toLocaleString()}${uncert ? ' <span style="font-size:0.62rem;color:rgba(74,222,128,0.7);margin-left:4px;">−12%</span>' : ''}</div>
+          <div class="dcard-cert">${uncert ? 'Uncertified' : d.cert + ' Certified'}</div>
         </div>
         <div class="dcard-origin">◆ ${d.origin}</div>
       </div>
-    `).join('');
+    `}).join('');
   }
 
   async function loadDiamonds() {
@@ -2553,6 +2613,34 @@
     nav.style.boxShadow = window.scrollY > 20 ? '0 2px 24px rgba(0,0,0,0.07)' : 'none';
   });
 
+  // ── CERTIFICATION FILTER ────────────────────────────────────────────────────
+  // Uncertified stones save ~12% (no lab report fee or premium)
+  const UNCERT_DISCOUNT = 0.12;
+
+  let certFilterMain    = 'certified';
+  let certFilterBuilder = 'certified';
+
+  function adjustedPrice(price, certFilter) {
+    if (certFilter === 'uncertified') return Math.round(price * (1 - UNCERT_DISCOUNT));
+    return price;
+  }
+
+  function setCertFilter(value, context) {
+    if (context === 'main') {
+      certFilterMain = value;
+      document.getElementById('certToggleMain').classList.toggle('active', value === 'certified');
+      document.getElementById('certToggleMainNo').classList.toggle('active', value === 'uncertified');
+      document.getElementById('certNoteMain').style.display = value === 'uncertified' ? 'block' : 'none';
+      renderDiamonds();
+    } else {
+      certFilterBuilder = value;
+      document.getElementById('certToggleBuilder').classList.toggle('active', value === 'certified');
+      document.getElementById('certToggleBuilderNo').classList.toggle('active', value === 'uncertified');
+      document.getElementById('certNoteBuilder').style.display = value === 'uncertified' ? 'block' : 'none';
+      renderBuilderDiamonds();
+    }
+  }
+
   // ── MOBILE NAV ──────────────────────────────────────────────────────────────
   function toggleMobileNav() {
     document.getElementById('navHamburger').classList.toggle('open');
@@ -2604,7 +2692,10 @@
       grid.innerHTML = '<div class="no-results" style="grid-column:1/-1;">No stones available in this shape — try another or <a href="#consult" style="color:var(--gold-light);">enquire directly</a>.</div>';
       return;
     }
-    grid.innerHTML = builderDiamondPool.map((d, i) => `
+    const bUncert = certFilterBuilder === 'uncertified';
+    grid.innerHTML = builderDiamondPool.map((d, i) => {
+      const dp = adjustedPrice(d.price, certFilterBuilder);
+      return `
       <div class="bdcard ${builderSelectedDiamond && builderSelectedDiamond.id === d.id ? 'selected' : ''}"
            onclick="selectBuilderDiamond(${i})">
         <div class="dcard-illustration">${SHAPE_SVG[d.shape] || ''}</div>
@@ -2612,17 +2703,17 @@
         <div class="dcard-carat">${d.carat}ct</div>
         <div class="dcard-grade">${d.color} · ${d.clarity} · ${d.cut} Cut</div>
         <div class="dcard-specs">
-          <div class="dcard-spec"><div class="dcard-spec-label">Cert</div><div class="dcard-spec-value">${d.cert}</div></div>
+          <div class="dcard-spec"><div class="dcard-spec-label">Cert</div><div class="dcard-spec-value">${bUncert ? 'None' : d.cert}</div></div>
           <div class="dcard-spec"><div class="dcard-spec-label">Color</div><div class="dcard-spec-value">${d.color}</div></div>
           <div class="dcard-spec"><div class="dcard-spec-label">Clarity</div><div class="dcard-spec-value">${d.clarity}</div></div>
           <div class="dcard-spec"><div class="dcard-spec-label">Cut</div><div class="dcard-spec-value">${d.cut}</div></div>
         </div>
         <div class="dcard-footer">
-          <div class="dcard-price">from $${d.price.toLocaleString()}</div>
-          <div class="dcard-cert">${d.cert}</div>
+          <div class="dcard-price">from $${dp.toLocaleString()}${bUncert ? ' <span style="font-size:0.62rem;color:rgba(74,222,128,0.7);margin-left:4px;">−12%</span>' : ''}</div>
+          <div class="dcard-cert">${bUncert ? 'Uncertified' : d.cert}</div>
         </div>
       </div>
-    `).join('');
+    `}).join('');
   }
 
   function selectBuilderDiamond(i) {
@@ -2661,7 +2752,9 @@
     const d = builderSelectedDiamond;
     const s = builderSelectedSetting;
     if (!d || !s) return;
-    const total = d.price + s.basePrice;
+    const dPrice = adjustedPrice(d.price, certFilterBuilder);
+    const total  = dPrice + s.basePrice;
+    const certLabel = certFilterBuilder === 'uncertified' ? 'No certification (−12%)' : `${d.cert} Certified`;
 
     document.getElementById('builderPreviewCol').innerHTML = `
       <div>
@@ -2694,8 +2787,8 @@
     document.getElementById('builderQuotePanel').innerHTML = `
       <p class="bq-label">Your Estimate</p>
       <div class="bq-line">
-        <span class="bq-line-label">${d.carat}ct ${d.shape} (${d.color}/${d.clarity})</span>
-        <span class="bq-line-value">$${d.price.toLocaleString()}</span>
+        <span class="bq-line-label">${d.carat}ct ${d.shape} (${d.color}/${d.clarity}) · ${certLabel}</span>
+        <span class="bq-line-value">$${dPrice.toLocaleString()}</span>
       </div>
       <div class="bq-line">
         <span class="bq-line-label">${s.name}</span>
@@ -2719,7 +2812,8 @@
     const s = builderSelectedSetting;
     const ta = document.querySelector('.lead-form textarea');
     if (ta) {
-      ta.value = `3D CAD Preview Request\n\nDiamond: ${d.carat}ct ${d.shape} · ${d.color}/${d.clarity} · ${d.cut} Cut · ${d.cert}\nSetting: ${s.name} (${s.style})\nEstimated Total: from $${(d.price + s.basePrice).toLocaleString()} USD\n\nPlease send me a 3D CAD preview of this combination before I confirm. I'd also like to discuss metal choice and timeline.`;
+      const certChoice = certFilterBuilder === 'uncertified' ? 'Without certification' : `${d.cert} certified`;
+      ta.value = `3D CAD Preview Request\n\nDiamond: ${d.carat}ct ${d.shape} · ${d.color}/${d.clarity} · ${d.cut} Cut · ${certChoice}\nSetting: ${s.name} (${s.style})\nEstimated Total: from $${(adjustedPrice(d.price, certFilterBuilder) + s.basePrice).toLocaleString()} USD\n\nPlease send me a 3D CAD preview of this combination before I confirm. I'd also like to discuss metal choice and timeline.`;
     }
     document.getElementById('consult').scrollIntoView({ behavior: 'smooth' });
   }
