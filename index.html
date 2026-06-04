@@ -1056,6 +1056,24 @@
       .settings-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
+    /* ── PRICING POLICY BAR ── */
+    .pricing-policy-bar {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-top: 24px;
+      padding: 16px 20px;
+      border: 1px solid rgba(184,154,94,0.25);
+      background: rgba(184,154,94,0.05);
+      max-width: 720px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+    }
+    .pricing-policy-bar strong { color: var(--gold-light); font-weight: 500; }
+    .ppb-icon { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+
     /* ── CERTIFICATION TOGGLE ── */
     .cert-toggle {
       font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -1649,7 +1667,11 @@
 
     <p class="section-label" style="margin-top:40px">Our Diamonds</p>
     <h2 class="section-title">Stones of Exceptional Character</h2>
-    <p class="section-body">Every stone is ethically sourced. All shapes are available as matched pairs for earrings. <em style="color:rgba(255,255,255,0.4);font-style:italic;font-size:0.9em;">Prices are indicative and reflect live market rates — actual diamond prices fluctuate daily. Your confirmed price will be provided at consultation.</em></p>
+    <p class="section-body">Every stone is ethically sourced and available in a wide range of shapes, carats, colours, and clarities. Browse our selection to find your preferred specifications — your personalised diamond price will be confirmed at consultation, based on current market rates at the time of your enquiry.</p>
+    <div class="pricing-policy-bar">
+      <span class="ppb-icon">◆</span>
+      <span><strong>Pricing Policy:</strong> Diamond prices and metal costs are quoted individually at consultation, reflecting live market rates at the time. Setting prices shown on this site are indicative only. All sales are subject to our standard terms — made to order, non-returnable once production commences.</span>
+    </div>
 
     <!-- Certification toggle -->
     <div style="display:flex;align-items:center;gap:0;margin-top:36px;border:1px solid rgba(184,154,94,0.25);width:fit-content;">
@@ -1661,7 +1683,7 @@
       </button>
     </div>
     <p class="cert-note" id="certNoteMain" style="display:none;">
-      Uncertified stones are sourced from the same suppliers and inspected by our gemmologists, but do not carry a GIA or IGI lab report. Prices reflect an approximate <strong>10–15% saving</strong>. Recommended for fashion pieces; for engagement rings we strongly advise certification.
+      Uncertified stones are sourced from the same trusted suppliers and inspected by our gemmologists, but do not carry a GIA or IGI lab report. Uncertified stones are typically priced lower — your consultant will confirm the difference at enquiry. Recommended for fashion pieces; for engagement rings we strongly advise certification.
     </p>
 
     <div class="shape-filters" id="shapeFilters">
@@ -1733,7 +1755,7 @@
         </button>
       </div>
       <p class="cert-note" id="certNoteBuilder" style="display:none;">
-        Uncertified stones are inspected by our gemmologists but do not carry a GIA or IGI lab report. Prices reflect an approximate <strong>10–15% saving</strong>. For engagement rings we strongly advise certification.
+        Uncertified stones are inspected by our gemmologists but do not carry a GIA or IGI lab report. Uncertified stones are typically priced lower — your consultant will confirm the saving at enquiry. For engagement rings we strongly advise certification.
       </p>
 
       <div class="shape-filters" id="builderShapeFilters">
@@ -2381,7 +2403,7 @@
     },
     {
       q: "Why are lab-grown diamonds more affordable?",
-      a: "Traditional retail markups are inflated by store overhead, inventory holding costs, and multiple wholesale intermediaries. Luvia Nova operates a made-to-order model with direct sourcing — we pass those savings to you. Lab-grown diamonds typically retail at 60–80% less than equivalent mined stones."
+      a: "Traditional retail markups are inflated by store overhead, inventory holding costs, and multiple wholesale intermediaries. Luvia Nova operates a made-to-order model with direct sourcing — we pass those savings to you. Lab-grown diamonds typically retail at 60–80% less than equivalent mined stones. Because diamond and metal prices fluctuate with live market rates, we provide personalised pricing at the consultation stage to ensure you always receive an accurate, current quote."
     },
     {
       q: "How does the custom process work?",
@@ -2450,9 +2472,7 @@
     }
 
     const uncert = certFilterMain === 'uncertified';
-    catalog.innerHTML = filtered.map(d => {
-      const displayPrice = adjustedPrice(d.price, certFilterMain);
-      return `
+    catalog.innerHTML = filtered.map(d => `
       <div class="dcard">
         <div class="dcard-illustration">${SHAPE_SVG[d.shape] || ''}</div>
         <div class="dcard-shape">
@@ -2480,12 +2500,12 @@
           </div>
         </div>
         <div class="dcard-footer">
-          <div class="dcard-price">from $${displayPrice.toLocaleString()}${uncert ? ' <span style="font-size:0.62rem;color:rgba(74,222,128,0.7);margin-left:4px;">−12%</span>' : ''}</div>
+          <div class="dcard-price" style="font-size:0.78rem;color:var(--gold-light);">Priced at consultation</div>
           <div class="dcard-cert">${uncert ? 'Uncertified' : d.cert + ' Certified'}</div>
         </div>
         <div class="dcard-origin">◆ ${d.origin}</div>
       </div>
-    `}).join('');
+    `).join('');
   }
 
   async function loadDiamonds() {
@@ -2693,9 +2713,7 @@
       return;
     }
     const bUncert = certFilterBuilder === 'uncertified';
-    grid.innerHTML = builderDiamondPool.map((d, i) => {
-      const dp = adjustedPrice(d.price, certFilterBuilder);
-      return `
+    grid.innerHTML = builderDiamondPool.map((d, i) => `
       <div class="bdcard ${builderSelectedDiamond && builderSelectedDiamond.id === d.id ? 'selected' : ''}"
            onclick="selectBuilderDiamond(${i})">
         <div class="dcard-illustration">${SHAPE_SVG[d.shape] || ''}</div>
@@ -2709,11 +2727,11 @@
           <div class="dcard-spec"><div class="dcard-spec-label">Cut</div><div class="dcard-spec-value">${d.cut}</div></div>
         </div>
         <div class="dcard-footer">
-          <div class="dcard-price">from $${dp.toLocaleString()}${bUncert ? ' <span style="font-size:0.62rem;color:rgba(74,222,128,0.7);margin-left:4px;">−12%</span>' : ''}</div>
+          <div class="dcard-price" style="font-size:0.78rem;color:var(--gold-light);">Priced at consultation</div>
           <div class="dcard-cert">${bUncert ? 'Uncertified' : d.cert}</div>
         </div>
       </div>
-    `}).join('');
+    `).join('');
   }
 
   function selectBuilderDiamond(i) {
@@ -2752,9 +2770,7 @@
     const d = builderSelectedDiamond;
     const s = builderSelectedSetting;
     if (!d || !s) return;
-    const dPrice = adjustedPrice(d.price, certFilterBuilder);
-    const total  = dPrice + s.basePrice;
-    const certLabel = certFilterBuilder === 'uncertified' ? 'No certification (−12%)' : `${d.cert} Certified`;
+    const certLabel = certFilterBuilder === 'uncertified' ? 'Without certification' : `${d.cert} Certified`;
 
     document.getElementById('builderPreviewCol').innerHTML = `
       <div>
@@ -2785,20 +2801,20 @@
     `;
 
     document.getElementById('builderQuotePanel').innerHTML = `
-      <p class="bq-label">Your Estimate</p>
+      <p class="bq-label">Your Selection</p>
       <div class="bq-line">
-        <span class="bq-line-label">${d.carat}ct ${d.shape} (${d.color}/${d.clarity}) · ${certLabel}</span>
-        <span class="bq-line-value">$${dPrice.toLocaleString()}</span>
+        <span class="bq-line-label">${d.carat}ct ${d.shape} · ${d.color}/${d.clarity} · ${certLabel}</span>
+        <span class="bq-line-value" style="color:var(--gold-light);font-size:0.78rem;">Quoted at consultation</span>
       </div>
       <div class="bq-line">
-        <span class="bq-line-label">${s.name}</span>
+        <span class="bq-line-label">${s.name} (setting)</span>
         <span class="bq-line-value">from $${s.basePrice.toLocaleString()}</span>
       </div>
       <div class="bq-total">
-        <span class="bq-total-label">Estimated Total</span>
-        <span class="bq-total-value">from $${total.toLocaleString()}</span>
+        <span class="bq-total-label">Total</span>
+        <span class="bq-total-value" style="font-size:1.1rem;">Setting from $${s.basePrice.toLocaleString()} + Diamond TBC</span>
       </div>
-      <p class="bq-note">Indicative estimate in USD. Setting prices fluctuate with prevailing gold and platinum spot prices. Your confirmed quote — inclusive of metal choice, current metal pricing, final stone inspection, and setting complexity — will be provided during consultation. All pieces are made to order and non-returnable once confirmed.</p>
+      <p class="bq-note">Diamond pricing is confirmed at consultation, based on live market rates and your chosen specifications. Setting prices are indicative and subject to prevailing gold and platinum prices. All pieces are made to order and non-returnable once production commences — our standard sales terms apply.</p>
       <div class="bq-actions">
         <button class="btn-cad" onclick="requestCADPreview()">✦ Request 3D CAD Preview</button>
         <a href="#consult" class="btn-consult-builder">Book a Consultation</a>
@@ -2813,7 +2829,7 @@
     const ta = document.querySelector('.lead-form textarea');
     if (ta) {
       const certChoice = certFilterBuilder === 'uncertified' ? 'Without certification' : `${d.cert} certified`;
-      ta.value = `3D CAD Preview Request\n\nDiamond: ${d.carat}ct ${d.shape} · ${d.color}/${d.clarity} · ${d.cut} Cut · ${certChoice}\nSetting: ${s.name} (${s.style})\nEstimated Total: from $${(adjustedPrice(d.price, certFilterBuilder) + s.basePrice).toLocaleString()} USD\n\nPlease send me a 3D CAD preview of this combination before I confirm. I'd also like to discuss metal choice and timeline.`;
+      ta.value = `3D CAD Preview Request\n\nDiamond: ${d.carat}ct ${d.shape} · ${d.color}/${d.clarity} · ${d.cut} Cut · ${certChoice}\nSetting: ${s.name} (${s.style}) — from $${s.basePrice.toLocaleString()} USD\nDiamond price: to be quoted at consultation\n\nPlease send me a 3D CAD preview of this combination before I confirm. I'd also like to discuss metal choice, timeline, and the diamond price.`;
     }
     document.getElementById('consult').scrollIntoView({ behavior: 'smooth' });
   }
