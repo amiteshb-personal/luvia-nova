@@ -1055,7 +1055,394 @@
       .diamond-catalog { grid-template-columns: repeat(2, 1fr); }
       .settings-grid { grid-template-columns: repeat(2, 1fr); }
     }
+
+    /* ── HAMBURGER NAV ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 101;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--charcoal);
+      transition: all 0.25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-mobile-drawer {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: rgba(253,250,246,0.98);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 99;
+      padding: 8px 28px 28px;
+      flex-direction: column;
+    }
+    .nav-mobile-drawer.open { display: flex; }
+    .nav-mobile-drawer a {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .nav-mobile-drawer a:last-of-type { border-bottom: none; }
+    .nav-mobile-drawer a:hover { color: var(--gold); }
+    .nav-mobile-drawer .mob-cta {
+      margin-top: 16px;
+      display: block;
+      text-align: center;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 12px;
+      letter-spacing: 0.15em;
+    }
+    @media (max-width: 900px) {
+      .nav-hamburger { display: flex; }
+      nav > .nav-cta { display: none; }
+    }
+
+    /* ── RING BUILDER ── */
+    .builder-section { background: var(--charcoal); color: white; }
+    .builder-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 60px;
+    }
+    .builder-inner .section-label { color: var(--gold-light); }
+    .builder-inner .section-title { color: white; }
+    .builder-inner .section-body  { color: rgba(255,255,255,0.55); }
+
+    .builder-steps {
+      display: flex;
+      align-items: center;
+      margin: 52px 0 48px;
+    }
+    .builder-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      opacity: 0.35;
+      transition: opacity 0.2s;
+      flex-shrink: 0;
+    }
+    .builder-step.active { opacity: 1; }
+    .builder-step.done   { opacity: 0.65; }
+    .bs-num {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      color: var(--gold-light);
+      border: 1px solid rgba(184,154,94,0.4);
+      padding: 4px 8px;
+      transition: all 0.2s;
+    }
+    .builder-step.active .bs-num { background: var(--gold); border-color: var(--gold); color: white; }
+    .builder-step.done .bs-num   { background: rgba(184,154,94,0.18); }
+    .bs-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: white;
+    }
+    .builder-step-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(184,154,94,0.2);
+      margin: 0 20px;
+      min-width: 20px;
+    }
+
+    .builder-panel { display: none; }
+    .builder-panel.active { display: block; }
+
+    /* Builder diamond grid */
+    .builder-diamond-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .bdcard {
+      background: rgba(255,255,255,0.03);
+      border: 2px solid rgba(184,154,94,0.12);
+      padding: 24px 24px 20px;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+      position: relative;
+    }
+    .bdcard:hover   { border-color: var(--gold); background: rgba(184,154,94,0.04); }
+    .bdcard.selected { border-color: var(--gold); background: rgba(184,154,94,0.09); }
+    .bdcard.selected::after {
+      content: '✓';
+      position: absolute;
+      top: 10px; right: 14px;
+      color: var(--gold-light);
+      font-size: 1rem;
+    }
+
+    /* Builder type tabs (dark) */
+    .builder-type-tabs {
+      display: flex;
+      margin: 36px 0 0;
+      border: 1px solid rgba(184,154,94,0.25);
+      width: fit-content;
+    }
+    .builder-type-tab {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 12px 32px;
+      border: none;
+      background: none;
+      color: rgba(255,255,255,0.45);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      border-right: 1px solid rgba(184,154,94,0.25);
+    }
+    .builder-type-tab:last-child { border-right: none; }
+    .builder-type-tab:hover  { color: var(--gold-light); }
+    .builder-type-tab.active { background: var(--gold); color: white; }
+
+    /* Builder setting grid */
+    .builder-setting-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 28px;
+    }
+    .bscard {
+      background: rgba(255,255,255,0.03);
+      border: 2px solid rgba(184,154,94,0.12);
+      padding: 24px 22px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .bscard:hover   { border-color: var(--gold); background: rgba(184,154,94,0.05); }
+    .bscard.selected { border-color: var(--gold); background: rgba(184,154,94,0.1); }
+    .bscard.selected::after {
+      content: '✓';
+      position: absolute;
+      top: 10px; right: 14px;
+      color: var(--gold-light);
+      font-size: 1rem;
+    }
+    .bscard .setting-illustration {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(184,154,94,0.12);
+      height: 100px;
+      margin-bottom: 16px;
+    }
+    .bscard h3 { color: white; font-size: 0.95rem; margin-bottom: 8px; }
+    .bscard .bsc-style {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.6rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--gold-light);
+      margin-bottom: 8px;
+    }
+    .bscard .bsc-price {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem; color: rgba(255,255,255,0.65);
+      margin-top: 12px; padding-top: 12px;
+      border-top: 1px solid rgba(184,154,94,0.12);
+    }
+    .bscard .bsc-price span {
+      font-size: 0.6rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+      display: block; margin-bottom: 2px;
+    }
+
+    /* Builder nav buttons */
+    .builder-nav {
+      display: flex;
+      gap: 12px;
+      margin-top: 36px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn-builder-back {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      background: none;
+      border: 1px solid rgba(184,154,94,0.3);
+      color: rgba(255,255,255,0.45);
+      padding: 11px 24px; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-builder-back:hover { border-color: var(--gold); color: var(--gold-light); }
+    .btn-builder-next {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      background: var(--gold); border: none; color: white;
+      padding: 11px 28px; cursor: pointer; transition: background 0.2s;
+    }
+    .btn-builder-next:hover    { background: #a0874a; }
+    .btn-builder-next:disabled { opacity: 0.3; cursor: not-allowed; background: var(--gold); }
+    .builder-hint {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.7rem; color: rgba(255,255,255,0.28);
+      margin-left: auto;
+    }
+
+    /* Builder summary (step 3) */
+    .builder-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 52px;
+      margin-top: 40px;
+      align-items: start;
+    }
+    .builder-preview-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.6rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+      margin-bottom: 10px;
+    }
+    .builder-combo-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(184,154,94,0.14);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+    .builder-combo-card .dcard-shape { color: var(--gold-light); }
+    .builder-combo-card .dcard-carat { color: white; font-size: 1.1rem; margin-bottom: 2px; }
+    .builder-combo-card .dcard-grade { margin-bottom: 6px; }
+    .builder-plus-divider {
+      text-align: center;
+      color: rgba(184,154,94,0.45);
+      font-size: 1.1rem;
+      padding: 4px 0;
+    }
+
+    /* Quote panel */
+    .builder-quote-panel {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(184,154,94,0.2);
+      padding: 32px;
+    }
+    .bq-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.62rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold-light);
+      margin-bottom: 20px;
+    }
+    .bq-line {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 10px 0; border-bottom: 1px solid rgba(184,154,94,0.1);
+    }
+    .bq-line-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.78rem; color: rgba(255,255,255,0.42); max-width: 55%;
+    }
+    .bq-line-value {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.88rem; color: rgba(255,255,255,0.75);
+    }
+    .bq-total {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 18px 0 20px; border-bottom: 1px solid rgba(184,154,94,0.2);
+      margin-bottom: 18px;
+    }
+    .bq-total-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.7rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+    }
+    .bq-total-value {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 1.5rem; color: var(--gold-light); font-weight: 400;
+    }
+    .bq-note {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.7rem; color: rgba(255,255,255,0.25);
+      line-height: 1.65; margin-bottom: 24px;
+    }
+    .bq-actions { display: flex; flex-direction: column; gap: 10px; }
+    .btn-cad {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      background: var(--gold); border: none; color: white;
+      padding: 14px 24px; cursor: pointer; transition: background 0.2s; text-align: center;
+    }
+    .btn-cad:hover { background: #a0874a; }
+    .btn-consult-builder {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      border: 1px solid rgba(184,154,94,0.35); color: rgba(255,255,255,0.55);
+      padding: 14px 24px; text-decoration: none; text-align: center;
+      transition: all 0.2s; display: block;
+    }
+    .btn-consult-builder:hover { border-color: var(--gold); color: var(--gold-light); }
+    .builder-restart {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem; color: rgba(255,255,255,0.22);
+      background: none; border: none; cursor: pointer;
+      text-align: center; padding: 4px; transition: color 0.2s;
+    }
+    .builder-restart:hover { color: var(--gold-light); }
+
+    /* Calendly / booking button */
+    .consult-divider {
+      display: flex; align-items: center; gap: 16px;
+      margin: 24px 0;
+    }
+    .consult-divider-line {
+      flex: 1; height: 1px; background: rgba(184,154,94,0.15);
+    }
+    .consult-divider-text {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(255,255,255,0.25);
+    }
+    .btn-calendly {
+      width: 100%;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      background: none; border: 1px solid rgba(184,154,94,0.35);
+      color: rgba(255,255,255,0.55); padding: 16px 32px;
+      cursor: pointer; transition: all 0.2s; display: flex;
+      align-items: center; justify-content: center; gap: 10px;
+    }
+    .btn-calendly:hover { border-color: var(--gold); color: var(--gold-light); }
+
+    /* Responsive builder */
+    @media (max-width: 900px) {
+      .builder-inner { padding: 72px 28px; }
+      .builder-steps { flex-wrap: wrap; gap: 12px; }
+      .builder-step-line { display: none; }
+      .builder-diamond-grid { grid-template-columns: 1fr; }
+      .builder-setting-grid { grid-template-columns: 1fr; }
+      .builder-summary { grid-template-columns: 1fr; gap: 28px; }
+      .builder-type-tabs { flex-wrap: wrap; width: 100%; }
+    }
+    @media (min-width: 901px) and (max-width: 1100px) {
+      .builder-diamond-grid { grid-template-columns: repeat(2, 1fr); }
+      .builder-setting-grid { grid-template-columns: repeat(2, 1fr); }
+    }
   </style>
+  <!-- Calendly widget -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </head>
 <body>
 
@@ -1109,11 +1496,25 @@
     <li><a href="#philosophy">Philosophy</a></li>
     <li><a href="#diamonds">Diamonds</a></li>
     <li><a href="#settings">Settings</a></li>
+    <li><a href="#builder">Build</a></li>
     <li><a href="#process">Process</a></li>
     <li><a href="#consult">Consult</a></li>
   </ul>
   <a href="#consult" class="nav-cta">Book a Consultation</a>
+  <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<!-- MOBILE NAV DRAWER -->
+<div class="nav-mobile-drawer" id="navMobileDrawer">
+  <a href="#philosophy" onclick="closeMobileNav()">Philosophy</a>
+  <a href="#diamonds"   onclick="closeMobileNav()">Diamonds</a>
+  <a href="#settings"   onclick="closeMobileNav()">Settings</a>
+  <a href="#builder"    onclick="closeMobileNav()">Build Your Piece</a>
+  <a href="#process"    onclick="closeMobileNav()">Process</a>
+  <a href="#faq"        onclick="closeMobileNav()">FAQ</a>
+  <a href="#consult" class="mob-cta" onclick="closeMobileNav()">Book a Consultation</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -1251,6 +1652,86 @@
   </div>
 </div>
 
+<!-- RING BUILDER -->
+<div class="builder-section" id="builder">
+  <div class="builder-inner">
+    <p class="section-label">Design Studio</p>
+    <h2 class="section-title">Build Your Piece</h2>
+    <p class="section-body">Select your diamond and setting to receive a personalised quote — and, if you wish, a 3D CAD preview before anything is crafted.</p>
+
+    <!-- Step progress indicator -->
+    <div class="builder-steps">
+      <div class="builder-step active" id="bstep1">
+        <span class="bs-num">01</span>
+        <span class="bs-label">Choose Your Diamond</span>
+      </div>
+      <div class="builder-step-line"></div>
+      <div class="builder-step" id="bstep2">
+        <span class="bs-num">02</span>
+        <span class="bs-label">Choose Your Setting</span>
+      </div>
+      <div class="builder-step-line"></div>
+      <div class="builder-step" id="bstep3">
+        <span class="bs-num">03</span>
+        <span class="bs-label">Your Creation</span>
+      </div>
+    </div>
+
+    <!-- Step 1: Choose Diamond -->
+    <div class="builder-panel active" id="builderPanel1">
+      <div class="shape-filters" id="builderShapeFilters">
+        <button class="shape-chip active" data-shape="All">All Shapes</button>
+        <button class="shape-chip" data-shape="Round">Round</button>
+        <button class="shape-chip" data-shape="Oval">Oval</button>
+        <button class="shape-chip" data-shape="Emerald">Emerald</button>
+        <button class="shape-chip" data-shape="Cushion">Cushion</button>
+        <button class="shape-chip" data-shape="Pear">Pear</button>
+        <button class="shape-chip" data-shape="Radiant">Radiant</button>
+        <button class="shape-chip" data-shape="Marquise">Marquise</button>
+      </div>
+      <div class="builder-diamond-grid" id="builderDiamondGrid">
+        <div class="no-results" style="grid-column:1/-1;padding:40px 0;">Loading available stones…</div>
+      </div>
+      <div class="builder-nav">
+        <button class="btn-builder-next" id="btnNext1" disabled onclick="builderGoTo(2)">Next: Choose Your Setting →</button>
+        <span class="builder-hint" id="builderHint1">Select a diamond to continue</span>
+      </div>
+    </div>
+
+    <!-- Step 2: Choose Setting -->
+    <div class="builder-panel" id="builderPanel2">
+      <div class="builder-type-tabs" id="builderTypeTabs">
+        <button class="builder-type-tab active" data-type="Ring">Rings</button>
+        <button class="builder-type-tab" data-type="Earring">Earrings</button>
+        <button class="builder-type-tab" data-type="Bracelet">Bracelets</button>
+      </div>
+      <div class="builder-setting-grid" id="builderSettingGrid"></div>
+      <div class="builder-nav">
+        <button class="btn-builder-back" onclick="builderGoTo(1)">← Back</button>
+        <button class="btn-builder-next" id="btnNext2" disabled onclick="builderGoTo(3)">See Your Creation →</button>
+        <span class="builder-hint" id="builderHint2">Select a setting to continue</span>
+      </div>
+    </div>
+
+    <!-- Step 3: Your Creation -->
+    <div class="builder-panel" id="builderPanel3">
+      <div class="builder-summary">
+        <div id="builderPreviewCol">
+          <!-- filled by JS -->
+        </div>
+        <div class="builder-quote-panel" id="builderQuotePanel">
+          <!-- filled by JS -->
+        </div>
+      </div>
+      <div class="builder-nav" style="margin-top:28px;">
+        <button class="btn-builder-back" onclick="builderGoTo(1)">← Change Diamond</button>
+        <button class="btn-builder-back" onclick="builderGoTo(2)">← Change Setting</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <!-- PROCESS -->
 <section id="process">
   <p class="section-label">The Experience</p>
@@ -1342,6 +1823,17 @@
         Please note: all pieces are made entirely to order and are non-returnable. We encourage you to take all the time you need during consultation before confirming your order.
       </p>
     </form>
+
+    <div class="consult-divider">
+      <div class="consult-divider-line"></div>
+      <span class="consult-divider-text">or</span>
+      <div class="consult-divider-line"></div>
+    </div>
+    <button class="btn-calendly" onclick="openCalendly()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Schedule a Video Consultation
+    </button>
+    <p class="form-note" style="margin-top:10px;">Video calls available Mon–Sat, 9am–8pm EST &amp; IST. No obligation.</p>
 
     <div id="form-success" style="display:none; margin-top:32px;">
       <p style="color: var(--gold-light); font-size: 1rem; font-style: italic; line-height: 1.7;">
@@ -1960,6 +2452,7 @@
       }
 
       renderDiamonds();
+      renderBuilderDiamonds();
     } catch (err) {
       setFeedStatus('error', 'Feed unavailable — showing curated selection', null);
       // fall back to inline seed
@@ -1977,6 +2470,7 @@
       ];
       lastFetched = new Date();
       renderDiamonds();
+      renderBuilderDiamonds();
     }
   }
 
@@ -2058,6 +2552,226 @@
   window.addEventListener('scroll', () => {
     nav.style.boxShadow = window.scrollY > 20 ? '0 2px 24px rgba(0,0,0,0.07)' : 'none';
   });
+
+  // ── MOBILE NAV ──────────────────────────────────────────────────────────────
+  function toggleMobileNav() {
+    document.getElementById('navHamburger').classList.toggle('open');
+    document.getElementById('navMobileDrawer').classList.toggle('open');
+  }
+  function closeMobileNav() {
+    document.getElementById('navHamburger').classList.remove('open');
+    document.getElementById('navMobileDrawer').classList.remove('open');
+  }
+  // Close drawer on outside click
+  document.addEventListener('click', e => {
+    const drawer = document.getElementById('navMobileDrawer');
+    const btn    = document.getElementById('navHamburger');
+    if (drawer.classList.contains('open') && !drawer.contains(e.target) && !btn.contains(e.target)) {
+      closeMobileNav();
+    }
+  });
+
+  // ── RING BUILDER ────────────────────────────────────────────────────────────
+  let builderSelectedDiamond = null;
+  let builderSelectedSetting = null;
+  let builderSettingType     = 'Ring';
+  let builderShapeFilter     = 'All';
+  let builderDiamondPool     = [];
+  let builderSettingPool     = [];
+
+  function builderGoTo(step) {
+    [1, 2, 3].forEach(n => {
+      const el = document.getElementById('bstep' + n);
+      el.classList.remove('active', 'done');
+      if (n < step) el.classList.add('done');
+      else if (n === step) el.classList.add('active');
+    });
+    ['builderPanel1', 'builderPanel2', 'builderPanel3'].forEach((id, i) => {
+      const p = document.getElementById(id);
+      p.classList.toggle('active', i + 1 === step);
+    });
+    if (step === 2) renderBuilderSettings();
+    if (step === 3) renderBuilderSummary();
+  }
+
+  function renderBuilderDiamonds() {
+    builderDiamondPool = builderShapeFilter === 'All'
+      ? DIAMONDS
+      : DIAMONDS.filter(d => d.shape === builderShapeFilter);
+
+    const grid = document.getElementById('builderDiamondGrid');
+    if (!builderDiamondPool.length) {
+      grid.innerHTML = '<div class="no-results" style="grid-column:1/-1;">No stones available in this shape — try another or <a href="#consult" style="color:var(--gold-light);">enquire directly</a>.</div>';
+      return;
+    }
+    grid.innerHTML = builderDiamondPool.map((d, i) => `
+      <div class="bdcard ${builderSelectedDiamond && builderSelectedDiamond.id === d.id ? 'selected' : ''}"
+           onclick="selectBuilderDiamond(${i})">
+        <div class="dcard-illustration">${SHAPE_SVG[d.shape] || ''}</div>
+        <div class="dcard-shape">${d.shape}${d.source === 'live' ? ' <span style="font-size:0.55rem;background:rgba(74,222,128,0.12);color:#4ade80;border:1px solid rgba(74,222,128,0.25);padding:1px 5px;margin-left:4px;">LIVE</span>' : ''}</div>
+        <div class="dcard-carat">${d.carat}ct</div>
+        <div class="dcard-grade">${d.color} · ${d.clarity} · ${d.cut} Cut</div>
+        <div class="dcard-specs">
+          <div class="dcard-spec"><div class="dcard-spec-label">Cert</div><div class="dcard-spec-value">${d.cert}</div></div>
+          <div class="dcard-spec"><div class="dcard-spec-label">Color</div><div class="dcard-spec-value">${d.color}</div></div>
+          <div class="dcard-spec"><div class="dcard-spec-label">Clarity</div><div class="dcard-spec-value">${d.clarity}</div></div>
+          <div class="dcard-spec"><div class="dcard-spec-label">Cut</div><div class="dcard-spec-value">${d.cut}</div></div>
+        </div>
+        <div class="dcard-footer">
+          <div class="dcard-price">from $${d.price.toLocaleString()}</div>
+          <div class="dcard-cert">${d.cert}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function selectBuilderDiamond(i) {
+    builderSelectedDiamond = builderDiamondPool[i];
+    const d = builderSelectedDiamond;
+    document.getElementById('btnNext1').disabled = false;
+    document.getElementById('builderHint1').textContent = `Selected: ${d.carat}ct ${d.shape} · ${d.color}/${d.clarity}`;
+    renderBuilderDiamonds();
+  }
+
+  function renderBuilderSettings() {
+    builderSettingPool = SETTINGS.filter(s => s.type === builderSettingType);
+    document.getElementById('builderSettingGrid').innerHTML = builderSettingPool.map((s, i) => `
+      <div class="bscard ${builderSelectedSetting && builderSelectedSetting.name === s.name ? 'selected' : ''}"
+           onclick="selectBuilderSetting(${i})">
+        <div class="setting-illustration">${SETTING_SVG[s.name] || ''}</div>
+        <div class="bsc-style">${s.style}</div>
+        <h3>${s.name}</h3>
+        <div class="bsc-price">
+          <span>${s.note || 'Setting from'}</span>
+          $${s.basePrice.toLocaleString()} USD
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function selectBuilderSetting(i) {
+    builderSelectedSetting = builderSettingPool[i];
+    const s = builderSelectedSetting;
+    document.getElementById('btnNext2').disabled = false;
+    document.getElementById('builderHint2').textContent = `Selected: ${s.name}`;
+    renderBuilderSettings();
+  }
+
+  function renderBuilderSummary() {
+    const d = builderSelectedDiamond;
+    const s = builderSelectedSetting;
+    if (!d || !s) return;
+    const total = d.price + s.basePrice;
+
+    document.getElementById('builderPreviewCol').innerHTML = `
+      <div>
+        <p class="builder-preview-label">Your Diamond</p>
+        <div class="builder-combo-card">
+          <div style="flex-shrink:0;">${SHAPE_SVG[d.shape] || ''}</div>
+          <div>
+            <div class="dcard-shape">${d.shape}</div>
+            <div class="dcard-carat">${d.carat}ct</div>
+            <div class="dcard-grade">${d.color} · ${d.clarity} · ${d.cut}</div>
+            <div class="dcard-price" style="margin-top:6px;">$${d.price.toLocaleString()}</div>
+          </div>
+        </div>
+      </div>
+      <div class="builder-plus-divider">◆</div>
+      <div>
+        <p class="builder-preview-label">Your Setting</p>
+        <div class="builder-combo-card">
+          <div style="flex-shrink:0;width:90px;height:56px;overflow:hidden;display:flex;align-items:center;justify-content:center;">${SETTING_SVG[s.name] || ''}</div>
+          <div>
+            <div class="dcard-shape" style="color:var(--gold-light)">${s.style}</div>
+            <div style="color:white;font-size:0.95rem;margin:2px 0 4px;">${s.name}</div>
+            <div class="dcard-grade">${s.metals[0]}</div>
+            <div class="dcard-price" style="margin-top:6px;">from $${s.basePrice.toLocaleString()}</div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('builderQuotePanel').innerHTML = `
+      <p class="bq-label">Your Estimate</p>
+      <div class="bq-line">
+        <span class="bq-line-label">${d.carat}ct ${d.shape} (${d.color}/${d.clarity})</span>
+        <span class="bq-line-value">$${d.price.toLocaleString()}</span>
+      </div>
+      <div class="bq-line">
+        <span class="bq-line-label">${s.name}</span>
+        <span class="bq-line-value">from $${s.basePrice.toLocaleString()}</span>
+      </div>
+      <div class="bq-total">
+        <span class="bq-total-label">Estimated Total</span>
+        <span class="bq-total-value">from $${total.toLocaleString()}</span>
+      </div>
+      <p class="bq-note">Indicative estimate in USD. Your confirmed quote — inclusive of metal choice, final stone inspection, and setting complexity — will be provided during consultation. All pieces are made to order and non-returnable once confirmed.</p>
+      <div class="bq-actions">
+        <button class="btn-cad" onclick="requestCADPreview()">✦ Request 3D CAD Preview</button>
+        <a href="#consult" class="btn-consult-builder">Book a Consultation</a>
+        <button class="builder-restart" onclick="restartBuilder()">← Start over</button>
+      </div>
+    `;
+  }
+
+  function requestCADPreview() {
+    const d = builderSelectedDiamond;
+    const s = builderSelectedSetting;
+    const ta = document.querySelector('.lead-form textarea');
+    if (ta) {
+      ta.value = `3D CAD Preview Request\n\nDiamond: ${d.carat}ct ${d.shape} · ${d.color}/${d.clarity} · ${d.cut} Cut · ${d.cert}\nSetting: ${s.name} (${s.style})\nEstimated Total: from $${(d.price + s.basePrice).toLocaleString()} USD\n\nPlease send me a 3D CAD preview of this combination before I confirm. I'd also like to discuss metal choice and timeline.`;
+    }
+    document.getElementById('consult').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function restartBuilder() {
+    builderSelectedDiamond = null;
+    builderSelectedSetting = null;
+    document.getElementById('btnNext1').disabled = true;
+    document.getElementById('btnNext2').disabled = true;
+    document.getElementById('builderHint1').textContent = 'Select a diamond to continue';
+    document.getElementById('builderHint2').textContent = 'Select a setting to continue';
+    builderGoTo(1);
+    renderBuilderDiamonds();
+  }
+
+  // Builder shape filter chips
+  document.getElementById('builderShapeFilters').addEventListener('click', e => {
+    const chip = e.target.closest('.shape-chip');
+    if (!chip) return;
+    document.querySelectorAll('#builderShapeFilters .shape-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    builderShapeFilter = chip.dataset.shape;
+    builderSelectedDiamond = null;
+    document.getElementById('btnNext1').disabled = true;
+    document.getElementById('builderHint1').textContent = 'Select a diamond to continue';
+    renderBuilderDiamonds();
+  });
+
+  // Builder setting type tabs
+  document.getElementById('builderTypeTabs').addEventListener('click', e => {
+    const tab = e.target.closest('.builder-type-tab');
+    if (!tab) return;
+    document.querySelectorAll('.builder-type-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    builderSettingType = tab.dataset.type;
+    builderSelectedSetting = null;
+    document.getElementById('btnNext2').disabled = true;
+    document.getElementById('builderHint2').textContent = 'Select a setting to continue';
+    renderBuilderSettings();
+  });
+
+  // ── CALENDLY ────────────────────────────────────────────────────────────────
+  // Replace this URL with your actual Calendly link once your account is set up
+  const CALENDLY_URL = 'https://calendly.com/luvia-nova/consultation';
+
+  function openCalendly() {
+    if (window.Calendly) {
+      Calendly.initPopupWidget({ url: CALENDLY_URL });
+    } else {
+      window.open(CALENDLY_URL, '_blank');
+    }
+  }
 </script>
 
 </body>

@@ -2,15 +2,14 @@
  * Luvia Nova — Live Diamond Feed API
  * Vercel Serverless Function
  *
- * Connects to the Nivoda GraphQL API to pull real-time lab-grown diamond inventory.
- * Falls back to curated seed data if credentials are not yet configured.
+ * Provider priority:
+ *   1. Nivoda  — NIVODA_CLIENT_ID + NIVODA_CLIENT_SECRET
+ *   2. VDB     — VDB_API_KEY
+ *   3. IDEX    — IDEX_USERNAME + IDEX_PASSWORD
+ *   4. Seed    — curated fallback data (always works)
  *
- * To activate live feed:
- *   1. Go to Vercel Dashboard → Project → Settings → Environment Variables
- *   2. Add:  NIVODA_CLIENT_ID     → your Nivoda client ID
- *            NIVODA_CLIENT_SECRET → your Nivoda client secret
- *
- * Nivoda API docs: https://api.nivoda.net/graphql
+ * To activate a live feed, add the relevant env vars in:
+ *   Vercel Dashboard → Project → Settings → Environment Variables
  */
 
 const SEED_DIAMONDS = [
@@ -31,149 +30,186 @@ const SEED_DIAMONDS = [
   { id:"LD-99104", shape:"Marquise", carat:1.55, color:"D", clarity:"VVS2", cut:"Ideal",     cert:"IGI", certNum:"IGI-LG559381024", price:3400,  origin:"Zero-Emission — Singapore",       source:"seed" },
 ];
 
-// ── Nivoda GraphQL query for lab-grown diamonds ────────────────────────────
-const NIVODA_QUERY = `
-  query LabGrownDiamonds($filter: DiamondFilter, $first: Int) {
-    diamonds_by_query(
-      filter: $filter
-      first: $first
-      has_v360: false
-    ) {
-      data {
-        id
-        shape
-        carats
-        color
-        clarity
-        cut
-        cert
-        certNumber
-        price { total }
-        labgrown_origin
-      }
-    }
-  }
-`;
-
-// ── Normalise a Nivoda stone to our schema ─────────────────────────────────
-function normaliseNivodaStone(s) {
-  return {
-    id:      s.id,
-    shape:   capitalise(s.shape),
-    carat:   parseFloat(s.carats),
-    color:   s.color,
-    clarity: s.clarity,
-    cut:     s.cut || 'Ideal',
-    cert:    s.cert || 'GIA',
-    certNum: s.certNumber || '',
-    price:   Math.round(s.price?.total ?? 0),
-    origin:  s.labgrown_origin || 'Certified Lab-Grown',
-    source:  'live',
-  };
-}
-
-function capitalise(str) {
+function cap(str) {
   if (!str) return '';
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-// ── Get Nivoda bearer token ────────────────────────────────────────────────
+// ── NIVODA ────────────────────────────────────────────────────────────────────
 async function getNivodaToken(clientId, clientSecret) {
   const res = await fetch('https://api.nivoda.net/graphql', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      query: `
-        mutation Authenticate($clientId: String!, $clientSecret: String!) {
-          authenticate {
-            GenerateToken(input: {
-              client_id: $clientId
-              client_secret: $clientSecret
-            }) {
-              token
-              expiry
-            }
-          }
-        }
-      `,
-      variables: { clientId, clientSecret },
+      query: `mutation Auth($id:String!,$secret:String!){authenticate{GenerateToken(input:{client_id:$id client_secret:$secret}){token}}}`,
+      variables: { id: clientId, secret: clientSecret },
     }),
   });
   const data = await res.json();
   return data?.data?.authenticate?.GenerateToken?.token ?? null;
 }
 
-// ── Fetch live stones from Nivoda ──────────────────────────────────────────
-async function fetchNivodaStones(token, { shape, minCarat, maxPrice } = {}) {
-  const filter = {
-    lab_grown: true,
-    has_certificate: true,
-    shapes: shape && shape !== 'All' ? [shape.toUpperCase()] : undefined,
-    carats: { from: minCarat ?? 0.5, to: 10 },
-    price:  { from: 500, to: maxPrice ?? 50000 },
-    colors: ['D','E','F','G','H'],
-    clarities: ['IF','VVS1','VVS2','VS1','VS2'],
-  };
-
+async function fetchNivoda(token, { shape, minCarat, maxPrice } = {}) {
   const res = await fetch('https://api.nivoda.net/graphql', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    },
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
     body: JSON.stringify({
-      query: NIVODA_QUERY,
-      variables: { filter, first: 60 },
+      query: `query($filter:DiamondFilter,$first:Int){diamonds_by_query(filter:$filter first:$first has_v360:false){data{id shape carats color clarity cut cert certNumber price{total} labgrown_origin}}}`,
+      variables: {
+        first: 60,
+        filter: {
+          lab_grown: true,
+          has_certificate: true,
+          shapes: shape && shape !== 'All' ? [shape.toUpperCase()] : undefined,
+          carats: { from: minCarat ?? 0.5, to: 10 },
+          price:  { from: 500, to: maxPrice ?? 50000 },
+          colors: ['D','E','F','G','H'],
+          clarities: ['IF','VVS1','VVS2','VS1','VS2'],
+        },
+      },
     }),
   });
-
   const data = await res.json();
-  const stones = data?.data?.diamonds_by_query?.data ?? [];
-  return stones.map(normaliseNivodaStone);
+  return (data?.data?.diamonds_by_query?.data ?? []).map(s => ({
+    id: s.id, shape: cap(s.shape), carat: parseFloat(s.carats),
+    color: s.color, clarity: s.clarity, cut: s.cut || 'Ideal',
+    cert: s.cert || 'GIA', certNum: s.certNumber || '',
+    price: Math.round(s.price?.total ?? 0),
+    origin: s.labgrown_origin || 'Certified Lab-Grown', source: 'live',
+  }));
 }
 
-// ── Main handler ───────────────────────────────────────────────────────────
+// ── VDB (Virtual Diamond Boutique) ────────────────────────────────────────────
+// VDB REST API: https://vdb.net/api
+async function fetchVDB(apiKey, { shape, minCarat, maxPrice } = {}) {
+  const params = new URLSearchParams({
+    lab_grown: 'true',
+    has_certificate: 'true',
+    min_carat: minCarat ?? 0.5,
+    max_carat: 10,
+    min_price: 500,
+    max_price: maxPrice ?? 50000,
+    colors: 'D,E,F,G,H',
+    clarities: 'IF,VVS1,VVS2,VS1,VS2',
+    limit: 60,
+  });
+  if (shape && shape !== 'All') params.set('shapes', shape.toUpperCase());
+
+  const res = await fetch(`https://api.vdb.net/v2/diamonds?${params}`, {
+    headers: { 'Authorization': `Bearer ${apiKey}`, 'Accept': 'application/json' },
+  });
+  if (!res.ok) throw new Error(`VDB HTTP ${res.status}`);
+  const data = await res.json();
+
+  return (data.diamonds ?? data.items ?? []).map(s => ({
+    id:      s.id || s.diamond_id,
+    shape:   cap(s.shape),
+    carat:   parseFloat(s.carat || s.carats || 0),
+    color:   s.color,
+    clarity: s.clarity,
+    cut:     s.cut || 'Ideal',
+    cert:    s.certificate || s.cert || 'GIA',
+    certNum: s.certificate_number || s.certNumber || '',
+    price:   Math.round(parseFloat(s.price || s.total_price || 0)),
+    origin:  s.origin || 'Certified Lab-Grown',
+    source:  'live',
+  }));
+}
+
+// ── IDEX ──────────────────────────────────────────────────────────────────────
+// IDEX REST API: https://www.idexonline.com/api
+async function fetchIDEX(username, password, { shape, minCarat, maxPrice } = {}) {
+  // IDEX uses HTTP Basic auth
+  const auth = Buffer.from(`${username}:${password}`).toString('base64');
+  const params = new URLSearchParams({
+    lab: 'true',
+    certified: 'true',
+    caratFrom: minCarat ?? 0.5,
+    caratTo:   10,
+    priceFrom: 500,
+    priceTo:   maxPrice ?? 50000,
+    color:     'D,E,F,G,H',
+    clarity:   'IF,VVS1,VVS2,VS1,VS2',
+    pageSize:  60,
+  });
+  if (shape && shape !== 'All') params.set('shape', shape.toUpperCase());
+
+  const res = await fetch(`https://www.idexonline.com/api/v2/diamonds/search?${params}`, {
+    headers: { 'Authorization': `Basic ${auth}`, 'Accept': 'application/json' },
+  });
+  if (!res.ok) throw new Error(`IDEX HTTP ${res.status}`);
+  const data = await res.json();
+
+  return (data.diamonds ?? data.results ?? []).map(s => ({
+    id:      s.id || s.StockID,
+    shape:   cap(s.Shape || s.shape),
+    carat:   parseFloat(s.Carat || s.carat || 0),
+    color:   s.Color || s.color,
+    clarity: s.Clarity || s.clarity,
+    cut:     s.Cut || s.cut || 'Ideal',
+    cert:    s.Certificate || s.cert || 'GIA',
+    certNum: s.ReportNo || s.certNumber || '',
+    price:   Math.round(parseFloat(s.Price || s.price || 0)),
+    origin:  'Certified Lab-Grown',
+    source:  'live',
+  }));
+}
+
+// ── Main handler ───────────────────────────────────────────────────────────────
 export default async function handler(req, res) {
-  // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   const { shape, minCarat, maxPrice } = req.query;
+  const opts = {
+    shape,
+    minCarat: minCarat ? parseFloat(minCarat) : undefined,
+    maxPrice: maxPrice ? parseFloat(maxPrice) : undefined,
+  };
 
-  const clientId     = process.env.NIVODA_CLIENT_ID;
-  const clientSecret = process.env.NIVODA_CLIENT_SECRET;
-
-  // ── Live path ─────────────────────────────────────────────────────────────
-  if (clientId && clientSecret) {
+  // ── 1. Nivoda ────────────────────────────────────────────────────────────────
+  const nivodaId     = process.env.NIVODA_CLIENT_ID;
+  const nivodaSecret = process.env.NIVODA_CLIENT_SECRET;
+  if (nivodaId && nivodaSecret) {
     try {
-      const token  = await getNivodaToken(clientId, clientSecret);
-      if (!token) throw new Error('Auth failed');
-
-      const stones = await fetchNivodaStones(token, {
-        shape,
-        minCarat: minCarat ? parseFloat(minCarat) : undefined,
-        maxPrice: maxPrice ? parseFloat(maxPrice)  : undefined,
-      });
-
-      return res.status(200).json({
-        source: 'live',
-        provider: 'Nivoda',
-        count: stones.length,
-        fetchedAt: new Date().toISOString(),
-        diamonds: stones,
-      });
+      const token  = await getNivodaToken(nivodaId, nivodaSecret);
+      if (!token) throw new Error('Nivoda auth failed');
+      const stones = await fetchNivoda(token, opts);
+      return res.status(200).json({ source:'live', provider:'Nivoda', count:stones.length, fetchedAt:new Date().toISOString(), diamonds:stones });
     } catch (err) {
-      console.error('Nivoda API error:', err.message);
-      // fall through to seed
+      console.error('Nivoda error:', err.message);
     }
   }
 
-  // ── Seed / demo path ──────────────────────────────────────────────────────
+  // ── 2. VDB ───────────────────────────────────────────────────────────────────
+  const vdbKey = process.env.VDB_API_KEY;
+  if (vdbKey) {
+    try {
+      const stones = await fetchVDB(vdbKey, opts);
+      return res.status(200).json({ source:'live', provider:'VDB', count:stones.length, fetchedAt:new Date().toISOString(), diamonds:stones });
+    } catch (err) {
+      console.error('VDB error:', err.message);
+    }
+  }
+
+  // ── 3. IDEX ──────────────────────────────────────────────────────────────────
+  const idexUser = process.env.IDEX_USERNAME;
+  const idexPass = process.env.IDEX_PASSWORD;
+  if (idexUser && idexPass) {
+    try {
+      const stones = await fetchIDEX(idexUser, idexPass, opts);
+      return res.status(200).json({ source:'live', provider:'IDEX', count:stones.length, fetchedAt:new Date().toISOString(), diamonds:stones });
+    } catch (err) {
+      console.error('IDEX error:', err.message);
+    }
+  }
+
+  // ── 4. Seed fallback ─────────────────────────────────────────────────────────
   let diamonds = [...SEED_DIAMONDS];
   if (shape && shape !== 'All') diamonds = diamonds.filter(d => d.shape === shape);
-  if (minCarat) diamonds = diamonds.filter(d => d.carat >= parseFloat(minCarat));
-  if (maxPrice)  diamonds = diamonds.filter(d => d.price  <= parseFloat(maxPrice));
+  if (opts.minCarat) diamonds = diamonds.filter(d => d.carat >= opts.minCarat);
+  if (opts.maxPrice) diamonds = diamonds.filter(d => d.price <= opts.maxPrice);
 
   return res.status(200).json({
     source: 'demo',

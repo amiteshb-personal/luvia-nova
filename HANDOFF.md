@@ -85,15 +85,19 @@ luvia-nova/
 
 ---
 
-## What's NOT done yet (Phase 2 / future)
+## Phase 2 — Completed
+- ✅ Mobile nav hamburger menu (slide-in drawer, closes on outside click)
+- ✅ Interactive Ring Builder (3-step: choose diamond → choose setting → see creation + estimate)
+- ✅ 3D CAD Preview request flow (pre-fills consultation form with full selection details)
+- ✅ Virtual consultation booking via Calendly popup (add your Calendly URL to `CALENDLY_URL` in index.html)
+- ✅ VDB + IDEX API support in `/api/diamonds.js` (provider priority: Nivoda → VDB → IDEX → seed)
+
+## Still To Do (Phase 3)
 - Shopify migration
-- Full ring/earring/bracelet builder UI (interactive stone + setting pairing)
-- 3D CAD visualization previews
-- Virtual consultation booking (calendaring integration)
-- Payment processing
-- VDB / IDEX API alternatives to Nivoda
+- Payment processing / Stripe checkout
 - Account creation / order tracking
-- Mobile nav (hamburger menu — nav links hidden on mobile currently)
+- VDB / IDEX credentials configured in Vercel env vars (see api/diamonds.js for env var names)
+- Replace Calendly placeholder URL (`https://calendly.com/luvia-nova/consultation`) with real account
 
 ---
 
