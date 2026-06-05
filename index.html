@@ -3056,7 +3056,49 @@
                 </div>
               </div>
 
-              <button type="submit" class="review-submit-btn" id="pfSubmitBtn" style="padding:14px 32px;font-size:0.75rem;letter-spacing:0.15em;align-self:stretch;">
+              <!-- Policy agreement -->
+              <div class="policy-agreement">
+                <div class="policy-agreement-header">
+                  <span>Sales Terms &amp; No-Return Policy</span>
+                  <span class="policy-required-badge">Signature Required</span>
+                </div>
+                <div class="policy-text">
+                  <p><strong>Made-to-Order &amp; Non-Returnable</strong><br>
+                  Every Luvia Nova piece is made entirely to order — your chosen stone, your chosen setting, cast and finished specifically for you. We are unable to accept returns, exchanges, or cancellations once production has commenced.</p>
+                  <p><strong>Consultation &amp; Confirmation</strong><br>
+                  All clients are encouraged to take the time they need during the selection process before confirming. If you have any uncertainty, please raise it before giving final approval. We are committed to getting every detail right the first time.</p>
+                  <p><strong>Pricing</strong><br>
+                  Diamond prices and metal costs are quoted individually and reflect live market rates at the time of order confirmation. Setting prices shown on this site are indicative only. Your confirmed total will be stated in writing before production commences.</p>
+                  <p><strong>Production Timeline</strong><br>
+                  Stone selection typically takes 3–7 days. Setting manufacture and finishing takes a further 3–5 weeks. Regular updates are provided throughout.</p>
+                  <p><strong>Governing Law</strong><br>
+                  These terms are governed by the laws of the Province of Ontario, Canada, and applicable federal Canadian consumer protection legislation.</p>
+                </div>
+                <div class="policy-sign-area">
+                  <div class="policy-sign-tabs">
+                    <button type="button" class="policy-sign-tab active" onclick="setPfSigMode('draw')">Draw Signature</button>
+                    <button type="button" class="policy-sign-tab" onclick="setPfSigMode('type')">Type Signature</button>
+                  </div>
+                  <div id="pfSigDrawMode">
+                    <div class="sig-canvas-wrap">
+                      <canvas id="pfSigCanvas"></canvas>
+                      <span class="sig-canvas-label" id="pfSigCanvasLabel">Sign here with mouse or touch</span>
+                    </div>
+                    <button type="button" class="sig-clear" onclick="clearPfSignature()">✕ Clear signature</button>
+                  </div>
+                  <div id="pfSigTypeMode" style="display:none;">
+                    <input class="sig-type-input" id="pfSigTypeInput" type="text"
+                           placeholder="Type your full name as signature"
+                           oninput="updatePfSubmitBtn()">
+                  </div>
+                  <div class="policy-checkbox-row">
+                    <input type="checkbox" id="pfPolicyCheckbox" onchange="updatePfSubmitBtn()">
+                    <label for="pfPolicyCheckbox">I have read and understood the above Sales Terms &amp; No-Return Policy. I acknowledge that my order, once confirmed in writing, is <strong>non-cancellable and non-returnable</strong>, and I agree to be bound by these terms.</label>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="review-submit-btn" id="pfSubmitBtn" disabled style="padding:14px 32px;font-size:0.75rem;letter-spacing:0.15em;align-self:stretch;">
                 Send My Brief →
               </button>
               <p class="form-note">Your details are private. We reply within one business day with tailored stone and setting recommendations.</p>
@@ -4120,6 +4162,70 @@
     document.getElementById('pfUploadThumb').src = '';
   }
 
+  // ── EMAIL PREF SIGNATURE PAD ─────────────────────────────────────────────────
+  let pfSigMode    = 'draw';
+  let pfSigDrawn   = false;
+  let pfSigDrawing = false;
+  let pfSigLastX   = 0, pfSigLastY = 0;
+
+  function initPfSigCanvas() {
+    const canvas = document.getElementById('pfSigCanvas');
+    if (!canvas) return;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width  = rect.width || 400;
+    canvas.height = 80;
+    const ctx = canvas.getContext('2d');
+    ctx.strokeStyle = '#d4b97a'; ctx.lineWidth = 1.8;
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+
+    function pos(e) { const r=canvas.getBoundingClientRect(),s=e.touches?e.touches[0]:e; return {x:s.clientX-r.left,y:s.clientY-r.top}; }
+    canvas.addEventListener('mousedown',  e=>{e.preventDefault();pfSigDrawing=true;const p=pos(e);pfSigLastX=p.x;pfSigLastY=p.y;});
+    canvas.addEventListener('mousemove',  e=>{if(!pfSigDrawing)return;e.preventDefault();const p=pos(e);ctx.beginPath();ctx.moveTo(pfSigLastX,pfSigLastY);ctx.lineTo(p.x,p.y);ctx.stroke();pfSigLastX=p.x;pfSigLastY=p.y;if(!pfSigDrawn){pfSigDrawn=true;document.getElementById('pfSigCanvasLabel').classList.add('hidden');updatePfSubmitBtn();}});
+    canvas.addEventListener('mouseup',    ()=>pfSigDrawing=false);
+    canvas.addEventListener('mouseleave', ()=>pfSigDrawing=false);
+    canvas.addEventListener('touchstart', e=>{e.preventDefault();pfSigDrawing=true;const p=pos(e);pfSigLastX=p.x;pfSigLastY=p.y;},{passive:false});
+    canvas.addEventListener('touchmove',  e=>{if(!pfSigDrawing)return;e.preventDefault();const p=pos(e);ctx.beginPath();ctx.moveTo(pfSigLastX,pfSigLastY);ctx.lineTo(p.x,p.y);ctx.stroke();pfSigLastX=p.x;pfSigLastY=p.y;if(!pfSigDrawn){pfSigDrawn=true;document.getElementById('pfSigCanvasLabel').classList.add('hidden');updatePfSubmitBtn();}},{passive:false});
+    canvas.addEventListener('touchend',   ()=>pfSigDrawing=false);
+  }
+
+  function clearPfSignature() {
+    const canvas = document.getElementById('pfSigCanvas');
+    canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);
+    pfSigDrawn = false;
+    document.getElementById('pfSigCanvasLabel').classList.remove('hidden');
+    updatePfSubmitBtn();
+  }
+
+  function setPfSigMode(mode) {
+    pfSigMode = mode;
+    document.querySelectorAll('#pfSigDrawMode').forEach(()=>{});
+    document.getElementById('pfSigDrawMode').style.display = mode==='draw'?'block':'none';
+    document.getElementById('pfSigTypeMode').style.display = mode==='type'?'block':'none';
+    // update tab styles
+    const tabs = document.querySelectorAll('.policy-sign-area .policy-sign-tab');
+    // find in the pref form specifically
+    const pfArea = document.getElementById('pfSigDrawMode').closest('.policy-sign-area');
+    pfArea.querySelectorAll('.policy-sign-tab').forEach(t=>t.classList.toggle('active', t.textContent.toLowerCase().includes(mode)));
+    updatePfSubmitBtn();
+  }
+
+  function pfHasValidSignature() {
+    return pfSigMode==='draw' ? pfSigDrawn : document.getElementById('pfSigTypeInput').value.trim().length > 1;
+  }
+
+  function getPfSignatureValue() {
+    return pfSigMode==='type' ? document.getElementById('pfSigTypeInput').value.trim() : pfSigDrawn ? '[Drawn signature — on file]' : '';
+  }
+
+  function updatePfSubmitBtn() {
+    const checked = document.getElementById('pfPolicyCheckbox')?.checked;
+    const signed  = pfHasValidSignature();
+    const btn     = document.getElementById('pfSubmitBtn');
+    if (btn) btn.disabled = !(checked && signed);
+  }
+
+  window.addEventListener('load', ()=> setTimeout(initPfSigCanvas, 150));
+
   async function submitEmailPref(e) {
     e.preventDefault();
     const btn = document.getElementById('pfSubmitBtn');
@@ -4133,8 +4239,10 @@
       budget:       document.getElementById('pfBudget').value || 'Not specified',
       metal:        document.getElementById('pfMetal').value  || 'Not specified',
       message:      document.getElementById('pfMessage').value,
-      design_image: pfUploadedFileName ? 'Customer uploaded: ' + pfUploadedFileName : 'No image attached',
-      to_email:     'hello@luvianova.com',
+      design_image:  pfUploadedFileName ? 'Customer uploaded: ' + pfUploadedFileName : 'No image attached',
+      signature:     getPfSignatureValue(),
+      policy_agreed: 'Yes — customer signed and accepted no-return policy',
+      to_email:      'hello@luvianova.com',
     };
 
     try {
