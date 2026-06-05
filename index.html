@@ -3378,18 +3378,35 @@
     </svg>`,
 
     'The Zoya Charm': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Chain -->
       <path d="M10 38 Q90 32 170 38" stroke="${GOLD2}" stroke-width="1.5" fill="none"/>
-      <circle cx="4" cy="38" r="3.5" stroke="${GOLD}" stroke-width="1.2" fill="none"/>
+      <circle cx="4"   cy="38" r="3.5" stroke="${GOLD}" stroke-width="1.2" fill="none"/>
       <circle cx="176" cy="38" r="3.5" stroke="${GOLD}" stroke-width="1.2" fill="none"/>
-      <!-- 5 charm drops -->
-      ${[[30,'lotus'],[58,'crescent'],[90,'teardrop'],[122,'star'],[150,'round']].map(([x,type],i)=>{
-        const link=`<line x1="${x}" y1="38" x2="${x}" y2="50" stroke="${GOLD}" stroke-width="1"/><circle cx="${x}" cy="47" r="2" stroke="${GOLD}" stroke-width="0.8" fill="none"/>`;
-        if(type==='lotus') return link+`<path d="M${x} 52 C${x-8} 52 ${x-10} 62 ${x} 68 C${x+10} 62 ${x+8} 52 ${x} 52Z" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.15)"/><path d="M${x} 54 C${x-5} 54 ${x-6} 62 ${x} 66 C${x+6} 62 ${x+5} 54 ${x} 54Z" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.5" fill="none"/>`;
-        if(type==='crescent') return link+`<path d="M${x-8} 60 A10 10 0 1 1 ${x-8} 80 A6 6 0 1 0 ${x-8} 60Z" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.15)"/>`;
-        if(type==='teardrop') return link+`<path d="M${x} 52 C${x-7} 52 ${x-9} 64 ${x} 72 C${x+9} 64 ${x+7} 52 ${x} 52Z" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.12)"/>`;
-        if(type==='star') return link+`${Array.from({length:5},(_,k)=>{const a=(k*72-90)*Math.PI/180;const b=((k*72+36)-90)*Math.PI/180;return `<line x1="${x+9*Math.cos(a)}" y1="${62+9*Math.sin(a)}" x2="${x+4*Math.cos(b)}" y2="${62+4*Math.sin(b)}" stroke="${GOLD}" stroke-width="1.2"/><line x1="${x+4*Math.cos(b)}" y1="${62+4*Math.sin(b)}" x2="${x+9*Math.cos(a+72*Math.PI/180)}" y2="${62+9*Math.sin(a+72*Math.PI/180)}" stroke="${GOLD}" stroke-width="1.2"/>`;}).join('')}`;
-        return link+`<circle cx="${x}" cy="62" r="9" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.12)"/><circle cx="${x}" cy="62" r="5" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.5" fill="none"/>`;
-      }).join('')}
+      <!-- Drop links -->
+      <line x1="30"  y1="38" x2="30"  y2="50" stroke="${GOLD}" stroke-width="1"/>
+      <line x1="58"  y1="38" x2="58"  y2="50" stroke="${GOLD}" stroke-width="1"/>
+      <line x1="90"  y1="38" x2="90"  y2="50" stroke="${GOLD}" stroke-width="1"/>
+      <line x1="122" y1="38" x2="122" y2="50" stroke="${GOLD}" stroke-width="1"/>
+      <line x1="150" y1="38" x2="150" y2="50" stroke="${GOLD}" stroke-width="1"/>
+      <circle cx="30"  cy="47" r="2" stroke="${GOLD}" stroke-width="0.8" fill="none"/>
+      <circle cx="58"  cy="47" r="2" stroke="${GOLD}" stroke-width="0.8" fill="none"/>
+      <circle cx="90"  cy="47" r="2" stroke="${GOLD}" stroke-width="0.8" fill="none"/>
+      <circle cx="122" cy="47" r="2" stroke="${GOLD}" stroke-width="0.8" fill="none"/>
+      <circle cx="150" cy="47" r="2" stroke="${GOLD}" stroke-width="0.8" fill="none"/>
+      <!-- Lotus charm (x=30) -->
+      <path d="M30 52 C22 52 20 62 30 68 C40 62 38 52 30 52Z" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.15)"/>
+      <path d="M30 54 C25 54 24 62 30 66 C36 62 35 54 30 54Z" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.5" fill="none"/>
+      <!-- Crescent charm (x=58) -->
+      <path d="M50 60 A10 10 0 1 1 50 80 A6 6 0 1 0 50 60Z" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.15)"/>
+      <!-- Teardrop charm (x=90) -->
+      <path d="M90 52 C83 52 81 64 90 72 C99 64 97 52 90 52Z" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.12)"/>
+      <!-- Star charm (x=122) — pre-computed 5-point star -->
+      <polygon points="122,53 124.4,58.8 130.6,59.2 125.8,63.2 127.3,69.3 122,66 116.7,69.3 118.2,63.2 113.4,59.2 119.6,58.8"
+               stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.15)"/>
+      <!-- Round brilliant charm (x=150) -->
+      <circle cx="150" cy="62" r="9"  stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.12)"/>
+      <circle cx="150" cy="62" r="5"  stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.5" fill="none"/>
+      <circle cx="150" cy="62" r="1.5" fill="${GOLD}" opacity="0.5"/>
     </svg>`,
 
     'The Rani Wide Cuff': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
