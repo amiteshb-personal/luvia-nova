@@ -1207,6 +1207,39 @@
     .platform-btn.active { background: var(--gold); color: white; }
     .platform-icon { font-size: 0.9rem; }
 
+    /* ── CONSULT TYPE TABS ── */
+    .consult-type-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 28px 0 0;
+    }
+    .consult-type-tab {
+      display: flex; flex-direction: column; align-items: flex-start;
+      gap: 4px;
+      border: 1px solid rgba(184,154,94,0.2);
+      background: rgba(255,255,255,0.02);
+      padding: 18px 22px;
+      cursor: pointer; text-align: left;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .consult-type-tab:hover  { border-color: rgba(184,154,94,0.5); background: rgba(184,154,94,0.04); }
+    .consult-type-tab.active { border-color: var(--gold); background: rgba(184,154,94,0.08); }
+    .ctt-icon  { font-size: 1.2rem; margin-bottom: 2px; }
+    .ctt-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: white; font-weight: 500;
+    }
+    .consult-type-tab.active .ctt-label { color: var(--gold-light); }
+    .ctt-sub {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem; color: rgba(255,255,255,0.35); line-height: 1.5;
+    }
+    @media (max-width: 900px) {
+      .consult-type-tabs { grid-template-columns: 1fr; }
+    }
+
     /* ── MANAGE BOOKING ── */
     .manage-section {
       background: rgba(255,255,255,0.02);
@@ -2776,8 +2809,24 @@
   <div style="max-width:1100px;margin:0 auto;padding:100px 60px;">
     <p class="section-label" style="color:var(--gold-light);">Private Consultation</p>
     <h2 class="section-title" style="color:white;">Schedule Your Consultation</h2>
-    <p class="section-body" style="color:rgba(255,255,255,0.55);">Choose a date and time that suits you. We'll confirm your booking within a few hours and send a calendar invite. Video calls available 7 days a week, 9am–7pm EST.</p>
+    <p class="section-body" style="color:rgba(255,255,255,0.55);">Choose how you'd like to connect — book a live video consultation or email us your preferences and inspiration at your own pace.</p>
 
+    <!-- Consultation type toggle -->
+    <div class="consult-type-tabs">
+      <button class="consult-type-tab active" id="tabLive" onclick="switchConsultTab('live')">
+        <span class="ctt-icon">🎥</span>
+        <span class="ctt-label">Live Consultation</span>
+        <span class="ctt-sub">Book a video call — 7 days, 9am–7pm EST</span>
+      </button>
+      <button class="consult-type-tab" id="tabEmail" onclick="switchConsultTab('email')">
+        <span class="ctt-icon">✉</span>
+        <span class="ctt-label">Email Your Preferences</span>
+        <span class="ctt-sub">Send your brief & inspiration image at your own pace</span>
+      </button>
+    </div>
+
+    <!-- Live consultation panel -->
+    <div id="liveConsultPanel">
     <div id="bookingSuccess" class="booking-success">
       <div class="booking-success-icon">◆</div>
       <h3>Your consultation is booked.</h3>
@@ -2933,6 +2982,121 @@
 
       </div>
     </div>
+    </div><!-- end liveConsultPanel -->
+
+    <!-- Email preferences panel -->
+    <div id="emailPrefPanel" style="display:none;">
+      <div id="emailPrefSuccess" class="booking-success">
+        <div class="booking-success-icon">◆</div>
+        <h3>Your preferences have been sent.</h3>
+        <p id="emailPrefSuccessDetail"></p>
+        <p style="margin-top:12px;">We'll review your brief and reply within one business day with stone recommendations and indicative pricing.</p>
+      </div>
+      <div id="emailPrefForm">
+        <div class="booking-layout">
+          <!-- LEFT: What you're looking for -->
+          <div>
+            <p class="booking-col-label">Your Brief</p>
+            <form class="lead-form" id="prefForm" onsubmit="submitEmailPref(event)" style="gap:12px;">
+              <div class="form-row">
+                <input type="text"  id="pfName"  placeholder="Your Name" required>
+                <input type="email" id="pfEmail" placeholder="Email Address" required>
+              </div>
+              <input type="tel" id="pfPhone" placeholder="Phone / WhatsApp (optional)">
+              <select id="pfType" required>
+                <option value="" disabled selected>What are you looking for?</option>
+                <option>Engagement Ring</option>
+                <option>Wedding Band</option>
+                <option>Custom Ring</option>
+                <option>Earrings</option>
+                <option>Bracelet</option>
+                <option>Loose Diamond</option>
+                <option>Complete Custom Piece</option>
+                <option>Gift / Other Occasion</option>
+              </select>
+              <select id="pfBudget">
+                <option value="" disabled selected>Approximate budget (optional)</option>
+                <option>Under $1,000</option>
+                <option>$1,000 – $2,500</option>
+                <option>$2,500 – $5,000</option>
+                <option>$5,000 – $10,000</option>
+                <option>$10,000 – $25,000</option>
+                <option>$25,000+</option>
+                <option>I'd prefer to discuss</option>
+              </select>
+              <select id="pfMetal">
+                <option value="" disabled selected>Preferred metal (optional)</option>
+                <option>9ct Yellow Gold</option>
+                <option>14ct Yellow Gold</option>
+                <option>9ct White Gold</option>
+                <option>14ct White Gold</option>
+                <option>9ct Rose Gold</option>
+                <option>14ct Rose Gold</option>
+                <option>950 Platinum</option>
+                <option>Not sure — open to advice</option>
+              </select>
+              <textarea id="pfMessage" placeholder="Describe your vision — occasion, style, any specific design elements, heritage motifs, or stones you have in mind…" style="min-height:110px;" required></textarea>
+
+              <!-- Image upload -->
+              <div class="upload-wrap">
+                <span class="upload-label">Attach an Inspiration Image (optional)</span>
+                <div class="upload-drop" id="pfUploadDrop">
+                  <input type="file" id="pfDesignFile" accept="image/*,.pdf" onchange="handlePfFileUpload(this)">
+                  <div class="upload-icon">◈</div>
+                  <p>Drop an image here or <span>browse to upload</span><br>
+                  <span style="color:rgba(255,255,255,0.25);font-size:0.68rem;">JPG, PNG, PDF up to 5MB · sketch, photo, screenshot, or moodboard</span></p>
+                </div>
+                <div class="upload-preview" id="pfUploadPreview">
+                  <img id="pfUploadThumb" src="" alt="Design preview">
+                  <div class="upload-preview-info">
+                    <strong id="pfUploadFileName"></strong>
+                    <span id="pfUploadFileSize"></span>
+                  </div>
+                  <button type="button" class="upload-remove" onclick="removePfUpload()">✕</button>
+                </div>
+              </div>
+
+              <button type="submit" class="review-submit-btn" id="pfSubmitBtn" style="padding:14px 32px;font-size:0.75rem;letter-spacing:0.15em;align-self:stretch;">
+                Send My Brief →
+              </button>
+              <p class="form-note">Your details are private. We reply within one business day with tailored stone and setting recommendations.</p>
+              <p class="form-note" style="margin-top:6px;border-top:1px solid rgba(184,154,94,0.15);padding-top:12px;">
+                All pieces are made to order and non-returnable once production commences. Pricing is confirmed at the time of order based on live market rates.
+              </p>
+            </form>
+          </div>
+
+          <!-- RIGHT: What to expect -->
+          <div>
+            <p class="booking-col-label">What Happens Next</p>
+            <div style="display:flex;flex-direction:column;gap:20px;">
+              <div style="border:1px solid rgba(184,154,94,0.15);padding:22px 20px;">
+                <p style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-light);margin-bottom:8px;">Step 01</p>
+                <p style="color:white;font-size:0.95rem;margin-bottom:6px;">We Review Your Brief</p>
+                <p style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.78rem;color:rgba(255,255,255,0.4);line-height:1.7;">Our team reviews your preferences, inspiration image, and budget within one business day.</p>
+              </div>
+              <div style="border:1px solid rgba(184,154,94,0.15);padding:22px 20px;">
+                <p style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-light);margin-bottom:8px;">Step 02</p>
+                <p style="color:white;font-size:0.95rem;margin-bottom:6px;">We Send Stone Options</p>
+                <p style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.78rem;color:rgba(255,255,255,0.4);line-height:1.7;">We'll reply with a curated shortlist of certified diamonds and settings that match your vision — with full specs and indicative pricing.</p>
+              </div>
+              <div style="border:1px solid rgba(184,154,94,0.15);padding:22px 20px;">
+                <p style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-light);margin-bottom:8px;">Step 03</p>
+                <p style="color:white;font-size:0.95rem;margin-bottom:6px;">You Decide at Your Own Pace</p>
+                <p style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.78rem;color:rgba(255,255,255,0.4);line-height:1.7;">No rush, no pressure. Respond by email, or upgrade to a live call at any point. We proceed only when you're fully confident.</p>
+              </div>
+              <div style="border:1px solid rgba(184,154,94,0.15);padding:16px 20px;background:rgba(184,154,94,0.04);">
+                <p style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.72rem;color:rgba(255,255,255,0.35);line-height:1.7;">
+                  Prefer to email directly?<br>
+                  <a href="mailto:hello@luvianova.com?subject=Jewellery%20Enquiry&body=Hi%2C%20I%20would%20like%20to%20enquire%20about%20a%20custom%20piece." style="color:var(--gold-light);text-decoration:none;">hello@luvianova.com ↗</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Manage existing booking -->
     <div class="manage-section" id="manageSection">
       <button class="manage-toggle" onclick="toggleManagePanel()">
@@ -3915,6 +4079,79 @@
   // ── SHARED DATE CONSTANTS ───────────────────────────────────────────────────
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
+  // ── CONSULT TAB SWITCHING ───────────────────────────────────────────────────
+  function switchConsultTab(tab) {
+    const isLive = tab === 'live';
+    document.getElementById('tabLive').classList.toggle('active', isLive);
+    document.getElementById('tabEmail').classList.toggle('active', !isLive);
+    document.getElementById('liveConsultPanel').style.display  = isLive  ? 'block' : 'none';
+    document.getElementById('emailPrefPanel').style.display    = !isLive ? 'block' : 'none';
+    document.getElementById('manageSection').style.display     = isLive  ? 'block' : 'none';
+  }
+
+  // ── EMAIL PREFERENCES FORM ──────────────────────────────────────────────────
+  const EMAILJS_PREF_TEMPLATE_ID = 'YOUR_PREF_TEMPLATE_ID';
+  let pfUploadedFileName = null;
+
+  function handlePfFileUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { alert('File is too large. Please upload under 5MB.'); input.value=''; return; }
+    pfUploadedFileName = file.name;
+    document.getElementById('pfUploadFileName').textContent = file.name;
+    document.getElementById('pfUploadFileSize').textContent = (file.size/1024/1024).toFixed(1) + ' MB';
+    document.getElementById('pfUploadDrop').style.display = 'none';
+    document.getElementById('pfUploadPreview').classList.add('visible');
+    const reader = new FileReader();
+    reader.onload = e => {
+      const thumb = document.getElementById('pfUploadThumb');
+      if (file.type.startsWith('image/')) { thumb.src = e.target.result; thumb.style.display = 'block'; }
+      else { thumb.style.display = 'none'; }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function removePfUpload() {
+    pfUploadedFileName = null;
+    document.getElementById('pfDesignFile').value = '';
+    document.getElementById('pfUploadPreview').classList.remove('visible');
+    document.getElementById('pfUploadDrop').style.display = 'block';
+    document.getElementById('pfUploadThumb').src = '';
+  }
+
+  async function submitEmailPref(e) {
+    e.preventDefault();
+    const btn = document.getElementById('pfSubmitBtn');
+    btn.textContent = 'Sending…'; btn.disabled = true;
+
+    const params = {
+      from_name:    document.getElementById('pfName').value,
+      from_email:   document.getElementById('pfEmail').value,
+      phone:        document.getElementById('pfPhone').value || 'Not provided',
+      jewellery_type: document.getElementById('pfType').value,
+      budget:       document.getElementById('pfBudget').value || 'Not specified',
+      metal:        document.getElementById('pfMetal').value  || 'Not specified',
+      message:      document.getElementById('pfMessage').value,
+      design_image: pfUploadedFileName ? 'Customer uploaded: ' + pfUploadedFileName : 'No image attached',
+      to_email:     'hello@luvianova.com',
+    };
+
+    try {
+      if (EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_PREF_TEMPLATE_ID, params);
+      }
+      document.getElementById('emailPrefForm').style.display = 'none';
+      const s = document.getElementById('emailPrefSuccess');
+      s.classList.add('visible');
+      document.getElementById('emailPrefSuccessDetail').textContent =
+        `Thank you ${params.from_name}. We've received your brief and will reply to ${params.from_email} within one business day.`;
+    } catch(err) {
+      console.error(err);
+      btn.textContent = 'Send My Brief →'; btn.disabled = false;
+      alert('There was a problem. Please email us directly at hello@luvianova.com');
+    }
+  }
 
   // ── BOOKING MANAGEMENT ──────────────────────────────────────────────────────
   const BOOKINGS_KEY = 'luvianova_bookings';
