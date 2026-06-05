@@ -106,12 +106,18 @@ luvia-nova/
    - `{{message}}` — their notes
    - `{{signature}}` — typed name or "[Drawn signature — on file]"
    - `{{policy_agreed}}` — confirmation they signed the no-return policy
-4. Copy your **Template ID** and **Public Key** (Account → API Keys)
-5. In `index.html`, replace the three placeholders near the top of the `<script>` block:
+   - `{{booking_ref}}` — unique booking reference (e.g. LN-2026-A1B2)
+   - `{{design_upload}}` — uploaded filename or "No design image uploaded"
+4. Create a **Cancellation template** with: `{{from_name}}`, `{{booking_ref}}`, `{{booking_date}}`, `{{booking_time}}`, `{{cancel_reason}}`
+5. Create a **Reschedule template** with: `{{from_name}}`, `{{booking_ref}}`, `{{old_date}}`, `{{new_date}}`
+6. Copy your **Template IDs** and **Public Key** (Account → API Keys)
+7. In `index.html`, replace the five placeholders near the top of the `<script>` block:
    ```js
-   const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
-   const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
-   const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+   const EMAILJS_PUBLIC_KEY             = 'YOUR_PUBLIC_KEY';
+   const EMAILJS_SERVICE_ID             = 'YOUR_SERVICE_ID';
+   const EMAILJS_TEMPLATE_ID            = 'YOUR_TEMPLATE_ID';
+   const EMAILJS_CANCEL_TEMPLATE_ID     = 'YOUR_CANCEL_TEMPLATE_ID';
+   const EMAILJS_RESCHEDULE_TEMPLATE_ID = 'YOUR_RESCHEDULE_TEMPLATE_ID';
    ```
 
 ## Still To Do (Phase 3)
