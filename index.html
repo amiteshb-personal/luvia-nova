@@ -1788,6 +1788,174 @@
     }
     .builder-restart:hover { color: var(--gold-light); }
 
+    /* ── RING SIZE GUIDE ── */
+    .ring-size-wrap {
+      margin-top: 28px;
+      border: 1px solid rgba(184,154,94,0.2);
+      background: rgba(255,255,255,0.02);
+    }
+    .ring-size-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(184,154,94,0.15);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .ring-size-header span {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold-light);
+    }
+    .ring-size-body { padding: 18px; }
+    .ring-size-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .ring-size-btn {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem; text-align: center;
+      padding: 9px 4px;
+      border: 1px solid rgba(184,154,94,0.2);
+      color: rgba(255,255,255,0.5);
+      background: none; cursor: pointer;
+      transition: all 0.15s;
+    }
+    .ring-size-btn:hover   { border-color: var(--gold); color: var(--gold-light); }
+    .ring-size-btn.selected { background: var(--gold); border-color: var(--gold); color: white; }
+    .ring-size-selected-info {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.78rem; color: var(--gold-light);
+      padding: 10px 12px;
+      border: 1px solid rgba(184,154,94,0.2);
+      background: rgba(184,154,94,0.06);
+      margin-bottom: 14px;
+      display: none;
+    }
+    .ring-size-selected-info.visible { display: block; }
+    .ring-size-guide-toggle {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.3); background: none; border: none;
+      cursor: pointer; padding: 0; transition: color 0.2s;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .ring-size-guide-toggle:hover { color: var(--gold-light); }
+    .ring-size-guide {
+      display: none;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(184,154,94,0.12);
+    }
+    .ring-size-guide.open { display: block; }
+    .ring-size-guide-title {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.65rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+      margin-bottom: 10px;
+    }
+    .ring-size-guide p {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem; color: rgba(255,255,255,0.4); line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    .ring-size-table {
+      width: 100%; border-collapse: collapse; margin-top: 10px;
+      font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 0.7rem;
+    }
+    .ring-size-table th {
+      text-align: left; padding: 6px 8px;
+      color: var(--gold-light); font-weight: 500;
+      border-bottom: 1px solid rgba(184,154,94,0.2);
+      letter-spacing: 0.1em; font-size: 0.62rem; text-transform: uppercase;
+    }
+    .ring-size-table td {
+      padding: 5px 8px; color: rgba(255,255,255,0.45);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .ring-size-table tr:hover td { color: rgba(255,255,255,0.7); background: rgba(184,154,94,0.04); }
+
+    /* ── IMAGE UPLOAD ── */
+    .upload-wrap {
+      margin-top: 4px;
+    }
+    .upload-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.62rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold-light);
+      display: block; margin-bottom: 8px;
+    }
+    .upload-drop {
+      border: 1px dashed rgba(184,154,94,0.3);
+      background: rgba(255,255,255,0.02);
+      padding: 24px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .upload-drop:hover { border-color: var(--gold); background: rgba(184,154,94,0.04); }
+    .upload-drop input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .upload-icon { font-size: 1.4rem; color: var(--gold); margin-bottom: 8px; }
+    .upload-drop p {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem; color: rgba(255,255,255,0.4); line-height: 1.6;
+    }
+    .upload-drop p span { color: var(--gold-light); }
+    .upload-preview {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 14px;
+      border: 1px solid rgba(184,154,94,0.2);
+      background: rgba(184,154,94,0.05);
+      display: none;
+      align-items: center;
+      gap: 12px;
+    }
+    .upload-preview.visible { display: flex; }
+    .upload-preview img {
+      width: 48px; height: 48px; object-fit: cover;
+      border: 1px solid rgba(184,154,94,0.2);
+    }
+    .upload-preview-info {
+      flex: 1;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem; color: rgba(255,255,255,0.5);
+    }
+    .upload-preview-info strong { color: var(--gold-light); display: block; margin-bottom: 2px; }
+    .upload-remove {
+      background: none; border: none;
+      color: rgba(255,255,255,0.25); cursor: pointer;
+      font-size: 1rem; transition: color 0.2s; padding: 0 4px;
+    }
+    .upload-remove:hover { color: #f87171; }
+
+    /* Custom design card in settings */
+    .custom-design-card {
+      background: white;
+      border: 1px dashed var(--border);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      min-height: 280px;
+    }
+    .custom-design-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 24px rgba(184,154,94,0.1);
+    }
+    .custom-design-icon { font-size: 2rem; color: var(--gold); margin-bottom: 16px; }
+    .custom-design-card h3 { font-size: 1.05rem; font-weight: 400; margin-bottom: 10px; color: var(--charcoal); }
+    .custom-design-card p {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.82rem; color: var(--muted); line-height: 1.7;
+    }
+
     /* Calendly / booking button */
     .consult-divider {
       display: flex; align-items: center; gap: 16px;
@@ -2052,6 +2220,18 @@
     </div>
 
     <div class="settings-grid" id="settingsGrid"></div>
+
+    <!-- Custom design card -->
+    <div style="margin-top:24px;">
+      <div class="custom-design-card" onclick="document.getElementById('consult').scrollIntoView({behavior:'smooth'});setTimeout(()=>document.getElementById('bkMessage').focus(),600)">
+        <div class="custom-design-icon">✦</div>
+        <h3>Have Your Own Design in Mind?</h3>
+        <p>Upload a reference image or sketch during your consultation booking. Our craftspeople can recreate or reinterpret any design — from a family heirloom to a fashion editorial.</p>
+        <div style="margin-top:20px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:9px 22px;display:inline-block;">
+          Upload Your Design →
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -2122,6 +2302,33 @@
         <button class="builder-type-tab" data-type="Bracelet">Bracelets</button>
       </div>
       <div class="builder-setting-grid" id="builderSettingGrid"></div>
+
+      <!-- Ring size selector (shown only when Ring type is active) -->
+      <div class="ring-size-wrap" id="ringSizeWrap" style="display:none;">
+        <div class="ring-size-header">
+          <span>Ring Size</span>
+          <span style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.62rem;color:rgba(255,255,255,0.3);">US sizes · optional — can confirm at consultation</span>
+        </div>
+        <div class="ring-size-body">
+          <div class="ring-size-grid" id="ringSizeGrid"></div>
+          <div class="ring-size-selected-info" id="ringSizeInfo"></div>
+          <button type="button" class="ring-size-guide-toggle" onclick="toggleSizeGuide()">
+            ↕ How to measure my ring size
+          </button>
+          <div class="ring-size-guide" id="ringSizeGuide">
+            <p class="ring-size-guide-title">Measure at Home</p>
+            <p>1. Wrap a thin strip of paper or string around the base of your finger.<br>
+               2. Mark where it overlaps, then measure the length in millimetres.<br>
+               3. Match to the inner diameter column below. If between sizes, choose the larger.</p>
+            <p style="color:rgba(255,255,255,0.25);font-size:0.68rem;">For an accurate fit, measure at the end of the day when fingers are slightly warmer and larger.</p>
+            <table class="ring-size-table">
+              <thead><tr><th>US</th><th>UK</th><th>Indian</th><th>EU</th><th>Diameter (mm)</th></tr></thead>
+              <tbody id="ringSizeTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       <div class="builder-nav">
         <button class="btn-builder-back" onclick="builderGoTo(1)">← Back</button>
         <button class="btn-builder-next" id="btnNext2" disabled onclick="builderGoTo(3)">See Your Creation →</button>
@@ -2273,6 +2480,26 @@
               <option>I'm not sure yet — I'd like guidance</option>
             </select>
             <textarea id="bkMessage" placeholder="Tell us about your vision, timeline, or any questions…" style="min-height:90px;"></textarea>
+
+            <!-- Design image upload -->
+            <div class="upload-wrap">
+              <span class="upload-label">Upload a Design Reference (optional)</span>
+              <div class="upload-drop" id="uploadDrop">
+                <input type="file" id="designFile" accept="image/*,.pdf" onchange="handleFileUpload(this)">
+                <div class="upload-icon">◈</div>
+                <p>Drop an image here or <span>browse to upload</span><br>
+                <span style="color:rgba(255,255,255,0.25);font-size:0.68rem;">JPG, PNG, PDF up to 5MB · sketch, photo, or inspiration image</span></p>
+              </div>
+              <div class="upload-preview" id="uploadPreview">
+                <img id="uploadThumb" src="" alt="Design preview">
+                <div class="upload-preview-info">
+                  <strong id="uploadFileName"></strong>
+                  <span id="uploadFileSize"></span>
+                </div>
+                <button type="button" class="upload-remove" onclick="removeUpload()" title="Remove">✕</button>
+              </div>
+              <p class="form-note" style="margin-top:6px;">Your image is kept private and shared only with your consultant ahead of the call.</p>
+            </div>
             <!-- Policy Agreement -->
             <div class="policy-agreement">
               <div class="policy-agreement-header">
@@ -2631,6 +2858,32 @@
       <line x1="118" y1="91" x2="118" y2="100" stroke="${GOLD2}" stroke-width="1.5" stroke-opacity="0.5"/>
     </svg>`,
 
+    'The Noor Chandelier': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left chandelier -->
+      <circle cx="62" cy="8" r="4" stroke="${GOLD2}" stroke-width="1.5" fill="none"/>
+      <line x1="62" y1="12" x2="62" y2="22" stroke="${GOLD2}" stroke-width="1.2"/>
+      <line x1="62" y1="28" x2="50" y2="36" stroke="${GOLD}" stroke-width="1"/><line x1="62" y1="28" x2="62" y2="36" stroke="${GOLD}" stroke-width="1"/><line x1="62" y1="28" x2="74" y2="36" stroke="${GOLD}" stroke-width="1"/>
+      <circle cx="62" cy="25" r="4" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.2)"/>
+      ${[50,62,74].map(x=>`<circle cx="${x}" cy="40" r="5" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.15)"/><line x1="${x}" y1="45" x2="${x-6}" y2="54" stroke="${GOLD}" stroke-width="0.9"/><line x1="${x}" y1="45" x2="${x+6}" y2="54" stroke="${GOLD}" stroke-width="0.9"/>`).join('')}
+      ${[44,50,56,62,68,74,80].map(x=>`<circle cx="${x}" cy="58" r="3.5" stroke="${GOLD}" stroke-width="1" fill="rgba(184,154,94,0.12)"/>`).join('')}
+      <!-- Right chandelier -->
+      <circle cx="118" cy="8" r="4" stroke="${GOLD2}" stroke-width="1.5" fill="none"/>
+      <line x1="118" y1="12" x2="118" y2="22" stroke="${GOLD2}" stroke-width="1.2"/>
+      <line x1="118" y1="28" x2="106" y2="36" stroke="${GOLD}" stroke-width="1"/><line x1="118" y1="28" x2="118" y2="36" stroke="${GOLD}" stroke-width="1"/><line x1="118" y1="28" x2="130" y2="36" stroke="${GOLD}" stroke-width="1"/>
+      <circle cx="118" cy="25" r="4" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.2)"/>
+      ${[106,118,130].map(x=>`<circle cx="${x}" cy="40" r="5" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.15)"/><line x1="${x}" y1="45" x2="${x-6}" y2="54" stroke="${GOLD}" stroke-width="0.9"/><line x1="${x}" y1="45" x2="${x+6}" y2="54" stroke="${GOLD}" stroke-width="0.9"/>` ).join('')}
+      ${[100,106,112,118,124,130,136].map(x=>`<circle cx="${x}" cy="58" r="3.5" stroke="${GOLD}" stroke-width="1" fill="rgba(184,154,94,0.12)"/>`).join('')}
+    </svg>`,
+
+    'The Saira Ear Cuff': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left ear cuff arc -->
+      <path d="M38 90 C22 80 16 62 20 46 C24 30 38 18 54 16" stroke="${GOLD2}" stroke-width="6" fill="none" stroke-linecap="round"/>
+      ${Array.from({length:9},(_,i)=>{const t=i/8;const cx=38-18*Math.sin(t*1.3);const cy=90-74*t;return `<circle cx="${cx}" cy="${cy}" r="3.2" stroke="${GOLD}" stroke-width="1" fill="rgba(184,154,94,0.25)"/>`;}).join('')}
+      <!-- Right ear cuff arc -->
+      <path d="M142 90 C158 80 164 62 160 46 C156 30 142 18 126 16" stroke="${GOLD2}" stroke-width="6" fill="none" stroke-linecap="round"/>
+      ${Array.from({length:9},(_,i)=>{const t=i/8;const cx=142+18*Math.sin(t*1.3);const cy=90-74*t;return `<circle cx="${cx}" cy="${cy}" r="3.2" stroke="${GOLD}" stroke-width="1" fill="rgba(184,154,94,0.25)"/>`;}).join('')}
+    </svg>`,
+
     // ── Bracelet SVGs ──
     'The Aria Tennis': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M16 72 Q90 40 164 72" stroke="${GOLD2}" stroke-width="3" fill="none" stroke-linecap="round"/>
@@ -2657,6 +2910,83 @@
       <!-- Clasp -->
       <circle cx="5" cy="55" r="4" stroke="${GOLD}" stroke-width="1.2" fill="none"/>
       <circle cx="175" cy="55" r="4" stroke="${GOLD}" stroke-width="1.2" fill="none"/>
+    </svg>`,
+
+    'The Zoya Charm': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 38 Q90 32 170 38" stroke="${GOLD2}" stroke-width="1.5" fill="none"/>
+      <circle cx="4" cy="38" r="3.5" stroke="${GOLD}" stroke-width="1.2" fill="none"/>
+      <circle cx="176" cy="38" r="3.5" stroke="${GOLD}" stroke-width="1.2" fill="none"/>
+      <!-- 5 charm drops -->
+      ${[[30,'lotus'],[58,'crescent'],[90,'teardrop'],[122,'star'],[150,'round']].map(([x,type],i)=>{
+        const link=`<line x1="${x}" y1="38" x2="${x}" y2="50" stroke="${GOLD}" stroke-width="1"/><circle cx="${x}" cy="47" r="2" stroke="${GOLD}" stroke-width="0.8" fill="none"/>`;
+        if(type==='lotus') return link+`<path d="M${x} 52 C${x-8} 52 ${x-10} 62 ${x} 68 C${x+10} 62 ${x+8} 52 ${x} 52Z" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.15)"/><path d="M${x} 54 C${x-5} 54 ${x-6} 62 ${x} 66 C${x+6} 62 ${x+5} 54 ${x} 54Z" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.5" fill="none"/>`;
+        if(type==='crescent') return link+`<path d="M${x-8} 60 A10 10 0 1 1 ${x-8} 80 A6 6 0 1 0 ${x-8} 60Z" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.15)"/>`;
+        if(type==='teardrop') return link+`<path d="M${x} 52 C${x-7} 52 ${x-9} 64 ${x} 72 C${x+9} 64 ${x+7} 52 ${x} 52Z" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.12)"/>`;
+        if(type==='star') return link+`${Array.from({length:5},(_,k)=>{const a=(k*72-90)*Math.PI/180;const b=((k*72+36)-90)*Math.PI/180;return `<line x1="${x+9*Math.cos(a)}" y1="${62+9*Math.sin(a)}" x2="${x+4*Math.cos(b)}" y2="${62+4*Math.sin(b)}" stroke="${GOLD}" stroke-width="1.2"/><line x1="${x+4*Math.cos(b)}" y1="${62+4*Math.sin(b)}" x2="${x+9*Math.cos(a+72*Math.PI/180)}" y2="${62+9*Math.sin(a+72*Math.PI/180)}" stroke="${GOLD}" stroke-width="1.2"/>`;}).join('')}`;
+        return link+`<circle cx="${x}" cy="62" r="9" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.12)"/><circle cx="${x}" cy="62" r="5" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.5" fill="none"/>`;
+      }).join('')}
+    </svg>`,
+
+    'The Rani Wide Cuff': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="90" cy="65" rx="72" ry="26" stroke="${GOLD2}" stroke-width="3" fill="none"/>
+      <ellipse cx="90" cy="65" rx="72" ry="26" stroke="${GOLD2}" stroke-width="10" stroke-opacity="0.12" fill="none"/>
+      <ellipse cx="90" cy="50" rx="72" ry="26" stroke="${GOLD2}" stroke-width="1.5" stroke-opacity="0.4" fill="none"/>
+      <!-- Milgrain border top -->
+      ${Array.from({length:18},(_,i)=>{const t=(i/17)*Math.PI;const x=90-72*Math.cos(t);const y=50-26*Math.sin(t);if(Math.sin(t)>0.1) return `<circle cx="${x}" cy="${y}" r="1.8" fill="${GOLD}" opacity="0.5"/>`;return '';}).join('')}
+      <!-- Diamond channel top face -->
+      ${Array.from({length:14},(_,i)=>{const t=(i/13)*Math.PI;const x=90-72*Math.cos(t);const y=50-26*Math.sin(t);if(Math.sin(t)>0.2) return `<polygon points="${x},${y-5} ${x+4},${y} ${x},${y+3} ${x-4},${y}" stroke="${GOLD}" stroke-width="0.9" fill="rgba(184,154,94,0.22)"/>`;return '';}).join('')}
+      <!-- Milgrain border bottom -->
+      ${Array.from({length:18},(_,i)=>{const t=(i/17)*Math.PI;const x=90-72*Math.cos(t);const y=65-26*Math.sin(t);if(Math.sin(t)>0.1) return `<circle cx="${x}" cy="${y}" r="1.8" fill="${GOLD}" opacity="0.35"/>`;return '';}).join('')}
+    </svg>`,
+
+    'The Zara East-West Bezel': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 88 Q90 70 160 88" stroke="${GOLD2}" stroke-width="3" fill="none"/>
+      <path d="M20 98 Q90 80 160 98" stroke="${GOLD2}" stroke-width="2" fill="none" stroke-opacity="0.5"/>
+      <ellipse cx="90" cy="52" rx="34" ry="19" stroke="${GOLD}" stroke-width="2" fill="rgba(184,154,94,0.07)"/>
+      <ellipse cx="90" cy="52" rx="26" ry="14" stroke="${GOLD}" stroke-width="0.8" stroke-opacity="0.55" fill="none"/>
+      <ellipse cx="90" cy="52" rx="16" ry="8" stroke="${GOLD}" stroke-width="0.6" stroke-opacity="0.4" fill="none"/>
+      <line x1="56" y1="52" x2="124" y2="52" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.35"/>
+      <line x1="90" y1="33" x2="90" y2="71" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.35"/>
+      <line x1="78" y1="69" x2="83" y2="78" stroke="${GOLD}" stroke-width="1.8"/>
+      <line x1="102" y1="69" x2="97" y2="78" stroke="${GOLD}" stroke-width="1.8"/>
+    </svg>`,
+
+    'The Layla Toi et Moi': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 96 Q60 82 80 72" stroke="${GOLD2}" stroke-width="3" fill="none"/>
+      <path d="M160 96 Q120 82 100 72" stroke="${GOLD2}" stroke-width="3" fill="none"/>
+      <path d="M20 104 Q60 90 80 80" stroke="${GOLD2}" stroke-width="1.8" fill="none" stroke-opacity="0.4"/>
+      <path d="M160 104 Q120 90 100 80" stroke="${GOLD2}" stroke-width="1.8" fill="none" stroke-opacity="0.4"/>
+      <path d="M80 72 Q88 60 90 48" stroke="${GOLD2}" stroke-width="2" fill="none"/>
+      <path d="M100 72 Q92 60 90 48" stroke="${GOLD2}" stroke-width="2" fill="none"/>
+      <!-- Left stone (round) -->
+      <circle cx="74" cy="44" r="16" stroke="${GOLD}" stroke-width="1.5" fill="rgba(184,154,94,0.08)"/>
+      <circle cx="74" cy="44" r="10" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.5" fill="none"/>
+      <circle cx="74" cy="44" r="4" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.4" fill="none"/>
+      ${Array.from({length:8},(_,i)=>{const a=i*45*Math.PI/180;return `<line x1="${74+4*Math.cos(a)}" y1="${44+4*Math.sin(a)}" x2="${74+10*Math.cos(a)}" y2="${44+10*Math.sin(a)}" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>`}).join('')}
+      <!-- Right stone (pear/oval) -->
+      <path d="M106 28 C98 28 90 36 90 44 C90 52 98 58 106 58 C114 58 122 52 122 44 C122 36 114 28 106 28Z" stroke="${GOLD}" stroke-width="1.5" fill="rgba(184,154,94,0.08)"/>
+      <path d="M106 34 C101 34 96 39 96 44 C96 49 101 53 106 53 C111 53 116 49 116 44 C116 39 111 34 106 34Z" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.5" fill="none"/>
+      <line x1="106" y1="28" x2="106" y2="58" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.35"/>
+      <line x1="90" y1="44" x2="122" y2="44" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.35"/>
+    </svg>`,
+
+    'The Aria Tension': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 92 Q55 78 70 62" stroke="${GOLD2}" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M160 92 Q125 78 110 62" stroke="${GOLD2}" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M20 100 Q55 86 70 70" stroke="${GOLD2}" stroke-width="2" fill="none" stroke-opacity="0.4" stroke-linecap="round"/>
+      <path d="M160 100 Q125 86 110 70" stroke="${GOLD2}" stroke-width="2" fill="none" stroke-opacity="0.4" stroke-linecap="round"/>
+      <!-- Gap tension lines -->
+      <line x1="70" y1="56" x2="76" y2="48" stroke="${GOLD}" stroke-width="1" stroke-opacity="0.5"/>
+      <line x1="110" y1="56" x2="104" y2="48" stroke="${GOLD}" stroke-width="1" stroke-opacity="0.5"/>
+      <!-- Floating diamond -->
+      <polygon points="90,18 112,40 90,54 68,40" stroke="${GOLD}" stroke-width="1.5" fill="rgba(184,154,94,0.12)"/>
+      <line x1="90" y1="18" x2="90" y2="54" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <line x1="68" y1="40" x2="112" y2="40" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <line x1="90" y1="18" x2="68" y2="40" stroke="${GOLD}" stroke-width="0.4" stroke-opacity="0.3"/>
+      <line x1="90" y1="18" x2="112" y2="40" stroke="${GOLD}" stroke-width="0.4" stroke-opacity="0.3"/>
+      <!-- Tension contact points -->
+      <circle cx="72" cy="40" r="2.5" fill="${GOLD}" opacity="0.6"/>
+      <circle cx="108" cy="40" r="2.5" fill="${GOLD}" opacity="0.6"/>
     </svg>`,
 
     'The Nova Vintage Filigree': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2735,6 +3065,31 @@
       basePrice: 1950,
       metals: ["9ct Yellow Gold", "14ct Yellow Gold", "9ct White Gold", "14ct White Gold", "950 Platinum"],
     },
+    // ── Additional Rings ──
+    {
+      type: "Ring",
+      name: "The Zara East-West Bezel",
+      style: "East-West Bezel",
+      description: "A horizontally-set oval diamond in a sleek full bezel — contemporary, architectural, and effortlessly modern. The east-west orientation offers a striking, fashion-forward silhouette.",
+      basePrice: 1100,
+      metals: ["9ct Yellow Gold", "14ct Yellow Gold", "9ct White Gold", "14ct White Gold", "9ct Rose Gold", "14ct Rose Gold", "950 Platinum"],
+    },
+    {
+      type: "Ring",
+      name: "The Layla Toi et Moi",
+      style: "Toi et Moi",
+      description: "Two stones — yours and theirs — set side by side on a graceful bypass band. A deeply romantic two-stone design representing two souls entwined. Available with any combination of shapes.",
+      basePrice: 1750,
+      metals: ["9ct Yellow Gold", "14ct Yellow Gold", "9ct White Gold", "14ct White Gold", "950 Platinum"],
+    },
+    {
+      type: "Ring",
+      name: "The Aria Tension",
+      style: "Tension",
+      description: "The stone appears to float, suspended between two tapering band ends by invisible pressure. A feat of engineering as much as jewellery — minimal metal, maximum brilliance.",
+      basePrice: 2100,
+      metals: ["14ct Yellow Gold", "14ct White Gold", "950 Platinum"],
+    },
     // ── Earrings ──
     {
       type: "Earring",
@@ -2772,6 +3127,25 @@
       metals: ["9ct Yellow Gold", "14ct Yellow Gold", "9ct White Gold", "14ct White Gold", "9ct Rose Gold", "14ct Rose Gold"],
       note: "Priced per pair",
     },
+    // ── Additional Earrings ──
+    {
+      type: "Earring",
+      name: "The Noor Chandelier",
+      style: "Chandelier",
+      description: "A tiered cascade of hand-set lab diamonds — three descending levels of pavé-set rounds that catch and scatter light with every movement. Formal, festive, and unmistakably luxurious.",
+      basePrice: 2200,
+      metals: ["9ct Yellow Gold", "14ct Yellow Gold", "9ct White Gold", "14ct White Gold", "950 Platinum"],
+      note: "Priced per pair",
+    },
+    {
+      type: "Earring",
+      name: "The Saira Ear Cuff",
+      style: "Ear Cuff",
+      description: "A sculptural arc of continuous pavé lab diamonds that curves along the outer ear — no piercing required. Modern, editorial, and rooted in the South Asian tradition of adorning the ear's full curve.",
+      basePrice: 950,
+      metals: ["9ct Yellow Gold", "14ct Yellow Gold", "9ct White Gold", "14ct White Gold", "9ct Rose Gold", "14ct Rose Gold"],
+      note: "Priced per pair",
+    },
     // ── Bracelets ──
     {
       type: "Bracelet",
@@ -2799,6 +3173,25 @@
       basePrice: 1600,
       metals: ["9ct Yellow Gold", "14ct Yellow Gold", "9ct White Gold", "14ct White Gold"],
       note: "7 stations · 0.7ct total weight",
+    },
+    // ── Additional Bracelets ──
+    {
+      type: "Bracelet",
+      name: "The Zoya Charm",
+      style: "Charm",
+      description: "A delicate fine-gauge chain carrying five individually crafted diamond-set charms — a lotus, a crescent, a teardrop, a star, and a classic round brilliant. Each charm is removable and interchangeable.",
+      basePrice: 1850,
+      metals: ["9ct Yellow Gold", "14ct Yellow Gold", "9ct Rose Gold", "14ct Rose Gold"],
+      note: "5 charms included",
+    },
+    {
+      type: "Bracelet",
+      name: "The Rani Wide Cuff",
+      style: "Wide Cuff",
+      description: "A bold sculptural cuff in solid gold with a continuous channel of channel-set lab diamonds running the full face. Inspired by the temple jewellery of Mughal courts — commanding, regal, unforgettable.",
+      basePrice: 3800,
+      metals: ["9ct Yellow Gold", "14ct Yellow Gold", "9ct White Gold", "14ct White Gold"],
+      note: "Approx. 2ct total weight",
     },
   ];
 
@@ -3249,6 +3642,108 @@
   // Init signature pad once DOM is ready
   window.addEventListener('load', () => setTimeout(initSigCanvas, 100));
 
+  // ── RING SIZE DATA & GUIDE ──────────────────────────────────────────────────
+  const RING_SIZES = [
+    { us:'4',   uk:'H',  indian:'8',  eu:'46.5', mm:'14.9' },
+    { us:'4.5', uk:'I',  indian:'9',  eu:'47.8', mm:'15.3' },
+    { us:'5',   uk:'J',  indian:'10', eu:'49',   mm:'15.7' },
+    { us:'5.5', uk:'K',  indian:'11', eu:'50.3', mm:'16.1' },
+    { us:'6',   uk:'L',  indian:'12', eu:'51.5', mm:'16.5' },
+    { us:'6.5', uk:'M',  indian:'13', eu:'52.8', mm:'16.9' },
+    { us:'7',   uk:'N',  indian:'14', eu:'54',   mm:'17.3' },
+    { us:'7.5', uk:'O',  indian:'15', eu:'55.3', mm:'17.7' },
+    { us:'8',   uk:'P',  indian:'16', eu:'56.6', mm:'18.2' },
+    { us:'8.5', uk:'Q',  indian:'17', eu:'57.8', mm:'18.6' },
+    { us:'9',   uk:'R',  indian:'18', eu:'59.1', mm:'19.0' },
+    { us:'9.5', uk:'S',  indian:'19', eu:'60.3', mm:'19.4' },
+    { us:'10',  uk:'T',  indian:'20', eu:'61.6', mm:'19.8' },
+    { us:'10.5',uk:'U',  indian:'21', eu:'62.8', mm:'20.2' },
+    { us:'11',  uk:'V',  indian:'22', eu:'64.1', mm:'20.6' },
+    { us:'11.5',uk:'W',  indian:'23', eu:'65.3', mm:'21.0' },
+    { us:'12',  uk:'X',  indian:'24', eu:'66.6', mm:'21.4' },
+  ];
+
+  let selectedRingSize = null;
+
+  function renderRingSizeGrid() {
+    document.getElementById('ringSizeGrid').innerHTML = RING_SIZES.map((s, i) => `
+      <button type="button" class="ring-size-btn ${selectedRingSize === s.us ? 'selected' : ''}"
+              onclick="selectRingSize('${s.us}', ${i})">US ${s.us}</button>
+    `).join('');
+
+    // Populate size table
+    document.getElementById('ringSizeTableBody').innerHTML = RING_SIZES.map(s => `
+      <tr>
+        <td>US ${s.us}</td><td>${s.uk}</td><td>${s.indian}</td><td>${s.eu}</td><td>${s.mm} mm</td>
+      </tr>
+    `).join('');
+  }
+
+  function selectRingSize(us, idx) {
+    selectedRingSize = us;
+    const s = RING_SIZES[idx];
+    const info = document.getElementById('ringSizeInfo');
+    info.textContent = `US ${s.us} · UK ${s.uk} · Indian ${s.indian} · EU ${s.eu} · ${s.mm}mm inner diameter`;
+    info.classList.add('visible');
+    renderRingSizeGrid();
+  }
+
+  function toggleSizeGuide() {
+    document.getElementById('ringSizeGuide').classList.toggle('open');
+  }
+
+  // Show/hide ring size selector based on jewellery type in builder
+  function updateRingSizeVisibility() {
+    const wrap = document.getElementById('ringSizeWrap');
+    if (wrap) wrap.style.display = builderSettingType === 'Ring' ? 'block' : 'none';
+    if (builderSettingType === 'Ring' && document.getElementById('ringSizeGrid').innerHTML === '') {
+      renderRingSizeGrid();
+    }
+  }
+
+  // ── IMAGE UPLOAD ─────────────────────────────────────────────────────────────
+  let uploadedFileData = null;
+  let uploadedFileName = null;
+
+  function handleFileUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+    uploadedFileName = file.name;
+    const sizeMB = (file.size / 1024 / 1024).toFixed(1);
+
+    if (file.size > 5 * 1024 * 1024) {
+      alert('File is too large. Please upload an image under 5MB.');
+      input.value = ''; return;
+    }
+
+    document.getElementById('uploadFileName').textContent = file.name;
+    document.getElementById('uploadFileSize').textContent = `${sizeMB} MB`;
+    document.getElementById('uploadDrop').style.display = 'none';
+
+    const preview = document.getElementById('uploadPreview');
+    preview.classList.add('visible');
+
+    const reader = new FileReader();
+    reader.onload = e => {
+      uploadedFileData = e.target.result;
+      if (file.type.startsWith('image/')) {
+        document.getElementById('uploadThumb').src = e.target.result;
+        document.getElementById('uploadThumb').style.display = 'block';
+      } else {
+        document.getElementById('uploadThumb').style.display = 'none';
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function removeUpload() {
+    uploadedFileData = null; uploadedFileName = null;
+    document.getElementById('designFile').value = '';
+    document.getElementById('uploadPreview').classList.remove('visible');
+    document.getElementById('uploadDrop').style.display = 'block';
+    document.getElementById('uploadThumb').src = '';
+  }
+
   // ── BOOKING SUBMISSION ───────────────────────────────────────────────────────
   async function submitBooking(e) {
     e.preventDefault();
@@ -3279,6 +3774,7 @@
       message:      message  || 'No additional notes',
       signature:    getSignatureValue(),
       policy_agreed: 'Yes — customer signed and accepted no-return policy',
+      design_upload: uploadedFileName ? `Customer uploaded: ${uploadedFileName}` : 'No design image uploaded',
       to_email:     'hello@luvianova.com',
     };
 
@@ -3477,6 +3973,10 @@
         <span class="bq-line-label">${s.name} (setting)</span>
         <span class="bq-line-value">from $${s.basePrice.toLocaleString()}</span>
       </div>
+      ${s.type === 'Ring' ? `<div class="bq-line">
+        <span class="bq-line-label">Ring Size</span>
+        <span class="bq-line-value">${selectedRingSize ? 'US ' + selectedRingSize : 'To confirm at consultation'}</span>
+      </div>` : ''}
       <div class="bq-total">
         <span class="bq-total-label">Total</span>
         <span class="bq-total-value" style="font-size:1.1rem;">Setting from $${s.basePrice.toLocaleString()} + Diamond TBC</span>
@@ -3496,7 +3996,8 @@
     const ta = document.getElementById('bkMessage');
     if (ta) {
       const certChoice = certFilterBuilder === 'uncertified' ? 'Without certification' : `${d.cert} certified`;
-      ta.value = `3D CAD Preview Request\n\nDiamond: ${d.carat}ct ${d.shape} · ${d.color}/${d.clarity} · ${d.cut} Cut · ${certChoice}\nSetting: ${s.name} (${s.style}) — from $${s.basePrice.toLocaleString()} USD\nDiamond price: to be quoted at consultation\n\nPlease send me a 3D CAD preview of this combination before I confirm. I'd also like to discuss metal choice, timeline, and the diamond price.`;
+      const sizeNote = s.type === 'Ring' && selectedRingSize ? `\nRing Size: US ${selectedRingSize}` : s.type === 'Ring' ? '\nRing Size: To be confirmed at consultation' : '';
+      ta.value = `3D CAD Preview Request\n\nDiamond: ${d.carat}ct ${d.shape} · ${d.color}/${d.clarity} · ${d.cut} Cut · ${certChoice}\nSetting: ${s.name} (${s.style}) — from $${s.basePrice.toLocaleString()} USD${sizeNote}\nDiamond price: to be quoted at consultation\n\nPlease send me a 3D CAD preview of this combination before I confirm. I'd also like to discuss metal choice, timeline, and the diamond price.`;
     }
     document.getElementById('consult').scrollIntoView({ behavior: 'smooth' });
   }
@@ -3536,6 +4037,7 @@
     document.getElementById('btnNext2').disabled = true;
     document.getElementById('builderHint2').textContent = 'Select a setting to continue';
     renderBuilderSettings();
+    updateRingSizeVisibility();
   });
 
 
