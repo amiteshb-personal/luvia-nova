@@ -1056,6 +1056,22 @@
       .settings-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
+    /* ── VIDEO PLATFORM SELECTOR ── */
+    .platform-btn {
+      flex: 1;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 11px 8px; border: none; background: none;
+      color: rgba(255,255,255,0.4); cursor: pointer;
+      border-right: 1px solid rgba(184,154,94,0.25);
+      transition: background 0.2s, color 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+    }
+    .platform-btn:last-child { border-right: none; }
+    .platform-btn:hover  { color: var(--gold-light); background: rgba(184,154,94,0.06); }
+    .platform-btn.active { background: var(--gold); color: white; }
+    .platform-icon { font-size: 0.9rem; }
+
     /* ── MANAGE BOOKING ── */
     .manage-section {
       background: rgba(255,255,255,0.02);
@@ -2631,6 +2647,23 @@
               <option>Gift / Other Occasion</option>
               <option>I'm not sure yet — I'd like guidance</option>
             </select>
+            <!-- Video platform selector -->
+            <div>
+              <p style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-light);margin-bottom:10px;">Preferred Video Platform</p>
+              <div style="display:flex;gap:0;border:1px solid rgba(184,154,94,0.25);">
+                <button type="button" class="platform-btn active" id="platformZoom" onclick="selectPlatform('Zoom')">
+                  <span class="platform-icon">🎥</span> Zoom
+                </button>
+                <button type="button" class="platform-btn" id="platformMeet" onclick="selectPlatform('Google Meet')">
+                  <span class="platform-icon">📹</span> Google Meet
+                </button>
+                <button type="button" class="platform-btn" id="platformPhone" onclick="selectPlatform('Phone Call')">
+                  <span class="platform-icon">📞</span> Phone Call
+                </button>
+              </div>
+              <p style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.68rem;color:rgba(255,255,255,0.25);margin-top:7px;">We'll send the meeting link or call details in your confirmation.</p>
+            </div>
+
             <textarea id="bkMessage" placeholder="Tell us about your vision, timeline, or any questions…" style="min-height:90px;"></textarea>
 
             <!-- Design image upload -->
@@ -3740,6 +3773,7 @@
       <div class="manage-booking-card">
         <div class="manage-booking-ref">Booking ${bk.ref}</div>
         <div class="manage-booking-detail">📅 ${bk.dateStr} at ${bk.time} EST</div>
+        <div class="manage-booking-detail">${bk.platform === 'Zoom' ? '🎥' : bk.platform === 'Google Meet' ? '📹' : '📞'} ${bk.platform || 'Zoom'}</div>
         <div class="manage-booking-detail" style="color:rgba(255,255,255,0.4);">${bk.name} · ${bk.email}</div>
         ${tooLate ? `<p style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.72rem;color:rgba(248,113,113,0.7);margin-top:10px;">⚠ Changes cannot be made within 24 hours of your appointment. Please call or email us directly.</p>` : ''}
         <div class="manage-booking-actions">
@@ -3890,6 +3924,7 @@
       booking_ref:  activeBookingRef || '',
       old_date:     bk ? `${bk.dateStr} at ${bk.time} EST` : '',
       new_date:     `${newDateStr} at ${rSelTime} EST`,
+      platform:     bk ? (bk.platform || 'Zoom') : 'Zoom',
       to_email:     'hello@luvianova.com',
     };
 
@@ -3951,6 +3986,18 @@
 
   if (EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
     emailjs.init(EMAILJS_PUBLIC_KEY);
+  }
+
+  // ── VIDEO PLATFORM ──────────────────────────────────────────────────────────
+  let selectedPlatform = 'Zoom';
+
+  function selectPlatform(p) {
+    selectedPlatform = p;
+    ['Zoom','Google Meet','Phone Call'].forEach(name => {
+      const id = 'platform' + name.split(' ')[0];
+      const btn = document.getElementById(id);
+      if (btn) btn.classList.toggle('active', name === p);
+    });
   }
 
   // ── BOOKING CALENDAR ────────────────────────────────────────────────────────
@@ -4282,6 +4329,7 @@
       booking_time: `${selectedTime} EST`,
       interest:     interest || 'Not specified',
       message:      message  || 'No additional notes',
+      platform:     selectedPlatform,
       signature:    getSignatureValue(),
       policy_agreed: 'Yes — customer signed and accepted no-return policy',
       design_upload: uploadedFileName ? `Customer uploaded: ${uploadedFileName}` : 'No design image uploaded',
@@ -4298,18 +4346,20 @@
       }
       // Save booking to localStorage
       saveBooking({
-        ref:     bookingRef,
-        name:    `${firstName} ${lastName}`,
-        email:   email,
-        dateStr: dateStr,
-        time:    selectedTime,
+        ref:      bookingRef,
+        name:     `${firstName} ${lastName}`,
+        email:    email,
+        dateStr:  dateStr,
+        time:     selectedTime,
+        platform: selectedPlatform,
       });
       // Show success
       document.getElementById('bookingForm').style.display = 'none';
       const success = document.getElementById('bookingSuccess');
       success.classList.add('visible');
+      const platformIcon = selectedPlatform === 'Zoom' ? '🎥' : selectedPlatform === 'Google Meet' ? '📹' : '📞';
       document.getElementById('bookingSuccessDetail').textContent =
-        `${firstName}, your consultation is scheduled for ${dateStr} at ${selectedTime} EST. Your signed acknowledgement of our sales terms has been recorded.`;
+        `${firstName}, your consultation is scheduled for ${dateStr} at ${selectedTime} EST via ${selectedPlatform}. ${platformIcon} We'll send the meeting link / call details in your confirmation email.`;
       document.getElementById('bookingRefDisplay').textContent = bookingRef;
     } catch (err) {
       console.error('EmailJS error:', err);
