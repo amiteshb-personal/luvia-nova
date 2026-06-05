@@ -3912,6 +3912,10 @@
     nav.style.boxShadow = window.scrollY > 20 ? '0 2px 24px rgba(0,0,0,0.07)' : 'none';
   });
 
+  // ── SHARED DATE CONSTANTS ───────────────────────────────────────────────────
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
   // ── BOOKING MANAGEMENT ──────────────────────────────────────────────────────
   const BOOKINGS_KEY = 'luvianova_bookings';
 
@@ -4218,9 +4222,6 @@
   ];
   const MONTHS = ['January','February','March','April','May','June',
                   'July','August','September','October','November','December'];
-  const today        = new Date();
-  today.setHours(0,0,0,0);
-
   let calYear        = today.getFullYear();
   let calMonth       = today.getMonth();
   let selectedDate   = null;
