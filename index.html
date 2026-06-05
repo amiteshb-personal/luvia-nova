@@ -2119,6 +2119,86 @@
     }
     .builder-restart:hover { color: var(--gold-light); }
 
+    /* ── BUILDER STEP 2 SETTING PREVIEW ── */
+    .builder-step2-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+      margin-top: 0;
+    }
+    .builder-step2-grid { min-width: 0; }
+    .builder-step2-preview {
+      position: sticky;
+      top: 90px;
+      border: 1px solid rgba(184,154,94,0.2);
+      background: rgba(255,255,255,0.02);
+      min-height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .setting-preview-placeholder {
+      text-align: center;
+      padding: 32px 20px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.22);
+      line-height: 1.7;
+      letter-spacing: 0.05em;
+    }
+    .setting-preview-detail {
+      width: 100%;
+      padding: 24px 20px;
+    }
+    .setting-preview-svg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(184,154,94,0.12);
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+    .setting-preview-svg svg {
+      filter: drop-shadow(0 0 12px rgba(184,154,94,0.4));
+      max-width: 100%;
+    }
+    .setting-preview-style {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold-light); margin-bottom: 6px;
+    }
+    .setting-preview-name {
+      font-family: 'Georgia', serif;
+      font-size: 1rem; font-weight: 400; color: white; margin-bottom: 10px;
+    }
+    .setting-preview-desc {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem; color: rgba(255,255,255,0.4);
+      line-height: 1.7; margin-bottom: 14px;
+    }
+    .setting-preview-metals {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.65rem; color: rgba(255,255,255,0.3);
+      line-height: 1.6; margin-bottom: 12px;
+      border-top: 1px solid rgba(184,154,94,0.12);
+      padding-top: 12px;
+    }
+    .setting-preview-price {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem; color: var(--gold-light);
+    }
+    .setting-preview-price span {
+      font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3); display: block; margin-bottom: 2px;
+    }
+
+    @media (max-width: 1000px) {
+      .builder-step2-layout { grid-template-columns: 1fr; }
+      .builder-step2-preview { display: none; }
+    }
+
     /* ── RING SIZE GUIDE ── */
     .ring-size-wrap {
       margin-top: 28px;
@@ -2634,7 +2714,28 @@
         <button class="builder-type-tab" data-type="Earring">Earrings</button>
         <button class="builder-type-tab" data-type="Bracelet">Bracelets</button>
       </div>
-      <div class="builder-setting-grid" id="builderSettingGrid"></div>
+      <!-- Settings grid + live preview side by side -->
+      <div class="builder-step2-layout">
+        <div class="builder-step2-grid">
+          <div class="builder-setting-grid" id="builderSettingGrid"></div>
+        </div>
+        <div class="builder-step2-preview" id="settingPreviewPanel">
+          <div class="setting-preview-placeholder" id="settingPreviewPlaceholder">
+            <div style="font-size:2rem;color:rgba(184,154,94,0.25);margin-bottom:12px;">◈</div>
+            <p>Hover or select a setting<br>to preview it here</p>
+          </div>
+          <div class="setting-preview-detail" id="settingPreviewDetail" style="display:none;">
+            <div class="setting-preview-svg" id="settingPreviewSVG"></div>
+            <div class="setting-preview-info">
+              <p class="setting-preview-style" id="settingPreviewStyle"></p>
+              <h4 class="setting-preview-name" id="settingPreviewName"></h4>
+              <p class="setting-preview-desc" id="settingPreviewDesc"></p>
+              <div class="setting-preview-metals" id="settingPreviewMetals"></div>
+              <div class="setting-preview-price" id="settingPreviewPrice"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Ring size selector (shown only when Ring type is active) -->
       <div class="ring-size-wrap" id="ringSizeWrap" style="display:none;">
@@ -5144,7 +5245,9 @@
     builderSettingPool = SETTINGS.filter(s => s.type === builderSettingType);
     document.getElementById('builderSettingGrid').innerHTML = builderSettingPool.map((s, i) => `
       <div class="bscard ${builderSelectedSetting && builderSelectedSetting.name === s.name ? 'selected' : ''}"
-           onclick="selectBuilderSetting(${i})">
+           onclick="selectBuilderSetting(${i})"
+           onmouseenter="previewSetting(${i})"
+           onmouseleave="restorePreview()">
         <div class="setting-illustration">${SETTING_SVG[s.name] || ''}</div>
         <div class="bsc-style">${s.style}</div>
         <h3>${s.name}</h3>
@@ -5154,6 +5257,39 @@
         </div>
       </div>
     `).join('');
+    // Show selected setting in preview if one is already chosen
+    if (builderSelectedSetting) {
+      const idx = builderSettingPool.findIndex(s => s.name === builderSelectedSetting.name);
+      if (idx >= 0) showSettingPreview(builderSettingPool[idx]);
+    }
+  }
+
+  function showSettingPreview(s) {
+    if (!s) return;
+    document.getElementById('settingPreviewPlaceholder').style.display = 'none';
+    const detail = document.getElementById('settingPreviewDetail');
+    detail.style.display = 'block';
+    document.getElementById('settingPreviewSVG').innerHTML   = SETTING_SVG[s.name] || '';
+    document.getElementById('settingPreviewStyle').textContent = s.style;
+    document.getElementById('settingPreviewName').textContent  = s.name;
+    document.getElementById('settingPreviewDesc').textContent  = s.description;
+    document.getElementById('settingPreviewMetals').textContent = s.metals.join(' · ');
+    document.getElementById('settingPreviewPrice').innerHTML   =
+      `<span>${s.note || 'Setting from'}</span>$${s.basePrice.toLocaleString()} USD`;
+  }
+
+  function previewSetting(i) {
+    showSettingPreview(builderSettingPool[i]);
+  }
+
+  function restorePreview() {
+    // On mouseleave, keep showing the selected setting (if any), else placeholder
+    if (builderSelectedSetting) {
+      showSettingPreview(builderSelectedSetting);
+    } else {
+      document.getElementById('settingPreviewPlaceholder').style.display = 'block';
+      document.getElementById('settingPreviewDetail').style.display      = 'none';
+    }
   }
 
   function selectBuilderSetting(i) {
