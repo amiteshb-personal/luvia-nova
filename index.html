@@ -4733,7 +4733,7 @@
       const p = document.getElementById(id);
       p.classList.toggle('active', i + 1 === step);
     });
-    if (step === 2) renderBuilderSettings();
+    if (step === 2) { renderBuilderSettings(); updateRingSizeVisibility(); }
     if (step === 3) renderBuilderSummary();
   }
 
