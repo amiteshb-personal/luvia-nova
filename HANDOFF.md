@@ -120,6 +120,16 @@ luvia-nova/
    const EMAILJS_RESCHEDULE_TEMPLATE_ID = 'YOUR_RESCHEDULE_TEMPLATE_ID';
    ```
 
+## Adding Approved Reviews
+Reviews submitted via the form are emailed to you for moderation. To publish an approved review, add it to the `SEED_REVIEWS` array in `index.html`:
+```js
+{ name:'First L.', rating:5, piece:'Engagement Ring', date:'Month Year',
+  text:'Your review text here.' },
+```
+Keep names to first name + last initial for privacy.
+
+Add `YOUR_REVIEW_TEMPLATE_ID` to EmailJS with variables: `{{reviewer_name}}`, `{{reviewer_email}}`, `{{piece}}`, `{{rating}}`, `{{review_text}}`.
+
 ## Still To Do (Phase 3)
 - Shopify migration
 - Payment processing / Stripe checkout
