@@ -21,7 +21,10 @@
     html { scroll-behavior: smooth; }
 
     /* Offset anchor scroll targets so fixed nav doesn't overlap content */
-    :target, [id] { scroll-margin-top: 155px; }
+    :target, [id] { scroll-margin-top: 160px; }
+    /* Consultation section needs extra clearance — nav CTA says "Book a Consultation"
+       and sits directly above this heading, so push it well below the nav */
+    #consult { scroll-margin-top: 200px; }
 
     body {
       font-family: 'Georgia', 'Times New Roman', serif;
@@ -4345,8 +4348,18 @@
   // ── MISC ───────────────────────────────────────────────────────────────────
 
   const nav = document.querySelector('nav');
+  const navCta = document.querySelector('.nav-cta');
+  const consultSection = document.getElementById('consult');
   window.addEventListener('scroll', () => {
     nav.style.boxShadow = window.scrollY > 20 ? '0 2px 24px rgba(0,0,0,0.07)' : 'none';
+    // Hide "Book a Consultation" CTA when user is already in the consultation section
+    if (navCta && consultSection) {
+      const rect = consultSection.getBoundingClientRect();
+      const inSection = rect.top <= 160 && rect.bottom > 160;
+      navCta.style.opacity    = inSection ? '0' : '1';
+      navCta.style.pointerEvents = inSection ? 'none' : 'auto';
+      navCta.style.transition = 'opacity 0.3s';
+    }
   });
 
   // ── CURSOR SPARKLE TRAIL ────────────────────────────────────────────────────
