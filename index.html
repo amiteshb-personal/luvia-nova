@@ -35,9 +35,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 22px 60px;
-      background: rgba(253, 250, 246, 0.92);
-      backdrop-filter: blur(10px);
+      padding: 16px 60px;
+      background: rgba(253, 250, 246, 0.95);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
 
@@ -1725,6 +1725,83 @@
     }
     .policy-checkbox-row label strong { color: rgba(255,255,255,0.7); }
 
+    /* ── CURSOR SPARKLE ── */
+    .cursor-sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      font-size: 10px;
+      color: var(--gold);
+      line-height: 1;
+      animation: cursor-sparkle-up 0.85s ease-out forwards;
+      transform: translate(-50%, -50%);
+      user-select: none;
+    }
+    @keyframes cursor-sparkle-up {
+      0%   { opacity: 0.9; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+      60%  { opacity: 0.6; }
+      100% { opacity: 0; transform: translate(-50%, -220%) scale(0.2) rotate(45deg); }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── GOLD SHIMMER on section labels ── */
+    .section-label {
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 40%, #ede0bb 55%, var(--gold-light) 70%, var(--gold) 100%);
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: label-shimmer 4s linear infinite;
+    }
+    @keyframes label-shimmer {
+      0%   { background-position: 250% center; }
+      100% { background-position: -250% center; }
+    }
+
+    /* ── HERO SPARKLE PARTICLES ── */
+    .hero-sparkle {
+      position: absolute;
+      pointer-events: none;
+      color: var(--gold);
+      font-size: var(--s, 10px);
+      opacity: 0;
+      animation: hero-twinkle var(--d, 3s) ease-in-out var(--delay, 0s) infinite;
+    }
+    @keyframes hero-twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
+      40%, 60% { opacity: var(--o, 0.5); transform: scale(1) rotate(20deg); }
+    }
+
+    /* ── DIAMOND CARD GLOW ENHANCEMENT ── */
+    .dcard:hover .dcard-illustration svg,
+    .setting-card:hover .setting-illustration svg {
+      filter: drop-shadow(0 0 16px rgba(212,185,122,0.7));
+    }
+
+    /* ── HERO ENHANCEMENTS ── */
+    .hero h1 em {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: label-shimmer 3s linear infinite;
+      font-style: italic;
+    }
+
+    /* ── NAV LOGO SIZE ── */
+    .logo svg { display: block; }
+
     /* ── PRICING POLICY BAR ── */
     .pricing-policy-bar {
       display: flex;
@@ -2414,7 +2491,7 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="logo" aria-label="Luvia Nova">
-    <svg width="200" height="48" viewBox="0 0 400 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="300" height="72" viewBox="0 0 400 96" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Logomark: faceted diamond octagon -->
       <polygon points="44,6 60,6 72,18 72,42 60,54 44,54 32,42 32,18" stroke="#b89a5e" stroke-width="1.5" fill="none"/>
       <polygon points="47,13 57,13 67,23 67,37 57,47 47,47 37,37 37,23" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.55" fill="none"/>
@@ -2485,6 +2562,7 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
+  <!-- Hero sparkle particles injected by JS -->
   <p class="hero-eyebrow">Lab-Grown Diamonds &nbsp;·&nbsp; Made to Order &nbsp;·&nbsp; North America</p>
   <h1>Where <em>Ancient Soul</em><br>Meets Modern Brilliance</h1>
   <p class="hero-tagline">Modern Brilliance. Ancient Soul.</p>
@@ -4218,6 +4296,57 @@
   window.addEventListener('scroll', () => {
     nav.style.boxShadow = window.scrollY > 20 ? '0 2px 24px rgba(0,0,0,0.07)' : 'none';
   });
+
+  // ── CURSOR SPARKLE TRAIL ────────────────────────────────────────────────────
+  const SPARKLE_CHARS = ['◆','✦','◇','✧','·'];
+  let lastSparkle = 0;
+  document.addEventListener('mousemove', e => {
+    const now = Date.now();
+    if (now - lastSparkle < 80) return; // throttle: max ~12 per second
+    lastSparkle = now;
+    const el = document.createElement('span');
+    el.className = 'cursor-sparkle';
+    el.textContent = SPARKLE_CHARS[Math.floor(Math.random() * SPARKLE_CHARS.length)];
+    // slight random offset so they don't all stack exactly
+    const ox = (Math.random() - 0.5) * 14;
+    el.style.left = (e.clientX + ox) + 'px';
+    el.style.top  = e.clientY + 'px';
+    el.style.fontSize = (7 + Math.random() * 6) + 'px';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 900);
+  });
+
+  // ── HERO SPARKLE PARTICLES ──────────────────────────────────────────────────
+  (function spawnHeroSparkles() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+    const chars = ['◆','✦','◇','✧'];
+    for (let i = 0; i < 28; i++) {
+      const el = document.createElement('span');
+      el.className = 'hero-sparkle';
+      el.textContent = chars[Math.floor(Math.random() * chars.length)];
+      el.style.left    = (5 + Math.random() * 90) + '%';
+      el.style.top     = (5 + Math.random() * 90) + '%';
+      el.style.setProperty('--s',     (7 + Math.random() * 9) + 'px');
+      el.style.setProperty('--d',     (2.5 + Math.random() * 3.5) + 's');
+      el.style.setProperty('--delay', (Math.random() * 5) + 's');
+      el.style.setProperty('--o',     (0.25 + Math.random() * 0.35).toFixed(2));
+      hero.appendChild(el);
+    }
+  })();
+
+  // ── SCROLL REVEAL ───────────────────────────────────────────────────────────
+  (function initScrollReveal() {
+    const targets = document.querySelectorAll(
+      'section, .philosophy-inner, .diamonds-inner, .settings-inner, ' +
+      '.builder-inner, .faq-inner, .trust-bar-inner, .reviews-inner'
+    );
+    targets.forEach(el => el.classList.add('reveal'));
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); } });
+    }, { threshold: 0.08 });
+    targets.forEach(el => observer.observe(el));
+  })();
 
   // ── SHARED DATE CONSTANTS ───────────────────────────────────────────────────
   const today = new Date();
