@@ -130,12 +130,33 @@
     }
 
     .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+    .hero-badge {
       font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.3em;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 28px;
+      border: 1px solid rgba(184,154,94,0.45);
+      padding: 8px 20px;
+      background: rgba(184,154,94,0.06);
+      white-space: nowrap;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .hero-badge:hover {
+      background: rgba(184,154,94,0.12);
+      border-color: var(--gold);
+    }
+    .hero-badge-dot {
+      color: rgba(184,154,94,0.35);
+      font-size: 0.5rem;
+      align-self: center;
     }
 
     .hero h1 {
@@ -2618,7 +2639,13 @@
     </svg>
   </div>
 
-  <p class="hero-eyebrow">Lab-Grown Diamonds &nbsp;·&nbsp; Made to Order &nbsp;·&nbsp; North America</p>
+  <div class="hero-eyebrow">
+    <span class="hero-badge">◆ &nbsp;Lab-Grown Diamonds</span>
+    <span class="hero-badge-dot">◆</span>
+    <span class="hero-badge">Made to Order</span>
+    <span class="hero-badge-dot">◆</span>
+    <span class="hero-badge">North America</span>
+  </div>
   <h1>Where <em>Ancient Soul</em><br>Meets Modern Brilliance</h1>
   <p class="hero-tagline">Modern Brilliance. Ancient Soul.</p>
   <div class="hero-actions">
