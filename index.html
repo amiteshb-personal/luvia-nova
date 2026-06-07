@@ -1027,7 +1027,8 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      nav { padding: 18px 28px; }
+      nav { padding: 12px 20px; }
+      .logo svg { width: 220px !important; height: auto !important; }
       .nav-links { display: none; }
 
       section { padding: 72px 28px; }
@@ -1802,6 +1803,17 @@
     /* ── NAV LOGO SIZE ── */
     .logo svg { display: block; }
 
+    /* ── HERO LOGOMARK ── */
+    .hero-logomark {
+      margin-bottom: 28px;
+      animation: logo-pulse 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 18px rgba(184,154,94,0.35));
+    }
+    @keyframes logo-pulse {
+      0%, 100% { filter: drop-shadow(0 0 12px rgba(184,154,94,0.25)); }
+      50%       { filter: drop-shadow(0 0 28px rgba(212,185,122,0.55)); }
+    }
+
     /* ── PRICING POLICY BAR ── */
     .pricing-policy-bar {
       display: flex;
@@ -2491,47 +2503,43 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="logo" aria-label="Luvia Nova">
-    <svg width="300" height="72" viewBox="0 0 400 96" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Logomark: faceted diamond octagon -->
-      <polygon points="44,6 60,6 72,18 72,42 60,54 44,54 32,42 32,18" stroke="#b89a5e" stroke-width="1.5" fill="none"/>
-      <polygon points="47,13 57,13 67,23 67,37 57,47 47,47 37,37 37,23" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.55" fill="none"/>
-      <!-- Cardinal facet lines -->
-      <line x1="52" y1="6"  x2="52" y2="13" stroke="#b89a5e" stroke-width="0.9" stroke-opacity="0.7"/>
-      <line x1="52" y1="47" x2="52" y2="54" stroke="#b89a5e" stroke-width="0.9" stroke-opacity="0.7"/>
-      <line x1="32" y1="30" x2="37" y2="30" stroke="#b89a5e" stroke-width="0.9" stroke-opacity="0.7"/>
-      <line x1="67" y1="30" x2="72" y2="30" stroke="#b89a5e" stroke-width="0.9" stroke-opacity="0.7"/>
-      <!-- Corner facet lines -->
-      <line x1="44" y1="6"  x2="47" y2="13" stroke="#b89a5e" stroke-width="0.75" stroke-opacity="0.5"/>
-      <line x1="60" y1="6"  x2="57" y2="13" stroke="#b89a5e" stroke-width="0.75" stroke-opacity="0.5"/>
-      <line x1="72" y1="18" x2="67" y2="23" stroke="#b89a5e" stroke-width="0.75" stroke-opacity="0.5"/>
-      <line x1="72" y1="42" x2="67" y2="37" stroke="#b89a5e" stroke-width="0.75" stroke-opacity="0.5"/>
-      <line x1="60" y1="54" x2="57" y2="47" stroke="#b89a5e" stroke-width="0.75" stroke-opacity="0.5"/>
-      <line x1="44" y1="54" x2="47" y2="47" stroke="#b89a5e" stroke-width="0.75" stroke-opacity="0.5"/>
-      <line x1="32" y1="42" x2="37" y2="37" stroke="#b89a5e" stroke-width="0.75" stroke-opacity="0.5"/>
-      <line x1="32" y1="18" x2="37" y2="23" stroke="#b89a5e" stroke-width="0.75" stroke-opacity="0.5"/>
-      <!-- Star rays from centre -->
-      <line x1="52" y1="30" x2="52" y2="13" stroke="#b89a5e" stroke-width="0.55" stroke-opacity="0.3"/>
-      <line x1="52" y1="30" x2="52" y2="47" stroke="#b89a5e" stroke-width="0.55" stroke-opacity="0.3"/>
-      <line x1="52" y1="30" x2="37" y2="30" stroke="#b89a5e" stroke-width="0.55" stroke-opacity="0.3"/>
-      <line x1="52" y1="30" x2="67" y2="30" stroke="#b89a5e" stroke-width="0.55" stroke-opacity="0.3"/>
-      <line x1="52" y1="30" x2="47" y2="13" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
-      <line x1="52" y1="30" x2="57" y2="13" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
-      <line x1="52" y1="30" x2="67" y2="23" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
-      <line x1="52" y1="30" x2="67" y2="37" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
-      <line x1="52" y1="30" x2="57" y2="47" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
-      <line x1="52" y1="30" x2="47" y2="47" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
-      <line x1="52" y1="30" x2="37" y2="37" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
-      <line x1="52" y1="30" x2="37" y2="23" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
-      <!-- Centre gem point -->
-      <circle cx="52" cy="30" r="2" fill="#b89a5e" opacity="0.45"/>
-      <circle cx="52" cy="30" r="0.9" fill="#d4b97a"/>
-      <!-- Wordmark -->
-      <text x="88" y="36" font-family="Georgia,'Times New Roman',serif" font-size="22" font-weight="400" letter-spacing="5" fill="#1a1a1a">LUVIA</text>
-      <text x="175" y="36" font-family="Georgia,'Times New Roman',serif" font-size="22" font-weight="400" letter-spacing="5" fill="#b89a5e">NOVA</text>
+    <svg width="420" height="100" viewBox="0 0 285 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Logomark: faceted diamond octagon (scaled up within viewBox) -->
+      <polygon points="22,4 34,4 42,12 42,30 34,38 22,38 14,30 14,12" stroke="#b89a5e" stroke-width="1.2" fill="none"/>
+      <polygon points="24,9 32,9 38,15 38,27 32,33 24,33 18,27 18,15" stroke="#b89a5e" stroke-width="0.7" stroke-opacity="0.55" fill="none"/>
+      <line x1="28" y1="4"  x2="28" y2="9"  stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.7"/>
+      <line x1="28" y1="33" x2="28" y2="38" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.7"/>
+      <line x1="14" y1="21" x2="18" y2="21" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.7"/>
+      <line x1="38" y1="21" x2="42" y2="21" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.7"/>
+      <line x1="22" y1="4"  x2="24" y2="9"  stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="34" y1="4"  x2="32" y2="9"  stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="42" y1="12" x2="38" y2="15" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="42" y1="30" x2="38" y2="27" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="34" y1="38" x2="32" y2="33" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="22" y1="38" x2="24" y2="33" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="14" y1="30" x2="18" y2="27" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="14" y1="12" x2="18" y2="15" stroke="#b89a5e" stroke-width="0.6" stroke-opacity="0.5"/>
+      <line x1="28" y1="21" x2="28" y2="9"  stroke="#b89a5e" stroke-width="0.45" stroke-opacity="0.28"/>
+      <line x1="28" y1="21" x2="28" y2="33" stroke="#b89a5e" stroke-width="0.45" stroke-opacity="0.28"/>
+      <line x1="28" y1="21" x2="18" y2="21" stroke="#b89a5e" stroke-width="0.45" stroke-opacity="0.28"/>
+      <line x1="28" y1="21" x2="38" y2="21" stroke="#b89a5e" stroke-width="0.45" stroke-opacity="0.28"/>
+      <line x1="28" y1="21" x2="24" y2="9"  stroke="#b89a5e" stroke-width="0.4" stroke-opacity="0.22"/>
+      <line x1="28" y1="21" x2="32" y2="9"  stroke="#b89a5e" stroke-width="0.4" stroke-opacity="0.22"/>
+      <line x1="28" y1="21" x2="38" y2="15" stroke="#b89a5e" stroke-width="0.4" stroke-opacity="0.22"/>
+      <line x1="28" y1="21" x2="38" y2="27" stroke="#b89a5e" stroke-width="0.4" stroke-opacity="0.22"/>
+      <line x1="28" y1="21" x2="32" y2="33" stroke="#b89a5e" stroke-width="0.4" stroke-opacity="0.22"/>
+      <line x1="28" y1="21" x2="24" y2="33" stroke="#b89a5e" stroke-width="0.4" stroke-opacity="0.22"/>
+      <line x1="28" y1="21" x2="18" y2="27" stroke="#b89a5e" stroke-width="0.4" stroke-opacity="0.22"/>
+      <line x1="28" y1="21" x2="18" y2="15" stroke="#b89a5e" stroke-width="0.4" stroke-opacity="0.22"/>
+      <circle cx="28" cy="21" r="1.5" fill="#b89a5e" opacity="0.5"/>
+      <circle cx="28" cy="21" r="0.7" fill="#d4b97a"/>
+      <!-- Wordmark — larger, tighter viewBox = more presence -->
+      <text x="56" y="26" font-family="Georgia,'Times New Roman',serif" font-size="18" font-weight="400" letter-spacing="6" fill="#1a1a1a">LUVIA</text>
+      <text x="136" y="26" font-family="Georgia,'Times New Roman',serif" font-size="18" font-weight="400" letter-spacing="6" fill="#b89a5e">NOVA</text>
       <!-- Rule -->
-      <line x1="88" y1="42" x2="270" y2="42" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.45"/>
+      <line x1="56" y1="31" x2="250" y2="31" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.4"/>
       <!-- Tagline -->
-      <text x="88" y="52" font-family="'Helvetica Neue',Arial,sans-serif" font-size="5.5" font-weight="400" letter-spacing="2.5" fill="#6b6560">MODERN BRILLIANCE. ANCIENT SOUL.</text>
+      <text x="56" y="40" font-family="'Helvetica Neue',Arial,sans-serif" font-size="5" font-weight="400" letter-spacing="2.2" fill="#6b6560">MODERN BRILLIANCE. ANCIENT SOUL.</text>
     </svg>
   </a>
   <ul class="nav-links">
@@ -2563,6 +2571,38 @@
 <!-- HERO -->
 <section class="hero" id="home">
   <!-- Hero sparkle particles injected by JS -->
+
+  <!-- Large hero logo mark -->
+  <div class="hero-logomark" aria-hidden="true">
+    <svg width="90" height="90" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="28,2 40,2 50,12 50,44 40,54 16,54 6,44 6,12" stroke="#b89a5e" stroke-width="1.2" fill="none"/>
+      <polygon points="22,8 34,8 44,18 44,38 34,48 22,48 12,38 12,18" stroke="#b89a5e" stroke-width="0.7" stroke-opacity="0.5" fill="none"/>
+      <polygon points="24,14 32,14 38,20 38,36 32,42 24,42 18,36 18,20" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.35" fill="none"/>
+      <!-- Cardinal rays -->
+      <line x1="28" y1="2"  x2="28" y2="8"  stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.7"/>
+      <line x1="28" y1="48" x2="28" y2="54" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.7"/>
+      <line x1="6"  y1="28" x2="12" y2="28" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.7"/>
+      <line x1="44" y1="28" x2="50" y2="28" stroke="#b89a5e" stroke-width="0.8" stroke-opacity="0.7"/>
+      <!-- Star rays -->
+      <line x1="28" y1="28" x2="28" y2="8"  stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
+      <line x1="28" y1="28" x2="28" y2="48" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
+      <line x1="28" y1="28" x2="12" y2="28" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
+      <line x1="28" y1="28" x2="44" y2="28" stroke="#b89a5e" stroke-width="0.5" stroke-opacity="0.25"/>
+      <line x1="28" y1="28" x2="12" y2="18" stroke="#b89a5e" stroke-width="0.4" stroke-opacity="0.2"/>
+      <line x1="28" y1="28" x2="44" y2="18" stroke="#b89a5e" stroke-width="0.4" stroke-opacity="0.2"/>
+      <line x1="28" y1="28" x2="44" y2="38" stroke="#b89a5e" stroke-width="0.4" stroke-opacity="0.2"/>
+      <line x1="28" y1="28" x2="12" y2="38" stroke="#b89a5e" stroke-width="0.4" stroke-opacity="0.2"/>
+      <line x1="28" y1="28" x2="22" y2="8"  stroke="#b89a5e" stroke-width="0.4" stroke-opacity="0.2"/>
+      <line x1="28" y1="28" x2="34" y2="8"  stroke="#b89a5e" stroke-width="0.4" stroke-opacity="0.2"/>
+      <line x1="28" y1="28" x2="22" y2="48" stroke="#b89a5e" stroke-width="0.4" stroke-opacity="0.2"/>
+      <line x1="28" y1="28" x2="34" y2="48" stroke="#b89a5e" stroke-width="0.4" stroke-opacity="0.2"/>
+      <!-- Glow centre -->
+      <circle cx="28" cy="28" r="3"   fill="#b89a5e" opacity="0.18"/>
+      <circle cx="28" cy="28" r="1.5" fill="#b89a5e" opacity="0.5"/>
+      <circle cx="28" cy="28" r="0.6" fill="#edd99a"/>
+    </svg>
+  </div>
+
   <p class="hero-eyebrow">Lab-Grown Diamonds &nbsp;·&nbsp; Made to Order &nbsp;·&nbsp; North America</p>
   <h1>Where <em>Ancient Soul</em><br>Meets Modern Brilliance</h1>
   <p class="hero-tagline">Modern Brilliance. Ancient Soul.</p>
