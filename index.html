@@ -2790,6 +2790,7 @@
       <button class="jewellery-tab active" data-type="Ring">Rings</button>
       <button class="jewellery-tab" data-type="Earring">Earrings</button>
       <button class="jewellery-tab" data-type="Bracelet">Bracelets</button>
+      <button class="jewellery-tab" data-type="Pendant">Pendants</button>
     </div>
 
     <div class="settings-grid" id="settingsGrid"></div>
@@ -2873,6 +2874,7 @@
         <button class="builder-type-tab active" data-type="Ring">Rings</button>
         <button class="builder-type-tab" data-type="Earring">Earrings</button>
         <button class="builder-type-tab" data-type="Bracelet">Bracelets</button>
+        <button class="builder-type-tab" data-type="Pendant">Pendants</button>
       </div>
       <!-- Settings grid + live preview side by side -->
       <div class="builder-step2-layout">
@@ -3039,6 +3041,7 @@
           <option>Wedding Band</option>
           <option>Custom Ring</option>
           <option>Earrings</option>
+          <option>Pendant / Necklace</option>
           <option>Bracelet</option>
           <option>Loose Diamond</option>
           <option>Other / Consultation only</option>
@@ -3145,7 +3148,9 @@
               <option>Wedding Band</option>
               <option>Loose Diamond</option>
               <option>Custom Piece</option>
-              <option>Earrings / Bracelet</option>
+              <option>Earrings</option>
+              <option>Pendant / Necklace</option>
+              <option>Bracelet</option>
               <option>Gift / Other Occasion</option>
               <option>I'm not sure yet — I'd like guidance</option>
             </select>
@@ -3270,6 +3275,7 @@
                 <option>Wedding Band</option>
                 <option>Custom Ring</option>
                 <option>Earrings</option>
+                <option>Pendant / Necklace</option>
                 <option>Bracelet</option>
                 <option>Loose Diamond</option>
                 <option>Complete Custom Piece</option>
@@ -3816,6 +3822,86 @@
       ${Array.from({length:9},(_,i)=>{const t=i/8;const cx=142+18*Math.sin(t*1.3);const cy=90-74*t;return `<circle cx="${cx}" cy="${cy}" r="3.2" stroke="${GOLD}" stroke-width="1" fill="rgba(184,154,94,0.25)"/>`;}).join('')}
     </svg>`,
 
+    // ── Pendant SVGs ──
+    'The Celeste Solitaire Pendant': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Chain -->
+      <path d="M90 4 Q85 16 88 28" stroke="${GOLD2}" stroke-width="1.2" fill="none" stroke-dasharray="3 2"/>
+      <!-- Bail -->
+      <ellipse cx="90" cy="30" rx="5" ry="4" stroke="${GOLD2}" stroke-width="1.5" fill="none"/>
+      <!-- Prongs -->
+      <line x1="84" y1="38" x2="80" y2="56" stroke="${GOLD}" stroke-width="1.8"/>
+      <line x1="96" y1="38" x2="100" y2="56" stroke="${GOLD}" stroke-width="1.8"/>
+      <line x1="82" y1="40" x2="78" y2="52" stroke="${GOLD}" stroke-width="1.6"/>
+      <line x1="98" y1="40" x2="102" y2="52" stroke="${GOLD}" stroke-width="1.6"/>
+      <!-- Diamond -->
+      <polygon points="90,34 108,56 90,68 72,56" stroke="${GOLD}" stroke-width="1.5" fill="rgba(184,154,94,0.1)"/>
+      <line x1="90" y1="34" x2="90" y2="68" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <line x1="72" y1="56" x2="108" y2="56" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <line x1="90" y1="34" x2="72" y2="56" stroke="${GOLD}" stroke-width="0.4" stroke-opacity="0.3"/>
+      <line x1="90" y1="34" x2="108" y2="56" stroke="${GOLD}" stroke-width="0.4" stroke-opacity="0.3"/>
+    </svg>`,
+
+    'The Luna Halo Pendant': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Chain -->
+      <path d="M90 4 Q85 16 88 28" stroke="${GOLD2}" stroke-width="1.2" fill="none" stroke-dasharray="3 2"/>
+      <!-- Bail -->
+      <ellipse cx="90" cy="30" rx="5" ry="4" stroke="${GOLD2}" stroke-width="1.5" fill="none"/>
+      <!-- Halo melee -->
+      ${[0,30,60,90,120,150,180,210,240,270,300,330].map(d=>{const a=d*Math.PI/180;const x=90+26*Math.cos(a);const y=60+22*Math.sin(a);return `<circle cx="${x}" cy="${y}" r="2.8" stroke="${GOLD}" stroke-width="1" fill="rgba(184,154,94,0.18)"/>`;}).join('')}
+      <!-- Centre diamond -->
+      <polygon points="90,38 106,58 90,72 74,58" stroke="${GOLD}" stroke-width="1.5" fill="rgba(184,154,94,0.1)"/>
+      <line x1="90" y1="38" x2="90" y2="72" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <line x1="74" y1="58" x2="106" y2="58" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+    </svg>`,
+
+    'The Aria Bezel Pendant': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Chain -->
+      <path d="M90 4 Q85 16 88 26" stroke="${GOLD2}" stroke-width="1.2" fill="none" stroke-dasharray="3 2"/>
+      <!-- Bail -->
+      <rect x="86" y="26" width="8" height="10" rx="2" stroke="${GOLD2}" stroke-width="1.5" fill="none"/>
+      <!-- Bezel frame -->
+      <ellipse cx="90" cy="64" rx="22" ry="26" stroke="${GOLD2}" stroke-width="2.5" fill="rgba(184,154,94,0.06)"/>
+      <ellipse cx="90" cy="64" rx="16" ry="20" stroke="${GOLD}" stroke-width="0.8" stroke-opacity="0.5" fill="none"/>
+      <!-- Diamond facets -->
+      <line x1="90" y1="38" x2="90" y2="90" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.35"/>
+      <line x1="68" y1="64" x2="112" y2="64" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.35"/>
+      <line x1="74" y1="44" x2="106" y2="84" stroke="${GOLD}" stroke-width="0.4" stroke-opacity="0.25"/>
+      <line x1="106" y1="44" x2="74" y2="84" stroke="${GOLD}" stroke-width="0.4" stroke-opacity="0.25"/>
+    </svg>`,
+
+    'The Devi Mangalsutra Pendant': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Black bead chain suggestion -->
+      ${Array.from({length:12},(_,i)=>`<circle cx="${30+i*11}" cy="8" r="3.5" fill="${GOLD2}" opacity="${0.3+i*0.04}"/>`).join('')}
+      <!-- Bail -->
+      <ellipse cx="90" cy="20" rx="6" ry="5" stroke="${GOLD2}" stroke-width="1.5" fill="none"/>
+      <!-- Main pendant body -->
+      <polygon points="90,26 110,40 110,70 90,84 70,70 70,40" stroke="${GOLD2}" stroke-width="2" fill="rgba(184,154,94,0.07)"/>
+      <!-- Centre diamond -->
+      <polygon points="90,36 102,52 90,62 78,52" stroke="${GOLD}" stroke-width="1.5" fill="rgba(184,154,94,0.15)"/>
+      <line x1="90" y1="36" x2="90" y2="62" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <line x1="78" y1="52" x2="102" y2="52" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.4"/>
+      <!-- Side accent stones -->
+      <circle cx="75" cy="52" r="5" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.12)"/>
+      <circle cx="105" cy="52" r="5" stroke="${GOLD}" stroke-width="1.2" fill="rgba(184,154,94,0.12)"/>
+      <!-- Decorative gold dots -->
+      ${[76,90,104].map(x=>`<circle cx="${x}" cy="74" r="2" fill="${GOLD}" opacity="0.5"/>`).join('')}
+    </svg>`,
+
+    'The Nova Drop Pendant': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Chain -->
+      <path d="M90 4 Q85 14 88 22" stroke="${GOLD2}" stroke-width="1.2" fill="none" stroke-dasharray="3 2"/>
+      <!-- Hidden bail -->
+      <ellipse cx="90" cy="25" rx="5" ry="4" stroke="${GOLD2}" stroke-width="1.5" fill="none"/>
+      <!-- Pear diamond drop -->
+      <path d="M90 30 C78 30 66 46 66 62 C66 78 78 90 90 90 C102 90 114 78 114 62 C114 46 102 30 90 30Z" stroke="${GOLD}" stroke-width="1.5" fill="rgba(184,154,94,0.09)"/>
+      <path d="M90 38 C82 38 74 50 74 62 C74 74 82 82 90 82 C98 82 106 74 106 62 C106 50 98 38 90 38Z" stroke="${GOLD}" stroke-width="0.8" stroke-opacity="0.5" fill="none"/>
+      <!-- Facet lines -->
+      <line x1="90" y1="30" x2="90" y2="90" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.35"/>
+      <line x1="66" y1="62" x2="114" y2="62" stroke="${GOLD}" stroke-width="0.5" stroke-opacity="0.35"/>
+      <line x1="90" y1="30" x2="66" y2="62" stroke="${GOLD}" stroke-width="0.4" stroke-opacity="0.25"/>
+      <line x1="90" y1="30" x2="114" y2="62" stroke="${GOLD}" stroke-width="0.4" stroke-opacity="0.25"/>
+    </svg>`,
+
     // ── Bracelet SVGs ──
     'The Aria Tennis': `<svg width="180" height="110" viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M16 72 Q90 40 164 72" stroke="${GOLD2}" stroke-width="3" fill="none" stroke-linecap="round"/>
@@ -4122,6 +4208,52 @@
       basePrice: 1600,
       metals: ["9ct Yellow Gold", "14ct Yellow Gold", "9ct White Gold", "14ct White Gold"],
       note: "7 stations · 0.7ct total weight",
+    },
+    // ── Pendants ──
+    {
+      type: "Pendant",
+      name: "The Celeste Solitaire Pendant",
+      style: "Solitaire",
+      description: "A timeless four-prong solitaire pendant on a fine 18\" chain — the purest expression of a single diamond, suspended at the décolletage. Available with any certified shape.",
+      basePrice: 750,
+      metals: ["9ct Yellow Gold", "14ct Yellow Gold", "9ct White Gold", "14ct White Gold", "9ct Rose Gold", "14ct Rose Gold", "950 Platinum"],
+      note: "Chain included",
+    },
+    {
+      type: "Pendant",
+      name: "The Luna Halo Pendant",
+      style: "Halo",
+      description: "A micro-pavé halo encircles the centre stone — multiplying brilliance dramatically on a delicate box chain. The halo creates the appearance of a much larger stone.",
+      basePrice: 1150,
+      metals: ["9ct Yellow Gold", "14ct Yellow Gold", "9ct White Gold", "14ct White Gold", "9ct Rose Gold", "14ct Rose Gold", "950 Platinum"],
+      note: "Chain included",
+    },
+    {
+      type: "Pendant",
+      name: "The Aria Bezel Pendant",
+      style: "Bezel",
+      description: "A full bezel-set round or oval diamond in a sleek gold frame — minimal, modern, and extraordinarily wearable. The bezel protects the stone while creating a clean architectural silhouette.",
+      basePrice: 950,
+      metals: ["9ct Yellow Gold", "14ct Yellow Gold", "9ct White Gold", "14ct White Gold", "9ct Rose Gold", "14ct Rose Gold"],
+      note: "Chain included",
+    },
+    {
+      type: "Pendant",
+      name: "The Devi Mangalsutra Pendant",
+      style: "Mangalsutra",
+      description: "A heritage-inspired pendant drawn from the South Asian mangalsutra tradition — a central lab diamond flanked by two smaller stones in a traditional gold setting, reinterpreted for the modern wearer.",
+      basePrice: 1350,
+      metals: ["9ct Yellow Gold", "14ct Yellow Gold"],
+      note: "On black bead or gold chain",
+    },
+    {
+      type: "Pendant",
+      name: "The Nova Drop Pendant",
+      style: "Drop",
+      description: "An elongated pear-shaped diamond suspended on a fine chain with a hidden bail — the teardrop silhouette catches and scatters light with every movement. Elegant for both day and evening.",
+      basePrice: 1100,
+      metals: ["9ct Yellow Gold", "14ct Yellow Gold", "9ct White Gold", "14ct White Gold", "950 Platinum"],
+      note: "Chain included",
     },
     // ── Additional Bracelets ──
     {
